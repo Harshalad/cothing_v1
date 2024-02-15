@@ -12499,3 +12499,127 @@ li {
   background: #2e5db0;
   color: #fff;
 }
+.details { 
+  font-weight: 600;
+  font-size: 13px;
+  color: #878787;
+}
+.titleText {
+  font-size: 16px;
+  font-weight: 600;
+}
+.prompt {
+  font-size: 13px;
+  font-weight: 600;
+}
+.buttonArrow {
+  width: 48px;
+  background: #F8F8F8;
+  border-radius: 9px;
+  color: #000000;
+  height: 48px;
+}
+.expandbtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.arrowbutton {
+  position: absolute;
+  right: 13px;
+  top: 15px;
+}
+.arrowbutton1 {
+  position: absolute;
+  right: -13px;
+  top: 0;
+}
+.expandbutton {
+  min-width: 30px !important;
+ width: 30px !important;
+  background: #F8F8F8;
+  border-radius: 25px;
+  color: #000000;
+  height: 30px !important;
+}
+.card {
+  position: relative;
+  border-radius: 18px;
+  padding: 25px;
+}
+.card1 {
+  position: relative;
+  border-radius: 18px;
+}
+
+/* .formateText {
+  width: 500px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  display: flex;
+} */
+.headingText {
+  font-size: 14px;
+  font-weight: 600;
+}
+.description {
+  font-size: 14px;
+}
+.MuiAvatar-root {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  font-size: 12px;
+}
+.remaining {
+  background-color: #55B6C3;
+  margin-right: 5px;
+}
+.comment {
+  background-color: #1BAD70;
+  margin-right: 5px;
+}
+.iconstyle {
+  width: 10px;
+  height: 10px;
+}
+.flex {
+  display: flex;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.avtarWrapper {
+  margin-left: 10px;
+  background-color: #F8F8F8;
+  padding: 10px;
+  border-radius: 15px;
+}
+.cag-blue{
+  color:#2E5DB0;
+
+}
+.f-14 {
+  font-size: 14px;
+}
+.fw-600 {
+  font-weight: 600;
+}
+.viewmore {
+  display: flex;
+  align-items: center;
+}
+.addmore {
+  white-space: nowrap;
+  width: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ .view {
+  display: flex;
+    align-items: center;
+ }

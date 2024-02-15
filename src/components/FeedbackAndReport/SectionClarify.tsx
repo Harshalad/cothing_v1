@@ -2,6 +2,7 @@ import { AddCircleOutline, AddCircleOutlineOutlined, AddCircleOutlined, RemoveCi
 import { Box, Typography, Button } from '@mui/material';
 import { useState, type FC, useEffect } from 'react';
 import InformationChip from './InformationChip';
+import DraftChip from './draftChip';
 
 
 interface SituationalContextProps {
@@ -60,7 +61,8 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                             {
                                 questions.map((question: any, index: number) =>
                                     expandedChip === -1 || expandedChip === index ? (
-                                        <InformationChip key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} />
+                                        // <InformationChip key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} />
+                                        <DraftChip key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} />
                                     ) : null
                                 )
                             }

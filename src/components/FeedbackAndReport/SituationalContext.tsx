@@ -11,16 +11,23 @@ interface SituationalContextProps {
 const SituationalContext: FC<SituationalContextProps> = ({ title, questions }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [expandedChip, setExpandedChip] = useState<any>({
-        qnOrder: null,
-        pillIndex: null
-    });
+    const [selectedBtn, setSelectedBtn] = useState<any>([]);
+    // const [expandedChip, setExpandedChip] = useState<any>({
+    //     qnOrder: null,
+    //     pillIndex: null
+    // });
     const borderColor = '#2E5DB0'
-
+    const onSelectionChange = (name: string) => {
+        if (selectedBtn.includes(name)) {
+            setSelectedBtn(selectedBtn.filter((item: any) => item !== name));
+        } else {
+            setSelectedBtn([...selectedBtn, name]);
+        }
+    }
     return (
         <>
             <Box className={`questionPill_container ${isExpanded ? "addHoverClass" : "removeHoverClass"}`}
-                
+
                 sx={{
                     border: isHovered ? `1px solid ${borderColor}` : `0.5px solid ${borderColor}`, width: isExpanded ? '100%' : 'fit-content'
                 }}
@@ -47,14 +54,24 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions }) =
                 </Box>
                 {isExpanded && (
                     <Box className='expandedSection'>
-                        <ul>
-                            <li>
-                                <Button className='buttonstyleli'>Option Alpha</Button>
-                            </li>
-                            <li>
-                                <Button className='buttonstyleli isSelected'>Option Alpha1</Button>
-                            </li>
-                        </ul>
+
+
+                        {
+                            questions.map((question: any, index: number) => (
+                                <Box key={index} className='questionContainer'>
+                                    <Box className='question_title'>
+                                        {question['order']}.{question['questionName']}
+                                    </Box>
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
+                                        {question['pills'].map((pill: any, index: number) => (
+                                            <Button onClick={() => onSelectionChange(pill.name)} key={pill.name} className={`buttonstyleli ${selectedBtn.includes(pill.name) ? 'isSelected' : ''}`}>{pill.name}</Button>
+                                        ))}
+                                    </Box>
+                                </Box>
+                            ))
+                        }
+
+
                     </Box>
                     // <Box className='expandedSection'>
 

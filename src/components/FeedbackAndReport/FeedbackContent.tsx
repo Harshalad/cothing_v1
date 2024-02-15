@@ -21,307 +21,81 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
     const formattedDate = `${modifiedDate.getDate()} ${modifiedDate.toLocaleString('en-US', { month: 'short' })} • ${modifiedDate.toLocaleString('en-US', { weekday: 'long' })}`;
     const questions = [
         {
-            title: 'How is this relevant to my business case?',
+            questionName: 'How is this relevant to my business case?',
             order: 1,
             pills: [
                 {
-                    title: 'Option Alpha',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
-
-                    ],
-                    order: 1,
+                    name: 'Option Alpha',
                 },
                 {
-                    title: 'Lorem impsue',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Lorem impsue',
 
-                    ],
                     order: 2,
                 },
                 {
-                    title: 'Dolor Ismut',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Dolor Ismut',
 
-                    ],
                     order: 3,
                 },
                 {
-                    title: 'Lorem Ipsum',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Lorem Ipsu2m',
 
-                    ],
                     order: 4,
                 },
                 {
-                    title: 'Lorem Ipsum',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Lorem Ipsum',
 
-                    ],
                     order: 5,
                 },
                 {
-                    title: 'Dolor impsut beta dolor',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Dolor impsut beta dolor222',
 
-                    ],
                     order: 6,
                 },
                 {
-                    title: 'Dolor impsut beta dolor',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Dolor impsut beta dolor',
 
-                    ],
                     order: 7,
                 },
             ]
         },
         {
-            title: 'How is this relevant to my business case?',
+            questionName: 'How is this relevant to my business case?',
             order: 2,
             pills: [
                 {
-                    title: 'Option Alpha',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Option Alpha1',
 
-                    ],
                     order: 1,
                 },
                 {
-                    title: 'Lorem impsue',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Lorem impsue2',
 
-                    ],
                     order: 2,
                 },
                 {
-                    title: 'Dolor Ismut',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Dolor Ismut3',
 
-                    ],
                     order: 3,
                 },
                 {
-                    title: 'Lorem Ipsum',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Lorem Ipsum4',
 
-                    ],
                     order: 4,
                 },
                 {
-                    title: 'Lorem Ipsum',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Lorem Ipsum5',
 
-                    ],
                     order: 5,
                 },
                 {
-                    title: 'Dolor impsut beta dolor',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Dolor impsut beta dolor6',
 
-                    ],
                     order: 6,
                 },
                 {
-                    title: 'Dolor impsut beta dolor',
-                    desc: 'This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.',
-                    tabs: [
-                        {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }, {
-                            title: 'Add raw materials costs as variable costs',
-                            desc: 'As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have'
-                        }
+                    name: 'Dolor impsut beta dolor7',
 
-                    ],
                     order: 7,
                 },
             ]
@@ -376,7 +150,11 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                                     </Button>
                                 </Box>
                                 <Box sx={{ marginTop: '32px' }}>
-                                    <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
+                                    {data['sectionPills'].map((element: any, index: number) => (
+                                        <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
+
+                                    ))
+                                    }
                                 </Box>
                                 <Box className="buttonstyle">
                                     <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>

@@ -232,73 +232,8 @@ const FeedbackReportPage: React.FC = () => {
                 "order": 2
               }
             ]
-          },
-          {
-            "questionId": "Look back on the last 15 days at the workplace. What, in your thinking, actions or language, was a Growth Mindset? What enabled it? What, as a result, was a functional consequence for you?",
-            "questionPills": [
-              {
-                "pillName": "Need clarification on the question?",
-                "childPills": [
-                  {
-                    "pillName": "How do I connect this to my business context?",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 1
-                  },
-                  {
-                    "pillName": "Can I skip this?",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 2
-                  },
-                  {
-                    "pillName": "Why is this important?",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 3
-                  },
-                  {
-                    "pillName": "Simplify the question",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 4
-                  }
-                ],
-                "order": 1
-              },
-              {
-                "pillName": "Help me get started",
-                "childPills": [
-                  {
-                    "pillName": "Give me an example response",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 1
-                  },
-                  {
-                    "pillName": "Ideas to get started",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 2
-                  },
-                  {
-                    "pillName": "How do I find a relevant information to answer this? ",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 3
-                  }
-                ],
-                "order": 2
-              }
-            ]
           }
+
         ]
       },
       {

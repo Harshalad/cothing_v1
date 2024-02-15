@@ -7,9 +7,11 @@ import InformationChip from './InformationChip';
 interface SituationalContextProps {
     title: string
     questions: any;
-    parentRef: any
+    parentRef: any;
+    index: number
+    onclick: (index: any) => void;
 }
-const SituationalContext: FC<SituationalContextProps> = ({ title, questions, parentRef }) => {
+const SituationalContext: FC<SituationalContextProps> = ({ title, questions, parentRef, index, onclick }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [selectedBtn, setSelectedBtn] = useState<any>([]);
@@ -33,7 +35,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                 onMouseLeave={() => !isExpanded ? setIsHovered(false) : null}
 
             >
-                <Box className='questionPill' onClick={() => { if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } setIsExpanded(!isExpanded); }}>
+                <Box className='questionPill' onClick={() => { if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }}>
                     <img height={18} src="/images/icons/stars.svg" />
                     <p>
                         {title}

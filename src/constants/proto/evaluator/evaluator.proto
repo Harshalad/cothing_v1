@@ -1,0 +1,49 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.evaluator;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchTestOfEvaluatorRequest{
+	string evaluatorUserId = 1;
+}
+
+message StartEvaluationRequest{
+	string evaluatorUserId = 1;
+	string userTestMapId = 2;
+}
+
+message FinishEvaluationRequest{
+	string evaluatorUserId = 1;
+	string userTestMapId = 2;
+}
+
+message FetchAnswersForEvaluationRequest{
+	string evaluatorUserId = 1;
+	string userTestMapId = 2;
+}
+
+message EvaluateAnswerRequest{
+	string evaluatorUserId = 1;
+	string userTestMapId = 2;
+	string answerId = 3;
+	string evaluationType = 4;
+	int32 marksScored = 5;
+	bool correct = 6;
+	string note = 7;
+}
+
+service EvaluatorService{
+
+	rpc fetchPendingTestEvaluation(FetchTestOfEvaluatorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchInProgressTestEvaluation(FetchTestOfEvaluatorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchCompletedTestEvaluation(FetchTestOfEvaluatorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc startEvaluation(StartEvaluationRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc finishEvaluation(FinishEvaluationRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchAnswersForEvaluation(FetchAnswersForEvaluationRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc evaluateAnswer(EvaluateAnswerRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

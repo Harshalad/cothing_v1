@@ -1,0 +1,31 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.nworxuser;
+import "common/common.proto";
+
+option java_multiple_files = true;
+option java_package = "ai.nworx.api.proto.nworxuser";
+
+
+message FetchNworxUserRequest {
+	string emailMobile = 1;
+}
+
+message FetchUserRequest{
+	string userId = 1;
+}
+
+message FetchOrgRequest{
+	string orgId = 1;
+}
+
+service FetchNworxUserService{
+	rpc fetchNworxUser(FetchNworxUserRequest) returns (FetchNworxUserResponse);
+	rpc fetchUserManager(FetchUserRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAllChatUsersFromOrganisationByLimit(FetchOrgRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAllChatUsersFromOrganisation(FetchOrgRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}
+
+message FetchNworxUserResponse{
+	string response = 1;
+}

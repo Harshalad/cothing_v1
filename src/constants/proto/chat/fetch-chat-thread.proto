@@ -1,0 +1,12 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.chatthread;
+import "common/common.proto";
+
+message FetchChatThreadRequest{
+	string chatThreadId = 1;
+}
+
+service FetchChatThreadService{
+	rpc fetchChatThreadStream(FetchChatThreadRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+}

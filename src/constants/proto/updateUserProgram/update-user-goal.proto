@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userprogram.usergoal;
+
+import "common/common.proto";
+
+
+message UpdateGoalRequest{
+	string userGoalId = 1;
+	string userId = 2;
+	string programId = 3;
+}
+
+message UpdateApproveOrRejectRequest{
+	UpdateGoalRequest goalDetails = 1;
+	string status = 2;
+	string approvedBy = 3;
+	repeated CustomQuestion questionAnswer =4;
+}
+
+
+message UpdateAlignQuestionRequest{
+	UpdateGoalRequest goalDetails = 1;
+	string answer1 = 2;
+	string answer2 = 3;
+	string answer3 = 4;
+}
+
+
+message UpdatePurposeRequest{
+	UpdateGoalRequest goalDetails = 1;
+	bool purposeStatus = 2;
+	bool topPriority = 3;
+	repeated string selectedPurposes = 4;
+	repeated string selectedBenefits = 5;
+	map<string, string> purposeQuestionAnswer = 6;
+	int64 startDate = 7;
+	int64 durationInDays = 8;
+	string nameAlias = 9;
+	string descriptionAlias = 10;
+
+}
+message UpdateCustomGoalPurposeRequest{
+	UpdateGoalRequest goalDetails = 1;
+	bool topPriority = 2;
+	int64 startDate = 3;
+	int64 durationInDays = 4;
+	string nameAlias = 5;
+	string descriptionAlias = 6;
+	repeated CustomQuestion questionAnswer =7;
+	bool purposeStatus = 8;
+	string goalType = 9;
+	
+
+}
+message UpdateCustomAlignQuestionRequest {
+	UpdateGoalRequest goalDetails = 1;
+	repeated CustomQuestion questionAnswer =2;
+}
+
+message CustomQuestion {
+	string question = 1;
+	bool regular = 2;
+	bool mandatory = 3;
+	string type = 4;
+	repeated Tag tags = 5;
+	int32 order = 6;
+	string answer = 7;
+	repeated string selectedTags = 8;
+	
+	
+}
+message Tag{
+	string title = 1;
+	string description = 2;
+	int32 order = 3;
+}
+
+
+message UpdateStatusRequest{
+	UpdateGoalRequest goalDetails = 1;
+	string status = 2;
+	string assignedByUserId = 3;
+	string assignedBy = 4;
+}
+
+
+message UpdateEmotionRequest{
+	UpdateGoalRequest goalDetails = 1;
+	string goalEmotion = 2;
+}
+
+
+service UpdateUserGoalService{
+	rpc approveOrRejectEmployeeGoal(UpdateApproveOrRejectRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateUserGoalAlignQuestions(UpdateAlignQuestionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateUserGoalPurposes(UpdatePurposeRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateUserGoalStatus(UpdateStatusRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateUserGoalEmotion(UpdateEmotionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateCustomGoalPurpose(UpdateCustomGoalPurposeRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateCustomUserGoalAlignQuestions(UpdateCustomAlignQuestionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+}
+

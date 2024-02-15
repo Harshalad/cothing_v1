@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.mra;
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message MRADetails{
+	string userId = 1;
+	string mraId = 2;
+}
+
+
+message updateMRAAssessorRequest{
+	MRADetails mraDetails = 1;
+	string assessorId = 2;
+	string role = 3;
+	string status = 4;
+}
+
+message scheduleMRARequest{
+	MRADetails mraDetails = 1;
+	int64 startDate = 2;
+	int64 endDate = 3;
+	map<string, string> personalMsgs = 4;
+	string generalMessage = 5;
+}
+
+message UpdateAssesseeRequest{
+	MRADetails mraDetails = 1;
+	string role = 2;
+	bool enable = 3;
+}
+
+message AddNewPersonToMRARequest{
+	MRADetails mraDetails = 1;
+	string name = 2;
+	string email = 3;
+	string designation = 4;
+	string role = 5;
+}
+
+
+service MRAService{
+	rpc fetchMRADetails(MRADetails) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateMRAAssessor(updateMRAAssessorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateAssessee(UpdateAssesseeRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc scheduleMRA(scheduleMRARequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addNewPersonToMRA(AddNewPersonToMRARequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+package ai.nworx.api.proto.user.userchats;
+import "common/common.proto";
+
+message FetchUserChats{
+	string userId = 1;
+}
+
+service FetchUserChatsService{
+	rpc fetchUserChatsStream(FetchUserChats) returns (stream ai.nworx.api.proto.common.ResponseProto);
+}

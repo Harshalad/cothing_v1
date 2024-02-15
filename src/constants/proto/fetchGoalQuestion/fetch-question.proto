@@ -1,0 +1,14 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.goalalignquestion;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message QuestionRequest{
+	string id = 1;
+}
+
+service FetchQuestionService{
+	rpc fetchQuestionById(QuestionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+}

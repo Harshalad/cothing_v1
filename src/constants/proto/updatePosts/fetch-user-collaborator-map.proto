@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.usercollaboratormap;
+
+import "common/common.proto";
+
+
+message FetchUserCollaboratorRequest{
+	string collaboratorId = 1;
+	string userId = 2;
+	string role = 3;
+}
+
+service FetchUserCollaboratorService{
+	rpc fetchCollaboratorsOfLP(FetchUserCollaboratorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

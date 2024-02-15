@@ -1,0 +1,53 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.eventevaluation;
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message FetchEventEvaluationDetailsRequest{
+	string userEventId = 1;
+	string eventSectionId = 2;
+	string eventMethodId = 3;
+	string evaluationTestId = 4;
+}
+
+
+message StartEventEvaluationRequest{
+	string participantUserId = 1;
+	string evaluationTestId = 2;
+	string userEventId = 3;
+	string eventSectionId = 4;
+	string eventMethodId = 5;
+	string evaluatorUserId = 6;
+}
+
+
+message FinishEventEvaluationRequest{
+	string userTestMapId = 1;
+}
+
+
+message FetchEventQuestionsForEvaluationRequest{
+	string userTestMapId = 1;
+}
+
+
+message SaveEventEvaluationAnswerRequest{
+	string userTestMapId = 1;
+	string sectionId = 2;
+	string caseId = 3;
+	string questionId = 4;
+	string answer = 5;
+	repeated int32 answerOption = 6;
+	string questionType = 7;
+	string centralNote = 8;
+}
+
+service EventEvaluationService{
+	rpc fetchEventEvaluationDetails(FetchEventEvaluationDetailsRequest) returns ( ai.nworx.api.proto.common.ResponseProto);
+	rpc startEventEvaluation(StartEventEvaluationRequest) returns ( ai.nworx.api.proto.common.ResponseProto);
+	rpc finishEventEvaluation(FinishEventEvaluationRequest) returns ( ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchEventQuestionsForEvaluation(FetchEventQuestionsForEvaluationRequest) returns ( ai.nworx.api.proto.common.ResponseProto);
+	rpc saveEventEvaluationAnswer(SaveEventEvaluationAnswerRequest) returns ( ai.nworx.api.proto.common.ResponseProto);
+}

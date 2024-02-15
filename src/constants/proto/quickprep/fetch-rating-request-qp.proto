@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheet.ratingrequestqp;
+import "common/common.proto";
+
+
+message FetchQPRatingRequest{
+	string userWorksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+}
+
+service FetchQPRatingService{
+	rpc fetchQPRatingRequests(FetchQPRatingRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

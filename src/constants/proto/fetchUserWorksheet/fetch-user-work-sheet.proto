@@ -1,0 +1,16 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.userworksheet;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchUserWorksheetRequest{
+	string userWorkSheetId = 1;
+}
+
+
+service FetchUserWorksheetService{
+	rpc fetchUserWorksheetById(FetchUserWorksheetRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserWorksheetByIdStream(FetchUserWorksheetRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchStreamPreparationPosts(FetchUserWorksheetRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+}

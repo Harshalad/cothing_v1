@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.sharemanager;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message ShareManagerPrepRequest{
+	string worksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+	bool qp = 4;
+	string shareManager = 5;
+}
+
+
+service ShareManagerService{
+	rpc sharePrepWithManager(ShareManagerPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.wscpmapping;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchWsCpMappingRequest{
+	string workSheetId = 1;
+	string organisationId = 2;
+}
+
+
+service FetchWsCpMappingService{
+	rpc fetchWsCpMappingById(FetchWsCpMappingRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

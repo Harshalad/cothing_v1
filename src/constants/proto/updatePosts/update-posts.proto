@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.posts;
+
+import "common/common.proto";
+
+message CreatePostRequest {
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string type = 4;
+	string title = 5;
+	string text = 6;
+	string subtext = 7;
+	map < string, string > postTypeAttributes = 8;
+	string postedByUserId = 9;
+	string postedByName = 10;
+	string postedByDesignation = 11;
+	string postedByRole = 12;
+	string postedByEmail = 13;
+	string id = 14;
+	string userWorksheetId = 15;
+	string postedToName = 16;
+	string postedToUserId = 17;
+	string postedToRole = 18;
+}
+
+message AddCommentRequest {
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string postId = 4;
+	string type = 5;
+	string commentText = 6;
+	string commentedByUserId = 7;
+	string commentedByName = 8;
+	string commentedByDesignation = 9;
+	string commentedByRole = 10;
+	string commentedByEmail = 11;
+	string userWorksheetId = 12;
+	string commentId = 13;
+}
+
+message AddReplyToCommentRequest {
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string postId = 4;
+	string type = 5;
+	string replyText = 6;
+	string repliedByUserId = 7;
+	string repliedByName = 8;
+	string repliedByDesignation = 9;
+	string repliedByRole = 10;
+	string repliedByEmail = 11;
+	string userWorksheetId = 12;
+	string commentId = 13;
+	string replyId = 14;
+}
+
+
+service UpdatePostService{
+	rpc createPost(CreatePostRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addComment(AddCommentRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addReplyToComment(AddReplyToCommentRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+}

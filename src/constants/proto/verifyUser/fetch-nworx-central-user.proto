@@ -1,0 +1,26 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.nworxcentraluser;
+
+option java_multiple_files = true;
+option java_package = "ai.nworx.api.proto.nworxcentraluser";
+
+
+message FetchNworxCentralUserRequest{
+	string emailMobile = 1;
+}
+
+message FetchNworxCentralUserResponse{
+	int32 statusCode = 1;
+	string extra = 2;
+	bool mfaEnabled = 3;
+	bool isVerifiedUser = 4;
+	bool ssoEnabled = 5;
+	string mobile = 6;
+	string baseUrl = 7;
+}
+
+service FetchNworxCentralUserService{
+	rpc fetchNworxCentralUser(FetchNworxCentralUserRequest) returns(FetchNworxCentralUserResponse);
+}
+

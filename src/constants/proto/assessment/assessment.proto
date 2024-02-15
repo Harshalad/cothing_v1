@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.assessment;
+import "common/common.proto";
+
+message TestDetailsRequest{
+	string userTestMapId = 1;
+}
+
+
+message CreateUserTestRequest{
+	string userId = 1;
+	string testId = 2;
+	string batteryId = 6;
+	string parentTestId = 10;
+	string batteryGroupId = 7;
+	string type = 8;
+	string role = 9;
+	int64 startDate = 3;
+	int64 endDate = 4;
+	int32 noOfAttempts = 5;
+	int64 batteryStartDate = 11;
+	int64 batteryEndDate = 12;
+	TestGoalDetail GoalDetails = 13;
+	TestEventDetail eventDetails = 14;
+}
+
+message TestGoalDetail{
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string milestoneId = 4;
+	string methodId = 5;
+}
+
+message TestEventDetail{
+	string userEventId = 1;
+	string userContentId = 2;
+	string userMethodId = 3;
+}
+
+
+
+message SubmitAnswerRequest{
+	string userTestMapId = 1;
+	string sectionId = 2;
+	string caseId = 3;
+	string questionId = 4;
+	string answer = 5;
+	repeated int32 answerOption = 6;
+	string questionType = 7;
+	File fileDetails = 8;
+}
+
+message File{
+	string contentType = 1;
+	bytes content = 2;
+	string name = 3;
+}
+
+message SubmitTestRequest{
+	string userTestMapId = 1;
+	bool autoSubmitted = 2;
+}
+
+
+
+
+service AssessmentService{
+	rpc createUserTestMap(CreateUserTestRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchTestDetails(TestDetailsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchQuestions(TestDetailsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchTestStartDate(TestDetailsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc submitAnswer(SubmitAnswerRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc submitTest(SubmitTestRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+}
+

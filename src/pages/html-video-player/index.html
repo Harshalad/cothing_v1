@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>HTML Video Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
+    <!-- <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/aksvideoplayer@1.0.0/dist/aksVideoPlayer.min.css"
+    /> -->
+    <link href="https://cdn.jsdelivr.net/npm/mediaelement@latest/build/mediaelementplayer.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement-plugins@latest/dist/quality/quality.min.css">
+
+    <style>
+      .mejs__overlay-button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div id="video"></div> -->
+    <div class="player" style="display: table; margin: 0 auto;">
+      <video id="html-video-player" width="640" height="360" poster="/public/images/video-poster.jpg" controls="" title="Video Player">
+        <source type="video/mp4" src="https://vjs.zencdn.net/v/oceans.mp4?SD" data-quality="360p">
+        <source type="video/mp4" src="https://vjs.zencdn.net/v/oceans.mp4?HD" data-quality="720p">
+      </video>
+    </div>
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/aksvideoplayer@1.0.0/dist/aksVideoPlayer.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mediaelement@latest/build/mediaelement-and-player.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mediaelement-plugins@latest/dist/quality/quality.min.js"></script>
+
+    <script>
+      $('#html-video-player').mediaelementplayer({
+        iconSprite: '/public/images/mejs-controls.svg',
+        features: ['playpause', 'current', 'progress', 'duration', 'volume', 'tracks', 'quality', 'fullscreen'],
+      });
+
+      var focused = true;
+      document.addEventListener("visibilitychange", function () {
+        focused = !focused;
+        if (!focused) {
+          document.getElementById("html-video-player").pause();
+        }
+      });
+      // $("#video").aksVideoPlayer({
+      //   file: [
+      //     {
+      //       file: "https://vjs.zencdn.net/v/oceans.mp4?SD",
+      //       label: "360p",
+      //     },
+      //     {
+      //       file: "https://vjs.zencdn.net/v/oceans.mp4?HD",
+      //       label: "720p",
+      //     },
+      //   ],
+      //   width: 640,
+      //   height: 360,
+      //   poster: "videos/poster.webp",
+      //   rewind: "false",
+      // });
+    </script>
+  </body>
+</html>

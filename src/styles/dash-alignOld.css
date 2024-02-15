@@ -1,0 +1,517 @@
+.align-panel-headtxt {
+  font-weight: 700;
+  font-size: 39px;
+  line-height: 42px;
+  color: #1C2129;
+  margin-bottom: 32px;
+}
+
+.align-panel-content {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.tab-search-element {
+  border: 1px solid #EBEBEB;
+  border-radius: 8px;
+  width: max-content;
+}
+
+.tabs-nav-panel {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-goal-btn {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #F58A43;
+  display: flex;
+  align-items: center;
+}
+
+.details-panel-nav {
+  display: flex;
+  align-items: center;
+  flex: 18;
+  padding: 15px;
+  background: #EAECEF;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.details-panel-nav.no-bg {
+  background: #fff;
+  border-radius: 0px;
+  border-bottom: solid 1px #EAECEF;
+  padding: 12px 15px;
+}
+
+.flx-1 {
+  flex: 1;
+}
+
+.flx-2 {
+  flex: 2;
+}
+
+.flx-3 {
+  flex: 3;
+}
+
+.flx-5 {
+  flex: 5;
+}
+
+.flx-7 {
+  flex: 7;
+}
+
+.dtls-pnl-navtxt {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #989EA5;
+  text-align: center;
+}
+
+.dtls-pnl-guidnce img {
+  width: 16px;
+}
+
+.dtls-pnl-guidnce span {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dtls-pnl-guidnce {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: #2E5DB0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dtls-pnl-guidnce.disabled {
+  color: #989EA5;
+
+}
+
+.dtls-pnl-moretxt {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: #2E5DB0;
+  cursor: pointer;
+}
+
+.dtls-pnl-goaltxt {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #5D636B;
+}
+
+.dtls-pnl-snotxt {
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #5D636B;
+}
+
+.dtls-pnl-navtxt.left {
+  text-align: left;
+}
+
+.dtls-pnl-asignee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assinge-icons {
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2DC887;
+  height: 22px;
+  width: 22px;
+  background: #DFFFF2;
+  margin-left: -5px;
+}
+
+.assinge-icons.ver2 {
+  background: #FDF9E4;
+  color: #EFD02E;
+}
+
+.align-panel-page .MuiFormControlLabel-root {
+  margin-right: 30px;
+}
+
+.align-panel-page .MuiPaper-root-MuiDialog-paper {
+  background-color: #F4F4F5;
+}
+
+.align-panel-page .MuiTabs-indicator {
+  background-color: transparent
+}
+
+.align-panel-page .MuiButtonBase-root.MuiTab-root.Mui-selected {
+  color: #3E4248;
+  font-weight: 600;
+}
+
+.align_tabs .MuiTabs-flexContainer {
+  border: none;
+}
+
+.align_tabs .MuiTab-root {
+  width: auto;
+}
+
+.align-panel-page .MuiButtonBase-root.MuiRadio-root.Mui-checked {
+  color: #1C2129;
+}
+
+.align-panel-page .MuiLinearProgress-root {
+  background: #EAECEF !important;
+}
+
+.align-panel-page .MuiTabPanel-root {
+  padding: 0;
+}
+
+.align-panel-page .MuiButton-root.align_cta {
+  padding: 5px 15px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.mygols-tabs-holder {
+  border: 1px solid #EAECEF;
+  border-radius: 0px 0px 16px 16px;
+  max-height: 450px;
+  overflow: auto;
+}
+
+.align-intab-head {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 30px;
+  color: #1C2129;
+  margin-bottom: 24px;
+  margin-top: 40px;
+}
+
+.aln-orggols-holder {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.orgnz-gols-box {
+  background: #FFFFFF;
+  border: 1px solid #EAECEF;
+  border-radius: 16px;
+  padding: 24px;
+  flex: 0 0 calc(32% - 48px);
+  margin-bottom: 2%;
+}
+
+.goals-box-headtxt {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #1C2129;
+  margin-bottom: 8px;
+}
+
+.goals-box-subtxt {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #5D636B;
+  margin-bottom: 15px;
+}
+
+.goalbox-cmnt-btn img {
+  width: 18px;
+  margin-top: 3px;
+}
+
+.goalbox-cmnt-btn {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #2E5DB0;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  width: max-content;
+}
+
+.guidance-modal-box {
+  background: #FFFFFF;
+  border: 2px solid #EAECEF;
+  border-radius: 16px;
+  margin: 12px;
+  margin-top: 32px;
+  padding: 32px;
+  max-width: 260px;
+  cursor: pointer;
+}
+
+.guidance-modal-box:hover {
+  border: 2px solid #5D636B;
+  box-shadow: 0px 4px 24px rgba(126, 126, 126, 0.25);
+}
+
+.gdnce-modal-img {
+  width: 80px;
+  margin: auto;
+}
+
+.gdnc-modal-headtxt {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 30px;
+  color: #1C2129;
+  margin-bottom: 4px;
+  margin-top: 15px;
+}
+
+.gdnc-modal-headtxt2 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  color: #1C2129;
+  margin-bottom: 8px;
+}
+
+.gdnc-modal-subtxt {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  color: #5D636B;
+}
+
+.modal-guidance-holder {
+  display: flex;
+}
+
+.modal-close-btn {
+  width: 20px;
+  margin-left: auto;
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+.gl-modify-txtbox {
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.gl-modify-status {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #1BAD70;
+  padding: 6px 24px;
+  margin-bottom: 16px;
+  background: #DFFFF2;
+  border-radius: 8px;
+  width: max-content;
+}
+
+.txt-left {
+  text-align: left;
+}
+
+.modify-spl-marg {
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.modify-spl-flx {
+  display: flex;
+  justify-content: space-between;
+}
+
+.glmodify-subboxes-hold {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.gl-modify-txtbox2 {
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 16px;
+  flex: 0 0 calc(49% - 32px);
+  margin-top: 2%;
+}
+
+.gl-modify-txtbox-clr {
+  background: #D9F6FF;
+  border: 1px solid #55B6C3;
+  border-radius: 8px;
+  padding: 16px 24px;
+  margin: 10px 0 20px;
+}
+
+.txtbox-clr2 {
+  background: #FFFFFF;
+  border: 2px solid #EAECEF;
+}
+
+.modify-leftrigh-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modify-leftrigh-panel.reviewpage {
+  align-items: flex-start;
+  background: #F4F4F5;
+}
+
+.modify-leftpanel-strt {
+  background-color: #F4F4F5;
+  padding: 60px 34px 34px 40px;
+  width: 650px;
+}
+
+.modify-leftpanel {
+  width: calc(50% - 80px);
+  background-color: #F4F4F5;
+  padding: 60px 34px 34px 40px;
+}
+
+.modify-rightpanel {
+  width: calc(50% - 68px);
+  padding: 60px 40px 40px 40px;
+  background-color: white;
+}
+
+.align-modify-rightpanel {
+  width: calc(50% - 30px);
+}
+
+.modify-rightpanel.reviewpage {
+  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 180px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modify-modal-element .MuiDialog-container .MuiPaper-root,
+.align-modal-element .MuiDialog-container .MuiPaper-root {
+  padding: 0px;
+  max-height: 100%;
+}
+
+.mar-t50 {
+  margin-top: 50px;
+}
+
+.mar-t30 {
+  margin-top: 30px;
+}
+
+.modify-modal-element .MuiButton-root {
+  padding: 12px 40px;
+  width: max-content;
+}
+
+.modify-modal-element .MuiInputBase-root.MuiOutlinedInput-root {
+  padding: 0;
+}
+
+.datepicker-container {
+  width: 150px;
+}
+
+.date-inputs-holder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.reviewpage .MuiTextField-root {
+  min-width: 210px;
+}
+
+.modfy-icons-holdead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.ask-expert-btn {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #F58A43;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.manager-time-modal .MuiDialog-container .MuiPaper-root,
+.expert-time-modal .MuiDialog-container .MuiPaper-root {
+  max-width: 480px;
+}
+
+.goal-feel-radios .MuiFormGroup-root {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.radios-back-bar {
+  height: 8px;
+  width: calc(100% - 95px);
+  margin: auto;
+  background: #EAECEF;
+  margin-bottom: -25px;
+  margin-top: 30px;
+}
+
+.goal-feel-radios .MuiButtonBase-root.MuiRadio-root.Mui-checked {
+  color: #2E5DB0;
+}
+
+.txtbox-clr2 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border: 2px solid #F4F4F5;
+  background: #F4F4F5;
+}
+
+.start_align_popup_subtext {
+  font-size: 20px;
+}

@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheet;
+
+import "common/common.proto";
+option java_multiple_files = true;
+
+message UpdateUserWorksheetRequest {
+	string userId = 1;
+	string programId = 2;
+	string goalId = 3;
+	string milestoneId = 4;
+	string methodId = 5;
+	string methodType = 6;
+	string userWorkSheetId = 7;
+	string workSheetId = 9;
+	string sectionId = 10;
+	map<string,string> questionAnswerMap = 11;
+	int32 lastQuestionAnsweredIndex = 12;
+}
+
+message addRatingToWorksheetRequest{
+	int32 rating = 1;
+	string ratedBy = 2;
+	string userWorkSheetId = 3;
+	string ratedByUserName = 4;
+	string ratedByRole = 5;
+	int32 qualityRating = 6;
+	int32 thoroughnessRating = 7;
+	string qualityComment = 8;
+	string generalComment = 9;
+	string thoroughnessComment = 10;
+	string aiRatingId = 11;
+}
+
+
+
+service UpdateUserWorksheetService {
+	rpc saveUserWorksheet (UpdateUserWorksheetRequest) returns
+	(ai.nworx.api.proto.common.ResponseProto);
+	rpc completeUserWorksheet (UpdateUserWorksheetRequest) returns
+	(ai.nworx.api.proto.common.ResponseProto);
+	rpc saveSectionQuestionAnswer (UpdateUserWorksheetRequest) returns
+	(ai.nworx.api.proto.common.ResponseProto);
+	rpc addRatingToWorksheet(addRatingToWorksheetRequest) returns(ai.nworx.api.proto.common.ResponseProto);
+}

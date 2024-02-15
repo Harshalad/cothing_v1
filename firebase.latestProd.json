@@ -1,0 +1,44 @@
+{
+  "hosting": {
+    "public": "out",
+    "site": "nworx-performance",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "deny"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains; preload"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self'  frame-src 'self' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; img-src 'self' data: *; font-src 'self' *; connect-src 'self' https://firebase.googleapis.com https://firebaseinstallations.googleapis.com https://www.google-analytics.com https://n4api.nworx.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://us-central1-nworx4prod.cloudfunctions.net/api/fetchMyCollaboratorsAsLP https://envoy-proxy-central-pek6elybsq-uc.a.run.app/ai.nworx.api.proto.nworxcentraluser.FetchNworxCentralUserService/fetchNworxCentralUser https://envoy-proxy-central-pek6elybsq-uc.a.run.app/ai.nworx.api.proto.nworxcentraluser.FetchNworxCentralUserService/fetchNworxCentralUser https://n4indiaapi.nworx.app https://nworx4central-dev.firebaseapp.com https://nworx4central-prod." 
+         }
+                ]
+      }
+    ]
+  }
+}

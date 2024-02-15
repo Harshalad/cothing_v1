@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.curiosityenagement;
+
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message LogCuriosityEnagementRequest{
+	string userId = 1;
+	string programId = 2;
+	string goalId = 3;
+	string milestoneId = 4;
+	string contentId = 5;
+	string action = 6;
+	string contentName = 7;
+	int32 marks = 8;
+	string type = 9;
+}
+
+service LogCuriosityEnagementService{
+	rpc logCuriosityEnagement(LogCuriosityEnagementRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

@@ -1,0 +1,29 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.program;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchProgramRequest{
+	string programId = 1;
+	string department = 2;
+	string userId = 3;
+}
+message FetchAlignQuestionRequest{
+	string programId = 1;
+	string type = 2;
+}
+
+service FetchProgramService{
+	rpc fetchProgram(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchProgramGoals(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchOrgGoals(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchDepartmentGoals(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchQuestionSet(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchPurposeStatements(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchBenefitStatements(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchProgramGoalsByOrganisationMandate(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchDevelopmentAreas(FetchProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAlignQuestions(FetchAlignQuestionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+}

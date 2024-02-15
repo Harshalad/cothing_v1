@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userassess2reports;
+import "common/common.proto";
+
+message FetchUserAssess2ReportsRequest{
+	string userId = 1;
+	string programId = 2;
+}
+
+
+service FetchUserAssess2ReportsService{
+	rpc fetchOfflineReports(FetchUserAssess2ReportsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

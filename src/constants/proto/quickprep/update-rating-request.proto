@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheet.ratingrequest;
+import "common/common.proto";
+
+
+message AddRatingRequest{
+	string userWorksheetId = 1;
+	string raterId = 2;
+	string raterName = 3;
+	string raterRole = 4;
+}
+
+message UpdateRatingRequestToDoneRequest{
+	string userWorksheetId = 1;
+	string raterId = 2;
+}
+
+
+service UpdateRatingService{
+	rpc addRequestRating(AddRatingRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateRatingRequestToDone(UpdateRatingRequestToDoneRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

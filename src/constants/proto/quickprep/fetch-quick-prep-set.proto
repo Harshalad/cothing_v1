@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.quickprepset;
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message FetchQuickPrepSetRequest{
+	string programId = 1;
+}
+
+service FetchQuickPrepSetService{
+	rpc fetchQuickPrepSetCategories(FetchQuickPrepSetRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

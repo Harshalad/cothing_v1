@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.nworxuser;
+import "common/common.proto";
+option java_multiple_files = true;
+option java_package = "ai.nworx.api.proto.nworxuser";
+
+
+message UpdateRequest {
+	string id = 5;
+	map<string, string> stringFieldsToUpdate = 20;
+	map<string, bool> boolFieldsToUpdate = 22;
+	map<string, string> stringArrayFieldsToUpdate = 23;
+	map<string, int64> intFieldsToUpdate = 24;
+}
+
+message CreateUserRequest{
+	string name = 1;
+	string designation = 2;
+	string band = 3;
+	string department = 4;
+	string businessUnit = 5;
+	string email = 6;
+	string employeeCode = 7;
+	string manager = 8;
+	string managerEmail = 9;
+	string city = 10;
+	string hostUrl = 11;
+}
+
+message LogOutRequest{
+	string userId = 1;
+}
+
+service UpdateNworxUserService {
+	rpc updateNworxUser (UpdateRequest) returns
+	(UpdateResponse);
+	rpc logOut(LogOutRequest) returns (UpdateResponse);
+	rpc createUser(CreateUserRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}
+
+message UpdateResponse {
+	string response = 1;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userprogram;
+
+import "google/protobuf/timestamp.proto";
+import "common/common.proto";
+
+option java_multiple_files = true;
+
+
+message removeProgramGoalFromUserGoalsRequest{
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string userMilestoneId = 4;
+}
+
+
+
+service RemoveUserProgramService{
+	rpc removeProgramGoalFromUserGoals(removeProgramGoalFromUserGoalsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

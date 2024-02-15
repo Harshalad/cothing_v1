@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userprogram.useraction;
+
+import "common/common.proto";
+
+
+message CompleteActionRequest{
+	string actionCompleteId = 1;
+}
+
+
+service UpdateUserAction{
+	rpc completeAction(CompleteActionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc markActionAsRead(CompleteActionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

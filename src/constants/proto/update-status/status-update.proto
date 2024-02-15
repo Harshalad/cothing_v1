@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.assessment;
+import "common/common.proto";
+
+
+message CompleteMethodStatusRequest{
+	GoalDetail GoalDetails = 1;
+	EventDetail eventDetails = 2;
+}
+
+message GoalDetail{
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string milestoneId = 4;
+	string methodId = 5;
+}
+
+message EventDetail{
+	string userEventId = 1;
+	string userContentId = 2;
+	string userMethodId = 3;
+}
+
+
+
+service MethodStatusUpdateService{
+	rpc completeMethodStatus(CompleteMethodStatusRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

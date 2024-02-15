@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ai.nworx.proto.actioncenter;
+
+import "common/common.proto";
+
+
+message FetchProgressTrackerRequest{
+	string userId = 1;
+	string programId = 2;
+}
+
+service ActionCenterService{
+	rpc fetchProgressTracker(FetchProgressTrackerRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

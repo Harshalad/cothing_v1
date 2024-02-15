@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.analyse;
+import "common/common.proto";
+
+
+message FetchAnalyseRequest{
+	string userId = 1;
+}
+
+message FetchBatteryRequest{
+	string userId = 1;
+	string batteryId = 2;
+}
+
+message FetchBatteryGroupRequest{
+	string userId = 1;
+	string batteryGroupId = 2;
+}
+
+
+service AnalyseService{
+
+	rpc fetchActiveAssessments(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAvailableAssessments(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchCompletedAssessments(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchActiveSeekMRA(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAvailableSeekMRA(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchCompletedSeekMRA(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+	rpc fetchActiveGiveMRA(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchCompletedGiveMRA(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	
+	
+	rpc fetchAnalyseAssessments(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAnalyseSeekMRA(FetchAnalyseRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchBatteryDetails(FetchBatteryRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchBatteryGroupDetails(FetchBatteryGroupRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+}
+

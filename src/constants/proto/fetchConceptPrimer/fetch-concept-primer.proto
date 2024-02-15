@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.conceptprimer;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchConceptPrimerRequest{
+	string conceptPrimerId = 1;
+	string userId = 2;
+	string programId = 3;
+	string goalId = 4;
+	string methodTitle = 5;
+}
+
+service FetchConceptPrimerService{
+	rpc fetchConceptPrimerId(FetchConceptPrimerRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

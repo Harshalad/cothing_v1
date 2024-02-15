@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheetquickprepset;
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message FetchUserWorksheetQuickPrepRequest{
+	string programId = 1;
+	string userId = 2;
+	string userWorksheetId = 3;
+}
+
+service FetchUserWorksheetQuickPrepService{
+	rpc fetchAllEventUserWorksheets(FetchUserWorksheetQuickPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAllUserWorksheetQuickPrep(FetchUserWorksheetQuickPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserWorksheetQuickPrepStream(FetchUserWorksheetQuickPrepRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserWorksheetQPStreamPosts(FetchUserWorksheetQuickPrepRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+}

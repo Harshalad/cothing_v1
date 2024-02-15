@@ -1,0 +1,44 @@
+syntax = "proto3";
+package ai.nworx.api.proto.user.userchats;
+import "common/common.proto";
+
+
+message CreateUserChatThread{
+	repeated Participant participants = 1;
+	string organisationName = 2;
+	string threadType = 5;
+	string serviceProvider = 6;
+	string chatThreadId = 7;
+}
+
+message Participant{
+	string id = 1;
+	string name = 2;
+}
+
+message DeleteUserChatThread{
+	string chatThreadId = 1;
+	string chatMessageId = 2;
+}
+
+message addChatRequest{
+	string id = 1;
+    string message =2;
+    string formattedMessage = 3;
+    string repliedToChatMessage = 4;
+    string repliedToChatId = 5;
+    string status = 6;
+    string messageFromUserId = 7;
+    string messageFromUserName = 8;
+    string chatThreadId = 9;
+    string messageToUserId = 10;
+    string messageToUserName = 11;
+    string orgName = 12;
+    string serviceProvider = 13;
+}
+
+service UpdateUserChatThreadService{
+	rpc createChatThread(CreateUserChatThread) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc deleteChatMessage(DeleteUserChatThread) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addChat(addChatRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

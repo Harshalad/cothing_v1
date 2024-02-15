@@ -1,0 +1,12 @@
+syntax = "proto3";
+package ai.nworx.api.proto.user.userchats;
+import "common/common.proto";
+
+message UpdateUserChats{
+	string userId = 1;
+	string partnerId = 2;
+}
+
+service UpdateUserChatsService{
+	rpc resetChatUnreadCount(UpdateUserChats) returns (ai.nworx.api.proto.common.ResponseProto);
+}

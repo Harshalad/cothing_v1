@@ -1,0 +1,42 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.userprogram;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchUserProgramRequest{
+	string userId = 1;
+	string programId = 2;
+}
+
+message FetchUserProgramGoalRequest{
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+}
+
+message FetchReporteeGoalsRequest{
+	string superiorId = 1;
+	string role = 2;
+}
+
+service FetchUserProgramService{
+	rpc fetchUserGoals(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserGoalsStream(FetchUserProgramRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserProgram(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchCustomGoals(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchCurrentGoals(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchInProgressGoals(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchPreviousGoals(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchSavedForLaterGoals(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserActivity(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserAction(FetchUserProgramRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAnsweredQuestions(FetchUserProgramGoalRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserGoalById(FetchUserProgramGoalRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserGoalMilestone(FetchUserProgramGoalRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchAllReporteeUserGoals(FetchReporteeGoalsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchTeamScore(FetchReporteeGoalsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchStreamAlignPosts(FetchUserProgramGoalRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchStreamAchievePosts(FetchUserProgramGoalRequest) returns (stream ai.nworx.api.proto.common.ResponseProto);
+}
+

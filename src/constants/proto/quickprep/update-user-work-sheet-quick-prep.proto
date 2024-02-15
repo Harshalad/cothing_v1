@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheetquickprepset;
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message UpdateUserWorksheetQuickPrepRequest{
+	string programId = 1;
+	string userId = 2;
+	string userWorksheetId = 3;
+	string worksheetId = 4;
+	string sectionId = 5;
+	map<string,string> questionAnswerMap = 6;
+	int32 lastQuestionAnsweredIndex = 7;
+	string title = 8;
+
+}
+
+message UpdateEventRequest{
+	string userEventId = 1;
+	string eventSectionId = 3;
+	string eventMethodId = 2;
+}
+
+message UpdateUserWorksheetEventRequest{
+	UpdateUserWorksheetQuickPrepRequest quickPrepDetails = 1;
+	UpdateEventRequest eventDetails = 2;
+}
+
+
+message addRatingToQPWorksheetRequest{
+	int32 rating = 1;
+	string ratedBy = 2;
+	string qpUserWorkSheetId = 3;
+	string ratedByUserName = 4;
+	string ratedByRole = 5;
+	int32 qualityRating = 6;
+	int32 thoroughnessRating = 7;
+	string qualityComment = 8;
+	string generalComment = 9;
+	string thoroughnessComment = 10;
+	string userId = 11;
+	string programId = 12;
+	string aiRatingId = 13;
+}
+
+
+service UpdateUserWorksheetQuickPrepService{
+	rpc saveUserWorksheetQuickPrep(UpdateUserWorksheetQuickPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc saveUserWorksheetEvent(UpdateUserWorksheetEventRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc completeUserWorksheetQuickPrep(UpdateUserWorksheetQuickPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateWorksheetTitle(UpdateUserWorksheetQuickPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addRatingToQPWorksheet(addRatingToQPWorksheetRequest) returns(ai.nworx.api.proto.common.ResponseProto);
+}

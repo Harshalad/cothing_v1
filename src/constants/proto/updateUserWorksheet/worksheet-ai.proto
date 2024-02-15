@@ -1,0 +1,49 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.worksheetai;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchWorksheetAIRatingRequest{
+    string worksheetId = 1;
+    string userId = 2;
+    string programId = 3;
+    bool qp = 4;
+}
+
+
+message AIFeedbackForQuestionRequest{
+    string userId = 1;
+    string programId = 2;
+    string userWorksheetId = 3;
+    string goalName = 4;
+    string milestoneName = 5;
+    string question = 6;
+    string answer = 7;
+    string sectionId = 8;
+}
+
+message AIFeedbackForSectionRequest{
+    string userId = 1;
+    string programId = 2;
+    string userWorksheetId = 3;
+    string goalName = 4;
+    string milestoneName = 5;
+    string sectionId = 6;
+}
+
+message AIFeedbackForPrepRequest{
+    string userId = 1;
+    string programId = 2;
+    string userWorksheetId = 3;
+    string goalName = 4;
+    string milestoneName = 5;
+}
+
+
+service WorksheetAIRatingService{
+    rpc fetchWorksheetAIRating(FetchWorksheetAIRatingRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+    rpc aiFeedbackForQuestion(AIFeedbackForQuestionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+    rpc aiFeedbackForSection(AIFeedbackForSectionRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+    rpc aiFeedbackForPrep(AIFeedbackForPrepRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

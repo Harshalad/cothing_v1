@@ -1,0 +1,24 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.nworxuser;
+
+
+option java_multiple_files = true;
+option java_package = "ai.nworx.api.proto.nworxuser";
+
+
+message VerifyNworxUserRequest{
+	string emailMobile = 1;
+	string appName =2;
+}
+
+service VerifyNworxUserService{
+	rpc verifyNworxUser(VerifyNworxUserRequest) returns (VerifyNworxUserResponse);
+}
+
+message VerifyNworxUserResponse{
+	bool isVerifiedUser = 1;
+	bool isMFAEnabled = 2;
+	string mobileNumber = 3;
+	string extra = 4;
+}

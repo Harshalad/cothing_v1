@@ -1,0 +1,14 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.worksheet;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchWorksheetRequest{
+	string WorkSheetId = 1;
+}
+
+
+service FetchWorksheetService{
+	rpc fetchWorksheetById(FetchWorksheetRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

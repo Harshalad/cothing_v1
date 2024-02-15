@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userprogram;
+
+import "google/protobuf/timestamp.proto";
+import "common/common.proto";
+
+
+option java_multiple_files = true;
+
+
+message UpdateRequest {
+	string userGoalId = 1;
+	map < string, string > stringFieldsToUpdate = 2;
+	map < string, google.protobuf.Timestamp > dateTimeFieldsToUpdate = 3;
+	map < string, bool > boolFieldsToUpdate = 4;
+	map < string, string > stringArrayFieldsToUpdate = 5;
+	map < string, int64 > intFieldsToUpdate = 6;
+	map < string, string > stringMapFieldsToUpdate = 9;
+	string userId = 7;
+	string programId = 8;
+}
+
+message addGoalAlignmentQuestionAnswerRequest{
+	string questionId = 1;
+	string emotion = 2;
+	string answer = 3;
+	string question = 4;
+	string nextQuestionId = 5;
+	string userGoalId = 6;
+	string userId = 7;
+	string programId = 8;
+	int32 answerOptionId = 9;
+}
+
+message addProgramGoalToUserGoalRequest{
+	string assignedBy = 1;
+	string goalId = 2;
+	string userId = 3;
+	string programId = 4;
+	string status = 5;
+	string addedBy = 6;
+	string addedByRole = 7;
+	string addedByUserId = 8;
+}
+
+message AddAQinUserGoalRequest{
+	string rating = 1;
+	string feedback = 2;
+	string expertUserId = 3;
+	string expertUserName = 4;
+	string userId = 5;
+	string programId = 6;
+	string goalId = 7;
+}
+
+
+service UpdateUserProgramService{
+	rpc updateUserGoal(UpdateRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addGoalAlignmentQuestionAnswer(addGoalAlignmentQuestionAnswerRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addProgramGoalToUserGoal(addProgramGoalToUserGoalRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addAQinUserGoal(AddAQinUserGoalRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

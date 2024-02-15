@@ -1,0 +1,113 @@
+syntax="proto3";
+
+package ai.nworx.api.proto.event;
+import "common/common.proto";
+option java_multiple_files = true;
+
+message FetchAllEventConfigOfAnchorRequest{
+	string anchorUserId = 1;
+	string anchorUserRole = 2;
+}
+
+message FetchEventConfigDetailsForAnchorRequest{
+	string eventConfigId = 1;
+	string anchorUserId = 2;
+}
+
+message AddSlotChunkOfAnchorForEventConfigRequest{
+	string eventConfigId = 1;
+	string anchorUserId = 2;
+	int64 chunkStartDate = 3;
+	int64 chunkEndDate = 4;
+	bool singleSlot = 5;
+	string eventRole = 6;
+}
+
+message UpdateSlotStatusOfAnchorRequest{
+	string eventConfigId = 1;
+	string anchorUserId = 2;
+	repeated SlotStatusRequest slotStatus = 3;
+	string slotChunkId = 4;
+}
+
+message SlotStatusRequest{
+	string slotId = 1;
+	string status = 2;
+}
+
+message FetchAllEventConfigOfParticipantRequest{
+	string participantRole = 1;
+	string participantUserId = 2;
+	string participantUserName = 3;
+}
+
+message FetchEventSlotsRequest{
+	string eventConfigId = 1;
+	string userId = 2;
+	string eventRole = 3;
+}
+
+message BookSlotForEventRequest{
+	string eventConfigId = 1;
+	string anchorUserId = 2;
+	string slotId = 3;
+	string userId = 4;
+	string eventRole = 5;
+	GoalDetail goalDetails = 6;
+}
+
+message GoalDetail{
+	string userId = 1;
+	string programId = 2;
+	string userGoalId = 3;
+	string milestoneId = 4;
+	string methodId = 5;
+}
+
+message FetchUserEventRequest{
+	string userEventId = 1;
+}
+
+message FetchEventListRequest{
+	string userId = 1;
+	string userName = 2;
+}
+
+
+message FetchUserEventIdRequest{
+	string eventConfigId = 1;
+	GoalDetail goalDetails = 2;
+}
+
+message CompleteUserMilestoneEventRequest{
+	string userEventId = 1;
+}
+
+
+
+service EventService{
+
+	rpc fetchAllEventConfigOfAnchor(FetchAllEventConfigOfAnchorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchEventListOfAnchor(FetchAllEventConfigOfAnchorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchEventConfigDetailsForAnchor(FetchEventConfigDetailsForAnchorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc addSlotChunkOfAnchorForEventConfig(AddSlotChunkOfAnchorForEventConfigRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateSlotStatusOfAnchor(UpdateSlotStatusOfAnchorRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	
+
+	rpc fetchAllEventConfigOfParticipant(FetchAllEventConfigOfParticipantRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchEventListOfParticipant(FetchAllEventConfigOfParticipantRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchEventSlots(FetchEventSlotsRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc bookSlotForEvent(BookSlotForEventRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchUserEvent(FetchUserEventRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchEventList(FetchEventListRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+
+
+	rpc fetchUserEventId(FetchUserEventIdRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc completeUserMilestoneEvent(CompleteUserMilestoneEventRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheet.ratingrequest;
+import "common/common.proto";
+
+
+message FetchRatingRequest{
+	string userWorksheetId = 1;
+}
+
+service FetchRatingService{
+	rpc fetchRatingRequests(FetchRatingRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

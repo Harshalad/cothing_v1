@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.userworksheet.ratingrequestqp;
+import "common/common.proto";
+
+
+message AddQPRatingRequest{
+	string userWorksheetId = 1;
+	string raterId = 2;
+	string raterName = 3;
+	string raterRole = 4;
+	string userId = 5;
+	string programId = 6;
+}
+
+message UpdateQPRatingRequestToDoneRequest{
+	string userWorksheetId = 1;
+	string raterId = 2;
+	string userId = 3;
+	string programId = 4;
+}
+
+
+service UpdateQPRatingService{
+	rpc addQPRequestRating(AddQPRatingRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateQPRatingRequestToDone(UpdateQPRatingRequestToDoneRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

@@ -12241,6 +12241,26 @@ Alignment Quotient Styling
   line-height: normal;
   width: fit-content;
 }
+.nextButton {
+  padding: 8px 16px;
+  border-radius: 32px;
+  background: #2E5DB0;
+  color: #fff;
+  text-transform: capitalize;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: fit-content;
+  font-size: 13px;
+}
+/* .css-18vm8kp-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: rgb(46 93 176);
+} */
+.buttonstyle {
+  display: flex;
+  justify-content: end;
+  margin-top: 15px;
+}
 
 .btn_pill_transparent {
   width: fit-content;
@@ -12430,4 +12450,29 @@ p {
   -moz-box-shadow: inset 0 -10px 10px -10px #000000;
   -webkit-box-shadow: inset 0 -10px 10px -10px #000000;
   box-shadow: inset 0 -7px 10px -10px #b7b3b3;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin-right: 10px;
+  list-style-type: none;
+}
+.buttonstyleli {
+  padding: 8px 16px;
+  border-radius: 32px;
+  background: #fff;
+  color: #111;
+  text-transform: capitalize;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: fit-content;
+  font-size: 13px;
+}
+.isSelected {
+  background: #2e5db0;
+  color: #fff;
 }

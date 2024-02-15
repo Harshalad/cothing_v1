@@ -2,7 +2,7 @@ import { useState, FC } from 'react';
 import FeedbackHeader from './FeedbackHeader';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import FeedbackActionsSidebar from './FeedbackActionsSidebar';
-
+import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { ExpandMore } from '@mui/icons-material';
 
 import SituationalContext from './SituationalContext';
@@ -381,6 +381,11 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                         <Box sx={{ marginTop: '32px' }}>
                             <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
                         </Box>
+                        <Box className="buttonstyle">
+                            <Button className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                        </Box>
+                        
+                        {/* <Button variant="contained">Next <EastRoundedIcon /></Button> */}
                     </div>
                     <Box sx={{ marginTop: '32px' }}>
                         <FeedbackCard />

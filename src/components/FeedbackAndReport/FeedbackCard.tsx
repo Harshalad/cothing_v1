@@ -1,5 +1,5 @@
 import { Paper, Typography, Box, Button, Divider } from '@mui/material';
-import { useState, type FC, useEffect } from 'react';
+import { useState, type FC, useEffect, useRef } from 'react';
 import { ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
@@ -12,6 +12,7 @@ interface FeedbackCardProps {
 
 const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const cardRef = useRef(null)
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
     const [expandPrompt, setExpandPrompt] = useState(-1);
     const currentSection = sectionData['sections'][index];
@@ -31,7 +32,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
     return (
         <>
             <Box>
-                <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className="card">
+                <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className="card" ref={cardRef}>
                     <div className='innerContainer'>
                         {
                             isExpanded ?
@@ -61,35 +62,37 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
 
                     {isDescriptionExpanded && isExpanded &&
                         <>
-                            <div className='sectionClarify'>
+                            <div >
+                                <div className='sectionClarify'>
 
-                                {sectionClarity?.map((e: any, index: any) => (
-                                    <SectionClarify key={index} title={e.pillName} questions={e.childPills} />
-                                ))}
+                                    {sectionClarity?.map((e: any, index: any) => (
+                                        <SectionClarify parentRef={cardRef} key={index} title={e.pillName} questions={e.childPills} />
+                                    ))}
 
-                            </div>
-                            {expandPrompt == -1 &&
-                                <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
-                                    <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
-                                </Box>
-                            }
-                            <div className='que'>
-                                {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
-                                    <Box key={promptIndex} className={`card2 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
-                                        <div className='arrowbutton2'>
-                                            <Button className='expandbutton'><ExpandMoreOutlined /></Button>
-                                        </div>
-                                        <span className="details">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
-                                        <div className='titleText'>{prompt['question']}</div>
-
-                                        {expandPrompt == promptIndex &&
-                                            <>
-                                                <PromptTextInput />
-                                            </>
-
-                                        }
+                                </div>
+                                {expandPrompt == -1 &&
+                                    <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
+                                        <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                     </Box>
-                                ))}
+                                }
+                                <div className='que'>
+                                    {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
+                                        <Box key={promptIndex} className={`card2 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
+                                            <div className='arrowbutton2'>
+                                                <Button className='expandbutton'><ExpandMoreOutlined /></Button>
+                                            </div>
+                                            <span className="details">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
+                                            <div className='titleText'>{prompt['question']}</div>
+
+                                            {expandPrompt == promptIndex &&
+                                                <>
+                                                    <PromptTextInput />
+                                                </>
+
+                                            }
+                                        </Box>
+                                    ))}
+                                </div>
                             </div>
                         </>
                     }

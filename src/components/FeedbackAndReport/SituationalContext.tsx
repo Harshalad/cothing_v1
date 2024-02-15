@@ -63,7 +63,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions }) =
                                         {question['order']}.{question['questionName']}
                                     </Box>
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
-                                        {question['pills'].map((pill: any, index: number) => (
+                                        {question['pills'].map((pill: any) => (
                                             <Button onClick={() => onSelectionChange(pill.name)} key={pill.name} className={`buttonstyleli ${selectedBtn.includes(pill.name) ? 'isSelected' : ''}`}>{pill.name}</Button>
                                         ))}
                                     </Box>

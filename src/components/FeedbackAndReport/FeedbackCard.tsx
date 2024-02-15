@@ -2,7 +2,8 @@ import { Paper, Typography, Box, Button, Divider } from '@mui/material';
 import { useState, type FC, useEffect } from 'react';
 import { ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
 import SectionClarify from './SectionClarify';
-
+import EastRoundedIcon from '@mui/icons-material/EastRounded';
+import PromptTextInput from './PromptTextInput';
 interface FeedbackCardProps {
     sectionData: any;
     index: number;
@@ -12,6 +13,7 @@ interface FeedbackCardProps {
 const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+    const [expandPrompt, setExpandPrompt] = useState(-1);
     const currentSection = sectionData['sections'][index];
     const totalSections = sectionData['sections'].length;
     const sectionClarity = sectionData['sectionClarity'].find((section: any) => section.sectionId === currentSection.id)?.sectionPills;
@@ -22,6 +24,10 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
             setIsDescriptionExpanded(true)
         }
     }, [expandIndex])
+
+    const openPromptHandler = () => {
+        setExpandPrompt(0)
+    }
     return (
         <>
             <Box>
@@ -62,7 +68,11 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                                 ))}
 
                             </div>
-
+                            {expandPrompt == -1 &&
+                                <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
+                                    <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                </Box>
+                            }
                             <div className='que'>
                                 {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
                                     <Box key={promptIndex} className={`card2 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
@@ -71,6 +81,13 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                                         </div>
                                         <span className="details">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
                                         <div className='titleText'>{prompt['question']}</div>
+
+                                        {expandPrompt == promptIndex &&
+                                            <>
+                                                <PromptTextInput />
+                                            </>
+
+                                        }
                                     </Box>
                                 ))}
                             </div>
@@ -78,6 +95,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                     }
                 </Paper>
             </Box>
+
         </>
     );
 };

@@ -12755,3 +12755,12 @@ li {
 }
 
 /*  */
+.slitBorder{
+  margin-top: 10px;
+  border-bottom: 1px solid #DFEBF6;;
+}
+.hideDescription{
+  height: 35px;
+  overflow: hidden;
+}
+/*  */

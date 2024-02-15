@@ -1,14 +1,16 @@
 import type { FC } from 'react';
-import { Button, styled } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Button } from '@mui/material';
 import { ChevronLeft, ExpandMore } from '@mui/icons-material';
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+interface FeedBackHeaderProps {
+    titleName: string
+}
 
-interface FeedBackHeaderProps { }
 
 
-
-const FeedBackHeader: FC<FeedBackHeaderProps> = () => {
+const FeedBackHeader: FC<FeedBackHeaderProps> = ({ titleName }) => {
+    const scrollHandler = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     return (<>
         <div className='headerWrapper'>
             <div className="backButton">
@@ -20,16 +22,16 @@ const FeedBackHeader: FC<FeedBackHeaderProps> = () => {
                     Back
                 </Button>
             </div>
-            <div className='centerText'>
+            <div className='centerText' onClick={scrollHandler}>
                 <div>
-                    Give feedback to direct report.
+                    {titleName}
                 </div>
                 <div className='svgicon'>
                     <ExpandMore />
                 </div>
             </div>
         </div>
-        
+
     </>);
 }
 

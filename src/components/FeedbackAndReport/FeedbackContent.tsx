@@ -4,22 +4,19 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import FeedbackActionsSidebar from './FeedbackActionsSidebar';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { ExpandMore } from '@mui/icons-material';
-
+import { motion } from 'framer-motion'
 import SituationalContext from './SituationalContext';
 import FeedbackCard from './FeedbackCard';
 
 interface FeedbackContentProps {
     data: any;
 }
-//const [isOpen, setIsOpen] = useState(true);
-// const onClick = () => {
-//   setIsOpen((isShow) => !isShow);
-//   }
 
 
 
 
 const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
+    const [isOpen, setIsOpen] = useState(true);
     const modifiedDate = new Date(data.modifiedDate);
     const formattedDate = `${modifiedDate.getDate()} ${modifiedDate.toLocaleString('en-US', { month: 'short' })} • ${modifiedDate.toLocaleString('en-US', { weekday: 'long' })}`;
     const questions = [
@@ -330,67 +327,74 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
             ]
         }
     ]
-
-
-
-
-
-
+    console.clear()
+    console.log(data)
+    const handleHide = () => {
+        setIsOpen(!isOpen)
+    }
     return (
-
-
-
         <>
             <Box sx={{ width: 'fit-content' }}>
-                <FeedbackHeader />
+                <FeedbackHeader titleName={data['name']} />
             </Box>
-            {/* <Button onClick={onClick}>click</Button> */}
-            
+
+
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '19px' }}>
                 <Box sx={{ paddingInline: '12px', width: '100%' }}>
-                    <div className='contentWrapper'>
+                    <div className='contentWrapper'
+
+                    >
                         <Typography variant="caption" sx={{ fontSize: 11, fontWeight: 500 }}>
                             {formattedDate}
                         </Typography>
                         <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
                             <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }}>
-                                Give feedback to direct report.
+                                {data['name']}
                             </Typography>
 
-                            <Button className="btn_viewmore"
+                            {(!isOpen) && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)}
                                 endIcon={<ExpandMore />}
                             >
                                 View More
-                            </Button>
+                            </Button>}
                         </Stack>
                         <Typography variant='body1'>
-                            State the observed behavior supporting it with data and/or examples in a specific incident/situation/task. Do not add interpretation/ judgement to keep the focus of the conversation on factual information.
+                            {data['description']}
                         </Typography>
-                        <Box sx={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}>
-                            <Button variant='outlined' className='btn_pill_transparent'
-                                startIcon={<img src='/images/icons/binocular.svg' />}
-                            >
-                                Giving Feedback Framework
-                            </Button>
-                            <Button variant='outlined' className='btn_pill_transparent'
-                                startIcon={<img src='/images/icons/binocular.svg' />}
-                            >
-                                15 Mins
-                            </Button>
-                        </Box>
-                        <Box sx={{ marginTop: '32px' }}>
-                            <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
-                        </Box>
-                        <Box className="buttonstyle">
-                            <Button className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
-                        </Box>
-                        
-                        {/* <Button variant="contained">Next <EastRoundedIcon /></Button> */}
+                        {isOpen && (
+                            <motion.div>
+                                <Box sx={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}>
+                                    <Button variant='outlined' className='btn_pill_transparent'
+                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                    >
+                                        Giving Feedback Framework
+                                    </Button>
+                                    <Button variant='outlined' className='btn_pill_transparent'
+                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                    >
+                                        15 Mins
+                                    </Button>
+                                </Box>
+                                <Box sx={{ marginTop: '32px' }}>
+                                    <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
+                                </Box>
+                                <Box className="buttonstyle">
+                                    <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                </Box>
+                            </motion.div>
+                        )
+
+                        }
+
+
                     </div>
                     <Box sx={{ marginTop: '32px' }}>
                         <FeedbackCard />
                     </Box>
                 </Box>
+
+
+
                 <Box sx={{ width: 286, height: '100vh', background: 'lightgrey' }}>
                     <FeedbackActionsSidebar />
                 </Box>

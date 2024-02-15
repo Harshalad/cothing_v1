@@ -75,7 +75,7 @@ const FeedbackReportPage: React.FC = () => {
     "status": "added",
     "milestoneId": "70b58c0e-8e1b-4e62-a5d5-480b5807767f",
     "worksheetId": "0c647333-9cec-4dca-ad11-5edc4a8d251d",
-    "description": "Adopt a Continuous Growth Mindset",
+    "description": "State the observed behavior supporting it with data and/or examples in a specific incident/situation/task. Do not add interpretation/ judgement to keep the focus of the conversation on factual information.",
     "noOfSectionsCompleted": 0,
     "worksheetCompletionStatus": null,
     "programId": "zOMjIflQWzC8NpzfmqxX",

@@ -12241,6 +12241,7 @@ Alignment Quotient Styling
   line-height: normal;
   width: fit-content;
 }
+
 .nextButton {
   padding: 8px 16px;
   border-radius: 32px;
@@ -12253,6 +12254,7 @@ Alignment Quotient Styling
   width: fit-content;
   font-size: 13px;
 }
+
 /* .css-18vm8kp-MuiButtonBase-root-MuiButton-root:hover {
   background-color: rgb(46 93 176);
 } */
@@ -12260,6 +12262,10 @@ Alignment Quotient Styling
   display: flex;
   justify-content: end;
   margin-top: 15px;
+}
+
+.buttonstyle .MuiButton-root {
+  background: #2E5DB0;
 }
 
 .btn_pill_transparent {
@@ -12289,6 +12295,7 @@ Alignment Quotient Styling
   gap: 10px;
   border: 1px solid #95C5D9;
 }
+
 .questionPill_container:hover {
   border: 1px solid #2E5DB0;
 }
@@ -12322,8 +12329,9 @@ p {
 
 .questionPill .expandedSection {
   flex-basis: 100%;
- 
+
 }
+
 .questionContainer {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -12347,15 +12355,16 @@ p {
   padding-bottom: 5px; */
   width: fit-content;
 }
+
 .informationPill_container:hover {
   background-color: #D6DEEB;
 }
+
 .isActive {
   background-color: #2E5DB0;
 }
-.removeIsActive {
 
-}
+.removeIsActive {}
 
 .informationPill_container p {
   margin-top: 4px !important;
@@ -12394,6 +12403,7 @@ p {
 .DraftEditor-editorContainer * {
   animation: textFadeInZoomAnimation 2s ease-in-out forwards;
 }
+
 .centerText {
   font-size: 14px;
   font-weight: 700;
@@ -12406,44 +12416,53 @@ p {
   cursor: pointer;
   margin-top: 13px;
 }
+
 .centerText .css-i4bv87-MuiSvgIcon-root {
   fill: #72777C;
   background-color: #E3EDF7;
   border-radius: 13px;
 }
+
 .backButton {
   display: flex;
   position: absolute;
 }
+
 .headerWrapper {
   display: flex;
   width: 100%;
-  
+
 }
+
 .css-1gtanqs {
   width: 100%;
 }
+
 .svgicon {
   margin-left: 10px;
- 
+
 }
+
 .css-1cl5a1v {
   background-color: #F8F8F8;
 }
+
 .addHoverClass {
   background-color: #EBF2F7;
   border: none;
   padding: 10px 20px 50px 20px;
 }
-.removeHoverClass {
 
-}
+.removeHoverClass {}
+
 .addHoverClass:hover {
   border: none;
 }
+
 .css-kgaz8t {
   gap: 10px !important;
 }
+
 .contentWrapper {
   padding-bottom: 20px;
   border-bottom: 1px solid #F4F4F5;
@@ -12451,15 +12470,18 @@ p {
   -webkit-box-shadow: inset 0 -10px 10px -10px #000000;
   box-shadow: inset 0 -7px 10px -10px #b7b3b3;
 }
+
 ul {
   margin: 0;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin-right: 10px;
   list-style-type: none;
 }
+
 .buttonstyleli {
   padding: 8px 16px;
   border-radius: 32px;
@@ -12472,6 +12494,7 @@ li {
   width: fit-content;
   font-size: 13px;
 }
+
 .isSelected {
   background: #2e5db0;
   color: #fff;

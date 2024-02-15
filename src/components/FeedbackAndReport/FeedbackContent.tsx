@@ -17,6 +17,7 @@ interface FeedbackContentProps {
 
 const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
     const [isOpen, setIsOpen] = useState(true);
+    const [expandIndex, setExpandIndex] = useState(-1);
     const modifiedDate = new Date(data.modifiedDate);
     const formattedDate = `${modifiedDate.getDate()} ${modifiedDate.toLocaleString('en-US', { month: 'short' })} • ${modifiedDate.toLocaleString('en-US', { weekday: 'long' })}`;
     const questions = [
@@ -104,7 +105,9 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
     console.clear()
     console.log(data)
     const handleHide = () => {
-        setIsOpen(!isOpen)
+        setIsOpen(!isOpen);
+        setExpandIndex(0)
+
     }
     return (
         <>
@@ -167,7 +170,10 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
 
                     </div>
                     <Box sx={{ marginTop: '32px' }}>
-                        <FeedbackCard />
+                        {data['sections'].map((e: any, index: any) => (
+                            <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} />
+                        ))}
+
                     </Box>
                 </Box>
 

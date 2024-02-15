@@ -4,12 +4,11 @@ import { useState, FC, useEffect } from 'react';
 
 interface InformationChipProps {
     data: any;
-    keyIndex: string;
-    inProps: any;
+    index: number
     onclick: (index: any) => void;
 }
 
-const InformationChip: FC<InformationChipProps> = ({ data, keyIndex, onclick, inProps }) => {
+const InformationChip: FC<InformationChipProps> = ({ data, onclick, index }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -31,23 +30,19 @@ const InformationChip: FC<InformationChipProps> = ({ data, keyIndex, onclick, in
         setTimeout(() => setIsRefreshing(false), 2000);
     };
 
-    useEffect(() => {
-        if (inProps.selected.qnOrder !== inProps.renderQuestionIndex || inProps.selected.pillIndex !== inProps.renderPillIndex) {
-            setIsExpanded(false)
-        }
-    }, [inProps])
+
 
 
 
     return (
-        <Box className='informationPill_container'  onMouseEnter={() => setIsHovered(true)}
+        <Box className='informationPill_container' onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             {/* use isActive class to active */}
             <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}
-                onClick={() => { onclick(isExpanded ? null : keyIndex); setIsExpanded(!isExpanded) }}>
+                onClick={() => { onclick(isExpanded ? -1 : index); setIsExpanded(!isExpanded) }}>
                 <img src="/images/icons/binocular.svg" alt="Binocular Icon" />
-                <Typography>{data.title}</Typography>
+                <Typography>{data.pillName}</Typography>
                 {
                     isExpanded && (
                         <RefreshOutlined
@@ -68,21 +63,9 @@ const InformationChip: FC<InformationChipProps> = ({ data, keyIndex, onclick, in
                         ) : (
                             <>
                                 <Box>
-                                    {data.desc}
+                                    This is important because it helps you to understand the purpose of the product or service, and how it can benefit your business. It also helps you to make an informed decision about whether or not to use the product or service, and to understand the risks and limitations involved.
                                 </Box>
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                                    {data.tabs?.map((tab: { title: string; desc: string }, index: number) => (
-                                        <Box key={index} className='suggestionTab'>
-                                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                {tab.title}
-                                                <ExpandMore />
-                                            </Box>
-                                            <Box className='suggestionTab_desc'>
-                                                {tab.desc}
-                                            </Box>
-                                        </Box>
-                                    ))}
-                                </Box>
+
                             </>
                         )}
                     </Box>

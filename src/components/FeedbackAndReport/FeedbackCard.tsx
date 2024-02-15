@@ -1,135 +1,85 @@
-import { Paper, Typography, Box, Button } from '@mui/material';
-import { useState, useRef, type FC } from 'react';
-import { EditorState, Editor, Modifier, RichUtils, convertFromHTML, ContentState } from 'draft-js'
-import { IosShare } from '@mui/icons-material';
-import { motion } from 'framer-motion'
-import PromptTextInput from './PromptTextInput';
-import EastRoundedIcon from '@mui/icons-material/EastRounded';
-import ExpandLessOutlinedIcon from '@mui/icons-material/ExpandLessOutlined';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
-import Grid from "@mui/material/Grid";
-import Avatar from '@mui/material/Avatar';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded';
-import SituationalContext from './SituationalContext';
-import rightArrow from '../../assets/images/rightArrow.svg';
-import { AddCircleOutline, AddCircleOutlineOutlined, AddCircleOutlined, RemoveCircleOutline, RemoveCircleOutlined } from '@mui/icons-material';
+import { Paper, Typography, Box, Button, Divider } from '@mui/material';
+import { useState, type FC, useEffect } from 'react';
+import { ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
+import SectionClarify from './SectionClarify';
 
-interface FeedbackCardProps { }
+interface FeedbackCardProps {
+    sectionData: any;
+    index: number;
+    expandIndex: number
+}
 
-const steps = [
-    { title: 'Gather Data on Behavior', details: '2 Prompts | 5 mins' },
-    { title: 'State the Impact on Behavior', details: '2 Prompts | 5 mins' },
-    { title: 'Demonstrate Empathy', details: '2 Prompts | 5 mins' },
-    { title: 'Create an Action Plan', details: '2 Prompts | 5 mins' },
-];
-const questions = 'Need more clarification on the section?'
-
-const FeedbackCard: FC<FeedbackCardProps> = () => {
-    const [expand, setExpand] = useState(false)
+const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+    const currentSection = sectionData['sections'][index];
+    const totalSections = sectionData['sections'].length;
+    const sectionClarity = sectionData['sectionClarity'].find((section: any) => section.sectionId === currentSection.id)?.sectionPills;
+    console.log(sectionClarity)
+    useEffect(() => {
+        if (expandIndex == index) {
+            setIsExpanded(true);
+            setIsDescriptionExpanded(true)
+        }
+    }, [expandIndex])
     return (
-
         <>
-            
-
             <Box>
-               
-                    <Paper elevation={3} sx={{ margin: 2, padding: 2 }} className="card">
-                        <div className='innerContainer'>
-                        <Typography variant="h6" className="details">Step 1  </Typography>
-                      
-                      <div className='arrowbutton'>
-                          <Button className='expandbutton'><ExpandMoreOutlinedIcon /></Button>
-                      </div>
-                      <Typography variant="subtitle1" className='titleText'>Create an Action Plan</Typography>
-                      <div className="viewmore">
-                          <div className='mt-2 f-14 fw-400 pr-3 formateText addmore'>State the observed behavior supporting it with data and/or examples in a 
-                          </div>
-                          
-                          <div className='cag-blue f-14 fw-600 view '>view more<ExpandCircleDownRoundedIcon /></div>
-               
-                      </div> 
-                      <Box className="card1 mt-20">
-                      <div className='arrowbutton1'>
-                          <Button className='expandbutton'><ExpandMoreOutlinedIcon /></Button>
-                      </div>
-                          <span className="details ">Question 1 out of 2</span>
+                <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className="card">
+                    <div className='innerContainer'>
+                        {
+                            isExpanded ?
+                                <Typography variant="h6" className="details">Step {index + 1} </Typography> :
+                                <Typography variant="h6" className="details">Step {index + 1} out of {totalSections}  </Typography>
+                        }
 
-                          <div className='titleText'>
-                              what must the direct report start doing and/or stop doing and/or do differently?
-                          </div>
-                        </Box>
+                        <div className='arrowbutton' >
+                            {isExpanded ?
+                                <Button className='expandbutton' onClick={() => { setIsExpanded(!isExpanded); setIsDescriptionExpanded(!isDescriptionExpanded) }}><ExpandMoreOutlined /></Button> :
+                                <Button className='buttonArrow' onClick={() => isDescriptionExpanded ? setIsExpanded(!isExpanded) : setIsDescriptionExpanded(!isDescriptionExpanded)}><ArrowForward /></Button>}
                         </div>
-                       
-                     
-                        
-                        <Box className='queWrapper'>
-                            <div style={
-                                {
-                                    display: !expand ? 'none' : 'block',
-                                    height: '24px', background: 'white',
-                                    borderBottomLeftRadius: '20px',
-                                    borderBottomRightRadius: '20px',
-                                    borderTopLeftRadius: '0',
-                                    borderTopRightRadius: '0'
-                                }
-                            }></div>
-                            <div className='queWrapper1'>
-                                <Box className='queWrapperInner'>
-                                    <div className='f-12 cag-blue fw-600 questionPill'>
-                                        <img className="w15" height={18} src="/images/icons/stars.svg" />Need clarification on the question?</div>
-                                        <RemoveCircleOutlined className='circleOutline updatecolor' />
-                                </Box>
+                        <Typography variant="subtitle1" className='titleText'>{currentSection['name']}</Typography>
+                        {isDescriptionExpanded &&
+                            <div className="viewmore">
+                                <div className='mt-2 f-14 fw-400 pr-3 formateText addmore'>{currentSection['description']}</div>
                             </div>
-                            <div style={
-                                {
-                                    display: !expand ? 'none' : 'block',
-                                    height: '24px', background: 'white',
-                                    borderBottomLeftRadius: '0',
-                                    borderBottomRightRadius: '0',
-                                    borderTopLeftRadius: '20px',
-                                    borderTopRightRadius: '20px'
+                        }
+                        {!isExpanded &&
+                            <div style={{ display: 'flex' }}>
+                                <Typography className='cardFooterText'>{currentSection['promptQuestionsMap'].length} Prompts</Typography>
+                                <Divider orientation="vertical" flexItem style={{ height: '20px', margin: '0 10px' }} />
+                                <Typography className='cardFooterText'>{currentSection['durationInMins']} mins</Typography>
+                            </div>
+                        }
+                    </div>
 
-                                }
-                            }></div>
+                    {isDescriptionExpanded && isExpanded &&
+                        <>
+                            <div className='sectionClarify'>
 
-                        </Box>
-                        <div className='que'>
-                            <Box className="card2">
-                                 
-                                <div className='arrowbutton2'>
-                                    <Button className='expandbutton'><ExpandMoreOutlinedIcon /></Button>
-                                </div>
-                                <span className="details">Prompt 1 of 2</span>
+                                {sectionClarity?.map((e: any, index: any) => (
+                                    <SectionClarify key={index} title={e.pillName} questions={e.childPills} />
+                                ))}
 
-                                <div className='titleText'>
-                                    what must the direct report start doing and/or stop doing and/or do differently?
-                                </div>
-                                <div>
+                            </div>
 
-                                </div>
-                            </Box>
-                            <Box className="card2 mt-20">
-                                <div className='arrowbutton2'>
-                                    <Button className='expandbutton'><ExpandMoreOutlinedIcon /></Button>
-                                </div>
-                                <span className="details">Prompt 2 of 2</span>
-                                <div className='titleText'>
-                                    what open-ended questions can I ask to probe the other's views and perspectives on this recommendation?
-                                </div>
-                            </Box>
-                        </div>
-                        
-                    </Paper>
-
-                    
-              
+                            <div className='que'>
+                                {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
+                                    <Box key={promptIndex} className={`card2 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
+                                        <div className='arrowbutton2'>
+                                            <Button className='expandbutton'><ExpandMoreOutlined /></Button>
+                                        </div>
+                                        <span className="details">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
+                                        <div className='titleText'>{prompt['question']}</div>
+                                    </Box>
+                                ))}
+                            </div>
+                        </>
+                    }
+                </Paper>
             </Box>
-            <PromptTextInput />
         </>
-
     );
 };
 
 export default FeedbackCard;
-

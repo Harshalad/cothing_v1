@@ -171,7 +171,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                     </div>
                     <Box sx={{ marginTop: '32px' }}>
                         {data['sections'].map((e: any, index: any) => (
-                            <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} />
+                            <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} setExpandIndex={setExpandIndex} />
                         ))}
 
                     </Box>

@@ -7,10 +7,11 @@ import PromptTextInput from './PromptTextInput';
 interface FeedbackCardProps {
     sectionData: any;
     index: number;
-    expandIndex: number
+    expandIndex: number,
+    setExpandIndex: any
 }
 
-const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }) => {
+const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, setExpandIndex }) => {
     const childRef: any = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [promptSelect, setPromptSelect] = useState('');
@@ -31,6 +32,9 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
     useEffect(() => {
         if (expandIndex == index) {
             setIsExpanded(true);
+            setIsDescriptionExpanded(true)
+        } else {
+            setIsExpanded(false);
             setIsDescriptionExpanded(true)
         }
     }, [expandIndex])
@@ -130,7 +134,16 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                                                     }
                                                     {
                                                         answerAceepted && <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
-                                                            <Button onClick={() => { resetAllState(); setExpandPrompt(index + 1); }} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                                            <Button onClick={() => {
+                                                                resetAllState();
+
+                                                                if (currentSection['promptQuestionsMap'].length == promptIndex + 1) {
+                                                                    setExpandIndex(index + 1)
+                                                                } else {
+                                                                    setExpandPrompt(promptIndex + 1);
+                                                                }
+                                                            }}
+                                                                className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                                         </Box>
                                                     }
                                                 </>

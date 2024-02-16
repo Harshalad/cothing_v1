@@ -1,6 +1,6 @@
 import { Paper, Typography, Box, Button, Divider } from '@mui/material';
 import { useState, type FC, useEffect, useRef } from 'react';
-import { AddCircleOutline, ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
+import { Add, AddCircle, AddCircleOutline, ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import PromptTextInput from './PromptTextInput';
@@ -11,7 +11,10 @@ interface FeedbackCardProps {
 }
 
 const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }) => {
+    const childRef: any = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
+    const [promptSelect, setPromptSelect] = useState('');
+    const editorRef: any = useRef(null)
     const cardRef: any = useRef(null)
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
     const [expandPrompt, setExpandPrompt] = useState(-1);
@@ -19,9 +22,11 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
     const totalSections = sectionData['sections'].length;
     const sectionClarity = sectionData['sectionClarity'].find((section: any) => section.sectionId === currentSection.id)?.sectionPills;
     const preQuestionClarity = sectionData['preQuestionClarity'].find((section: any) => section.sectionId === currentSection.id)?.questions
+    const postQuestionClarity = sectionData['postQuestionClarity'].find((section: any) => section.sectionId === currentSection.id)?.questions
     const [expandPreQuestionClarity, setExpandPreQuestionClarity] = useState(-1);
     const [expandSectionClarity, setExpandSectionClarity] = useState(-1);
-
+    const [expandpostQuestionClarity, setExpandpostQuestionClarity] = useState(-1);
+    const [answerAceepted, setAnswerAceepted] = useState(false)
 
     useEffect(() => {
         if (expandIndex == index) {
@@ -34,6 +39,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
         setExpandPrompt(0)
         cardRef.current.style.background = 'white'
     }
+
     return (
         <>
             <Box>
@@ -95,16 +101,26 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                                             <div className='titleText'>{prompt['question']}</div>
 
                                             {expandPrompt == promptIndex &&
+
                                                 <>
-                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
+                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px' }} onClick={() => setAnswerAceepted(false)}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
                                                         {preQuestionClarity?.map((e: any, index: any) => (
                                                             e.questionPills.map((r: any, j: any) => (
-                                                                (expandPreQuestionClarity === -1 || expandPreQuestionClarity == j) && <SectionClarify parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} />
+                                                                (expandPreQuestionClarity === -1 || expandPreQuestionClarity == j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} />
                                                             ))
                                                         ))}
-                                                    </div>
+                                                    </div>}
 
-                                                    <PromptTextInput />
+                                                    <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
+                                                    {
+                                                        answerAceepted && <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
+                                                            {postQuestionClarity?.map((e: any, index: any) => (
+                                                                e.questionPills.map((r: any, j: any) => (
+                                                                    (expandpostQuestionClarity === -1 || expandpostQuestionClarity == j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} />
+                                                                ))
+                                                            ))}
+                                                        </div>
+                                                    }
                                                 </>
 
                                             }

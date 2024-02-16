@@ -2,17 +2,20 @@ import { AddCircleOutline, AddCircleOutlineOutlined, AddCircleOutlined, RemoveCi
 import { Box, Typography, Button } from '@mui/material';
 import { useState, type FC, useEffect } from 'react';
 import InformationChip from './InformationChip';
-import DraftChip from './draftChip';
+import DraftChip from './DraftChip';
+
 
 
 interface SituationalContextProps {
     title: string
     questions: any;
     parentRef: any;
-    index: number
+    childRef?: any
+    index: number;
+    setPromptSelect?: any,
     onclick: (index: any) => void;
 }
-const SituationalContext: FC<SituationalContextProps> = ({ title, questions, parentRef, index, onclick }) => {
+const SituationalContext: FC<SituationalContextProps> = ({ title, questions, parentRef, index, onclick, setPromptSelect, childRef }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [selectedBtn, setSelectedBtn] = useState<any>([]);
@@ -25,6 +28,13 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
             setSelectedBtn([...selectedBtn, name]);
         }
     }
+
+    const onDraftSelect = (data: any) => {
+        setPromptSelect(data)
+    }
+
+
+
     return (
         <>
             <Box className={`questionPill_container ${isExpanded ? "addHoverClass" : "removeHoverClass"}`}
@@ -61,8 +71,11 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                             {
                                 questions.map((question: any, index: number) =>
                                     expandedChip === -1 || expandedChip === index ? (
-                                        // <InformationChip key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} />
-                                        <DraftChip key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} />
+                                        question.pillAcceptReject ?
+                                            <DraftChip childRef={childRef} key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} onDraftSelect={onDraftSelect} />
+                                            :
+                                            <InformationChip key={index} data={question} index={index} onclick={(e) => setExpandedChip(e)} />
+
                                     ) : null
                                 )
                             }

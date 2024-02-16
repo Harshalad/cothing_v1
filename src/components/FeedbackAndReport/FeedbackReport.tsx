@@ -175,28 +175,28 @@ const FeedbackReportPage: React.FC = () => {
                 "childPills": [
                   {
                     "pillName": "How do I connect this to my business context?",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 1
                   },
                   {
                     "pillName": "Can I skip this?",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 2
                   },
                   {
                     "pillName": "Why is this important?",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 3
                   },
                   {
                     "pillName": "Simplify the question",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 4

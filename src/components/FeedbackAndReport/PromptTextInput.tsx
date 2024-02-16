@@ -8,7 +8,10 @@ import {
 } from "draft-js";
 import { useRef, useState, type FC, useEffect, forwardRef, useImperativeHandle } from "react";
 import CreateIcon from "@mui/icons-material/Create";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import NorthTwoToneIcon from '@mui/icons-material/NorthTwoTone';
+
 interface PromptTextInputProps {
   promptSelect: string
   setPromptSelect: any,
@@ -75,7 +78,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
             border: "1px solid #F8F8F8",
             paddingInline: "15px",
             borderRadius: "20px",
-            padding: "20px",
+            padding: "10px 20px",
             margin: "20px 10px",
             position: "relative"
           }}
@@ -92,7 +95,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
               </Button>
             )}
           </div>
-          <div className="promptSuggestionArea">
+          {/* <div className="promptSuggestionArea">
             {promptSelect && (
               <div
                 style={{
@@ -114,7 +117,23 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
+           <div className="textEditorDisplay">
+              <div className="flex" style={{ alignContent: "center", backgroundColor: "#f8f8f8", padding: "0"}}>
+                  <div><img height={18} src="/images/icons/stars.svg" /></div>
+                  <div style={{ marginLeft: "auto"}}>
+                      <NorthTwoToneIcon /><CloseTwoToneIcon />
+                  </div>
+              </div>
+              <Typography>Action plan should be time bound and with the pointers which we have discussed in the feedback.</Typography>
+              <Box>
+                  <ul>
+                      <li>Start Implementing Solution-Based Discussion in Sales Conversations</li>
+                      <li>Stop Engaging in Overly Aggressive Sales Tactics </li>
+                      <li>Do Differently - Find a Balanced Approach</li>
+                  </ul>
+              </Box>
+            </div>
           <div className="mt-15 ">
             {showMenuOnclick && (
               <div className="d-flex ml-auto" 

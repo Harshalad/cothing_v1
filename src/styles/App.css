@@ -12359,6 +12359,7 @@ p {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   padding: 25px;
+  margin-top: 15px;
 }
 
 .informationPill_container {
@@ -12392,6 +12393,7 @@ p {
 
 .public-DraftEditorPlaceholder-inner {
   font-size: 16px;
+  color: #848484;
 }
 
 .DraftEditor-editorContainer {
@@ -12417,6 +12419,7 @@ p {
 .DraftEditor-editorContainer,
 .DraftEditor-editorContainer * {
   animation: textFadeInZoomAnimation 2s ease-in-out forwards;
+  width: 99%;
 }
 
 .centerText {
@@ -12496,7 +12499,7 @@ ul {
 li {
   display: inline-block;
   margin-right: 10px;
-  list-style-type: none;
+  /* list-style-type: none; */
 }
 
 .buttonstyleli {
@@ -12937,4 +12940,25 @@ li {
 .css-npaz1m {
   margin-top: 80px;
   padding-top: 15px;
+}
+.textEditorDisplay .css-i4bv87-MuiSvgIcon-root {
+  color: #7E7E7E;
+  width: 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+.textEditorDisplay {
+  border: 1px solid #2e5db0 !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.textEditorDisplay .css-1lc40r8-MuiTypography-root {
+  margin-top: 0 !important;
+  font-size: 14px;
+}
+.textEditorDisplay ul li {
+  list-style-type: disc !important;
+  display: list-item !important;
+  margin: 0 35px;
 }

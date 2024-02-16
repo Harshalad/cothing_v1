@@ -12420,6 +12420,7 @@ p {
 }
 
 .centerText {
+  padding-right: 20%;
   font-size: 14px;
   font-weight: 700;
   width: 100%;
@@ -12446,6 +12447,9 @@ p {
 .headerWrapper {
   display: flex;
   width: 100%;
+  padding: 20px 0;
+  /* position: fixed;
+  z-index: 1; */
 }
 
 .css-1gtanqs {
@@ -12922,3 +12926,15 @@ li {
 .css-1elwnq4-MuiPaper-root-MuiAccordion-root.Mui-expanded {
   margin: 0 !important;
 } 
+.css-1gtanqs {
+  position: fixed;
+  z-index: 1;
+  background-color: #f8f8f8;
+}
+.css-1cl5a1v {
+  padding: 74px 32px 32px;
+}
+.css-npaz1m {
+  margin-top: 80px;
+  padding-top: 15px;
+}

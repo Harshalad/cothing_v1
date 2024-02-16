@@ -26,34 +26,25 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
     const [showMenuOnclick, setIsClicked] = useState(false);
     const handleClick = () => {
       setIsClicked(!showMenuOnclick);
+      setEditorState(EditorState.createEmpty()); // Clear existing rich editor on button click
     };
     const handleAccept = () => {
-      {
-        const actionPlan = actionPlanRef.current
-          ? actionPlanRef.current.innerHTML
-          : "";
-        const blocksFromHTML = convertFromHTML(actionPlan);
-        const newState = EditorState.createWithContent(
-          ContentState.createFromBlockArray(
-            blocksFromHTML.contentBlocks,
-            blocksFromHTML.entityMap
-          )
-        );
-        const contentState = Modifier.replaceWithFragment(
-          editorState.getCurrentContent(),
-          editorState.getSelection(),
-          newState.getCurrentContent().getBlockMap()
-        );
-        const newEditorState = EditorState.push(
-          editorState,
-          contentState,
-          "insert-fragment"
-        );
+      setPromptSelect('')
+      const actionPlan = actionPlanRef.current
+        ? actionPlanRef.current.innerHTML
+        : "";
+      const blocksFromHTML = convertFromHTML(actionPlan);
+      const newContentState = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const newEditorState = EditorState.createWithContent(newContentState);
 
-        onEditorChange(newEditorState);
-        setPromptSelect('')
-        setAnswerAceepted(true)
-      }
+
+      onEditorChange(newEditorState);
+      setPromptSelect('')
+      setAnswerAceepted(true)
+
     }
     useImperativeHandle(ref, () => ({
       trigger: () => {
@@ -65,7 +56,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
 
     };
     return (
-      <div style={{ backgroundColor: "white"}}>
+      <div style={{ backgroundColor: "white" }}>
         <div
           onMouseEnter={() => textAreaIsHovered(true)}
           onMouseLeave={() => textAreaIsHovered(false)}
@@ -95,49 +86,22 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
               </Button>
             )}
           </div>
-          {/* <div className="promptSuggestionArea">
-            {promptSelect && (
-              <div
-                style={{
-                  marginTop: "20px",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  border: "1px solid grey",
-                  borderRadius: "20px",
-                  padding: "20px",
-                }}
-              >
-                <IosShare
-                  sx={{ float: "right" }}
-                  onClick={handleAccept}
-                />
 
-                <div ref={actionPlanRef}>
-                  <div dangerouslySetInnerHTML={{ __html: promptSelect }} />
-                </div>
+          {promptSelect && <div className="textEditorDisplay">
+            <div className="flex" style={{ alignContent: "center", backgroundColor: "#f8f8f8", padding: "0" }}>
+              <div><img height={18} src="/images/icons/greyStar.svg" /></div>
+              <div style={{ marginLeft: "auto" }}>
+                <NorthTwoToneIcon onClick={handleAccept} /><CloseTwoToneIcon />
               </div>
-            )}
-          </div> */}
-           <div className="textEditorDisplay">
-              <div className="flex" style={{ alignContent: "center", backgroundColor: "#f8f8f8", padding: "0"}}>
-                  <div><img height={18} src="/images/icons/greyStar.svg" /></div>
-                  <div style={{ marginLeft: "auto"}}>
-                      <NorthTwoToneIcon /><CloseTwoToneIcon />
-                  </div>
-              </div>
-              <Typography>Action plan should be time bound and with the pointers which we have discussed in the feedback.</Typography>
-              <Box>
-                  <ul>
-                      <li>Start Implementing Solution-Based Discussion in Sales Conversations</li>
-                      <li>Stop Engaging in Overly Aggressive Sales Tactics </li>
-                      <li>Do Differently - Find a Balanced Approach</li>
-                  </ul>
-              </Box>
             </div>
+            <div ref={actionPlanRef}>
+              <div dangerouslySetInnerHTML={{ __html: promptSelect }} />
+            </div>
+          </div>}
           <div className="mt-15 ">
             {showMenuOnclick && (
-              <div className="d-flex ml-auto" 
-              style={{ justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" }} >
+              <div className="d-flex ml-auto"
+                style={{ justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" }} >
                 <div className="showOnEdit">
                   <div className="f-14 f-500 cPointer">Aa</div>
                   <div
@@ -161,5 +125,4 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
       </div>
     );
   });
-
 export default PromptTextInput;

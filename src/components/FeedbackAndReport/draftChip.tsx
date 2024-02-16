@@ -12,6 +12,7 @@ interface DraftChipProps {
 
 const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, childRef }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isBtnHovered, setIsBtnHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   useEffect(() => {
@@ -24,16 +25,22 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
   }, [isExpanded]);
 
   const acceptClick = (index: any) => {
+    setIsBtnHovered(true)
     childRef.current.trigger()
     onDraftSelect('')
+    setIsBtnHovered(false)
   }
   const dismissClick = (index: any) => {
+    setIsBtnHovered(true)
     setOpenCards(-1);
     onDraftSelect('')
+    setIsBtnHovered(false)
   }
   const toggleCard = (index: number) => {
-    setOpenCards(index);
-    onDraftSelect(datas[index] ? datas[index].html : '')
+    if (!isBtnHovered) {
+      setOpenCards(index);
+      onDraftSelect(datas[index] ? datas[index].html : '')
+    }
   };
   const handleRefreshClick = (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>
@@ -240,6 +247,8 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                               size="small"
                               className="cag-blue-bg commonBtnStyle commonBlueBtnStyle"
                               sx={{ color: "white" }}
+                              onMouseEnter={() => setIsBtnHovered(true)}
+                              onMouseLeave={() => setIsBtnHovered(false)}
                               onClick={() => acceptClick(index)}
                             >
                               <Box sx={{ marginTop: "1px" }}>ACCEPT</Box>
@@ -253,6 +262,8 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                               size="small"
                               className="bg-grey commonBtnStyle commonGreyBtnStyle"
                               sx={{ color: "black" }}
+                              onMouseEnter={() => setIsBtnHovered(true)}
+                              onMouseLeave={() => setIsBtnHovered(false)}
                               onClick={() => dismissClick(index)}
                             >
                               <Box sx={{ marginTop: "1px" }}>DISMISS</Box>

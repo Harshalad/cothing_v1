@@ -30,6 +30,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
     }
 
     const onDraftSelect = (data: any) => {
+        setPromptSelect('')
         setPromptSelect(data)
     }
 

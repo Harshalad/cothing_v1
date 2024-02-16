@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { useState, FC, useRef, useEffect } from 'react';
 import FeedbackHeader from './FeedbackHeader';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import FeedbackActionsSidebar from './FeedbackActionsSidebar';
@@ -12,11 +12,9 @@ interface FeedbackContentProps {
     data: any;
 }
 
-
-
-
 const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
     const [isOpen, setIsOpen] = useState(true);
+    const [showTitle, setShowTitle] = useState(false);
     const [expandIndex, setExpandIndex] = useState(-1);
     const modifiedDate = new Date(data.modifiedDate);
     const formattedDate = `${modifiedDate.getDate()} ${modifiedDate.toLocaleString('en-US', { month: 'short' })} • ${modifiedDate.toLocaleString('en-US', { weekday: 'long' })}`;
@@ -30,32 +28,26 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                 },
                 {
                     name: 'Lorem impsue',
-
                     order: 2,
                 },
                 {
                     name: 'Dolor Ismut',
-
                     order: 3,
                 },
                 {
                     name: 'Lorem Ipsu2m',
-
                     order: 4,
                 },
                 {
                     name: 'Lorem Ipsum',
-
                     order: 5,
                 },
                 {
                     name: 'Dolor impsut beta dolor222',
-
                     order: 6,
                 },
                 {
                     name: 'Dolor impsut beta dolor',
-
                     order: 7,
                 },
             ]
@@ -66,120 +58,112 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
             pills: [
                 {
                     name: 'Option Alpha1',
-
                     order: 1,
                 },
                 {
                     name: 'Lorem impsue2',
-
                     order: 2,
                 },
                 {
                     name: 'Dolor Ismut3',
-
                     order: 3,
                 },
                 {
                     name: 'Lorem Ipsum4',
-
                     order: 4,
                 },
                 {
                     name: 'Lorem Ipsum5',
-
                     order: 5,
                 },
                 {
                     name: 'Dolor impsut beta dolor6',
-
                     order: 6,
                 },
                 {
                     name: 'Dolor impsut beta dolor7',
-
                     order: 7,
                 },
             ]
         }
     ]
-    console.clear()
-    console.log(data)
+    const elementRef = useRef(null);
+    const headerRef = useRef(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (elementRef?.current && headerRef?.current) {
+                if (elementRef?.current?.getBoundingClientRect().top < headerRef?.current?.getBoundingClientRect()?.bottom) {
+                    setShowTitle(true);
+                } else {
+                    setShowTitle(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     const handleHide = () => {
         setIsOpen(!isOpen);
         setExpandIndex(0)
-
     }
+
+
     return (
         <>
-            <Box sx={{ width: 'fit-content' }}>
-                <FeedbackHeader titleName={data['name']} />
+            <Box sx={{ width: 'fit-content' }} ref={headerRef}>
+                <FeedbackHeader titleName={data['name']} showTitle={showTitle} />
             </Box>
-
 
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '19px' }}>
                 <Box sx={{ paddingInline: '12px', width: '100%' }}>
-                    <div className='contentWrapper'
-
-                    >
+                    <div className='contentWrapper'>
                         <Typography variant="caption" sx={{ fontSize: 11, fontWeight: 500 }}>
                             {formattedDate}
                         </Typography>
                         <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
-                            <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }}>
+                            <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }} ref={elementRef}>
                                 {data['name']}
                             </Typography>
-
-                            {(!isOpen) && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)}
-                                endIcon={<ExpandMore />}
-                            >
+                            {(!isOpen) && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={<ExpandMore />}>
                                 View More
                             </Button>}
                         </Stack>
-                        <Typography variant='body1'>
+                        <Typography variant='body1' >
                             {data['description']}
                         </Typography>
                         {isOpen && (
                             <motion.div>
                                 <Box sx={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}>
-                                    <Button variant='outlined' className='btn_pill_transparent'
-                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
-                                    >
+                                    <Button variant='outlined' className='btn_pill_transparent' startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}>
                                         Giving Feedback Framework
                                     </Button>
-                                    <Button variant='outlined' className='btn_pill_transparent'
-                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
-                                    >
+                                    <Button variant='outlined' className='btn_pill_transparent' startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}>
                                         15 Mins
                                     </Button>
                                 </Box>
                                 <Box sx={{ marginTop: '32px' }}>
                                     {data['sectionPills'].map((element: any, index: number) => (
                                         <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
-
-                                    ))
-                                    }
+                                    ))}
                                 </Box>
                                 <Box className="buttonstyle">
                                     <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                 </Box>
                             </motion.div>
-                        )
-
-                        }
-
-
+                        )}
                     </div>
                     <Box sx={{ marginTop: '32px' }}>
                         {data['sections'].map((e: any, index: any) => (
                             <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} setExpandIndex={setExpandIndex} />
                         ))}
-
                     </Box>
                 </Box>
-
-
-
-                <Box sx={{ width: 350, height: '100vh'}}>
+                <Box sx={{ width: 350, height: '100vh' }}>
                     <FeedbackActionsSidebar />
                 </Box>
             </Box>
@@ -188,4 +172,3 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
 }
 
 export default FeedbackContent;
-

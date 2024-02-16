@@ -25,6 +25,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
 
   const acceptClick = (index: any) => {
     childRef.current.trigger()
+    onDraftSelect('')
   }
   const dismissClick = (index: any) => {
     setOpenCards(-1);

@@ -39,7 +39,14 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
         setExpandPrompt(0)
         cardRef.current.style.background = 'white'
     }
-
+    const resetAllState = () => {
+        setPromptSelect('')
+        cardRef.current.style.background = 'white'
+        setExpandPreQuestionClarity(-1)
+        setExpandSectionClarity(-1)
+        setExpandpostQuestionClarity(-1)
+        setAnswerAceepted(false)
+    }
     return (
         <>
             <Box>
@@ -120,6 +127,11 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                                                                 ))
                                                             ))}
                                                         </div>
+                                                    }
+                                                    {
+                                                        answerAceepted && <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
+                                                            <Button onClick={() => { resetAllState(); setExpandPrompt(index + 1); }} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                                        </Box>
                                                     }
                                                 </>
 

@@ -163,7 +163,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                         height: !openCards == index
                           ? "fit-content"
                           : "initial",
-                        border: openCards == index ? '1px solid blue' : 'none'
+                        border: openCards == index ? '1px solid #2e5db0' : 'none'
 
                       }}
                       onClick={() => toggleCard(index)}

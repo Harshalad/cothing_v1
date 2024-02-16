@@ -116,7 +116,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex }
                                                         answerAceepted && <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
                                                             {postQuestionClarity?.map((e: any, index: any) => (
                                                                 e.questionPills.map((r: any, j: any) => (
-                                                                    (expandpostQuestionClarity === -1 || expandpostQuestionClarity == j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} />
+                                                                    (expandpostQuestionClarity === -1 || expandpostQuestionClarity == j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandpostQuestionClarity(e)} />
                                                                 ))
                                                             ))}
                                                         </div>

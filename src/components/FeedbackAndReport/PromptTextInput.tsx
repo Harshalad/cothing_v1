@@ -62,7 +62,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
 
     };
     return (
-      <div style={{ backgroundColor: "white", padding: "40px 20px" }}>
+      <div style={{ backgroundColor: "white"}}>
         <div
           onMouseEnter={() => textAreaIsHovered(true)}
           onMouseLeave={() => textAreaIsHovered(false)}
@@ -75,7 +75,9 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
             border: "1px solid #F8F8F8",
             paddingInline: "15px",
             borderRadius: "20px",
-            padding: "10px 20px",
+            padding: "20px",
+            margin: "20px 10px",
+            position: "relative"
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -115,7 +117,8 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
           </div>
           <div className="mt-15 ">
             {showMenuOnclick && (
-              <div className="d-flex ml-auto" style={{ justifyContent: "end" }} >
+              <div className="d-flex ml-auto" 
+              style={{ justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" }} >
                 <div className="showOnEdit">
                   <div className="f-14 f-500 cPointer">Aa</div>
                   <div

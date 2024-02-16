@@ -502,7 +502,7 @@ const ManagerView = ( { activeClass, handleActiveClass, managerDashboard, orgDas
                                   </span>
                                 </Box>
                                 <Typography className="graph_legend_text">
-                                  Org Thoroughness
+                                  Org Completeness
                                 </Typography>
                               </Stack>
                             </Stack>

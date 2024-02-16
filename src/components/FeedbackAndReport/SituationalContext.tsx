@@ -36,7 +36,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions }) =
 
             >
                 <Box className='questionPill' onClick={() => setIsExpanded(!isExpanded)}>
-                    <img height={18} src="/images/icons/stars.svg" />
+                    <img height={13} src="/images/icons/stars.svg" />
                     <p>
                         {title}
                     </p>

@@ -48,7 +48,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
 
             >
                 <Box className='questionPill' onClick={() => { if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }}>
-                    <img height={18} src="/images/icons/stars.svg" />
+                    <img height={13} src="/images/icons/stars.svg" />
                     <p>
                         {title}
                     </p>

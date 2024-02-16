@@ -12232,7 +12232,7 @@ Alignment Quotient Styling
 .btn_viewmore {
   padding: 8px 16px;
   border-radius: 32px;
-  background: rgba(221, 227, 238, 1);
+  background: #EAEDF3;
   text-transform: capitalize;
   color: rgba(0, 0, 0, 0.85);
   font-size: 12px;
@@ -12240,10 +12240,16 @@ Alignment Quotient Styling
   font-weight: 500;
   line-height: normal;
   width: fit-content;
+  border: 1px solid #E3E7F1;
+}
+.btn_viewmore:hover {
+  background: #DDE3EE;
+  border: 1px solid #DDE3EE;
 }
 
+
 .nextButton {
-  padding: 8px 16px;
+  padding: 5px 8px 5px 8px;
   border-radius: 32px;
   background: #2e5db0;
   color: #fff;
@@ -12261,7 +12267,7 @@ Alignment Quotient Styling
 .buttonstyle {
   display: flex;
   justify-content: end;
-  margin-top: 15px;
+  margin-top: 48px;
 }
 
 .buttonstyle .MuiButton-root {
@@ -12315,11 +12321,12 @@ p {
 .questionPill .circleOutline {
   color: #2e5db0;
   margin-left: auto;
+  height: 13px;
 }
 
 .questionPill p {
   color: #2e5db0;
-  font-size: 15px;
+  font-size: 11px;
   font-weight: 600;
 }
 
@@ -12440,6 +12447,8 @@ p {
   fill: #72777c;
   background-color: #e3edf7;
   border-radius: 13px;
+  width: 19px;
+  height: 19px;
 }
 
 .backButton {
@@ -12480,7 +12489,7 @@ p {
 }
 
 .css-kgaz8t {
-  gap: 10px !important;
+  gap: 8px !important;
 }
 
 .contentWrapper {
@@ -12502,8 +12511,10 @@ li {
   /* list-style-type: none; */
 }
 
+
 .buttonstyleli {
-  padding: 8px 16px;
+  height: 25px;
+  padding: 5px 8px 5px 8px;
   border-radius: 32px;
   background: #fff;
   color: #111;
@@ -12512,7 +12523,14 @@ li {
   font-weight: 500;
   line-height: normal;
   width: fit-content;
-  font-size: 13px;
+  font-size: 12px;
+}
+.buttonstyleli:hover {
+  background-color: rgba(221, 227, 238, 1);
+}
+.isSelected:hover  {
+  background-color: #2e5db0;
+  color: #fff;
 }
 
 .card2 {
@@ -12572,7 +12590,10 @@ li {
   right: 13px;
   top: 15px;
 }
-
+.arrowbutton .css-i4bv87-MuiSvgIcon-root {
+  width: 24px;
+  height: 24px;
+}
 .arrowbutton1 {
   position: absolute;
   right: -13px;
@@ -12592,14 +12613,17 @@ li {
   position: relative;
   border-radius: 18px;
   padding: 0 !important;
+  margin: 0 !important;
+  margin-top: 24px !important;
   /* background-color: #eef4fa; */
 }
 
 .innerContainer {
-  padding: 25px;
+  padding: 16px 16px 24px 16px;
   background-color: #fff;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+  border-radius: 10px;
 }
 
 .card1 {
@@ -12706,6 +12730,8 @@ li {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .sectionClarify {
@@ -12896,6 +12922,7 @@ li {
   text-transform: uppercase;
   margin-top: 0 !important;
   font-weight: 700;
+  line-height: 1.2;
 }
 .about {
   font-size: 14px;

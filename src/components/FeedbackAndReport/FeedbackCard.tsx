@@ -74,7 +74,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                             </div>
                         }
                         {!isExpanded &&
-                            <div style={{ display: 'flex' }}>
+                            <div style={{ display: 'flex', marginTop: "48px" }}>
                                 <Typography className='cardFooterText'>{currentSection['promptQuestionsMap'].length} Prompts</Typography>
                                 <Divider orientation="vertical" flexItem style={{ height: '20px', margin: '0 10px' }} />
                                 <Typography className='cardFooterText'>{currentSection['durationInMins']} mins</Typography>

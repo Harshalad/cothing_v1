@@ -120,7 +120,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
           </div> */}
            <div className="textEditorDisplay">
               <div className="flex" style={{ alignContent: "center", backgroundColor: "#f8f8f8", padding: "0"}}>
-                  <div><img height={18} src="/images/icons/stars.svg" /></div>
+                  <div><img height={18} src="/images/icons/greyStar.svg" /></div>
                   <div style={{ marginLeft: "auto"}}>
                       <NorthTwoToneIcon /><CloseTwoToneIcon />
                   </div>

@@ -55,7 +55,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
         <>
             <Box>
                 <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className="card" ref={cardRef}>
-                    <div className='innerContainer'>
+                    <div className={`innerContainer ${!isDescriptionExpanded ? "removeBorder" : "applyBorder"}`}>
                         {
                             isExpanded ?
                                 <Typography variant="h6" className="details">Step {index + 1} </Typography> :
@@ -65,7 +65,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                         <div className='arrowbutton' >
                             {isExpanded ?
                                 <Button className='expandbutton' onClick={() => { setIsExpanded(!isExpanded); setIsDescriptionExpanded(!isDescriptionExpanded) }}><ExpandMoreOutlined /></Button> :
-                                <Button className='buttonArrow' onClick={() => isDescriptionExpanded ? setIsExpanded(!isExpanded) : setIsDescriptionExpanded(!isDescriptionExpanded)}><ArrowForward /></Button>}
+                                <Button className={!isDescriptionExpanded ? "buttonArrow" : "arrowbuttonActive"}  onClick={() => isDescriptionExpanded ? setIsExpanded(!isExpanded) : setIsDescriptionExpanded(!isDescriptionExpanded)}><ArrowForward /></Button>}
                         </div>
                         <Typography variant="subtitle1" className='titleText'>{currentSection['name']}</Typography>
                         {isDescriptionExpanded &&
@@ -85,7 +85,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                     {isDescriptionExpanded && isExpanded &&
                         <>
 
-                            <div >
+                            <div className='addBorderContainer'>
                                 {expandPrompt == -1 ? <>
                                     <div className='sectionClarify'>
 
@@ -101,7 +101,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                                     null
                                 }
 
-
+                            
                                 <div className='que'>
                                     {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
                                         <Box key={promptIndex} className={`card2 ${promptIndex !== 0 ? 'mt-20' : ''}`}>

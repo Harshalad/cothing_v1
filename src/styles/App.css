@@ -12267,7 +12267,7 @@ Alignment Quotient Styling
 .buttonstyle {
   display: flex;
   justify-content: end;
-  margin-top: 48px;
+  margin-top: 52px;
 }
 
 .buttonstyle .MuiButton-root {
@@ -12367,6 +12367,10 @@ p {
   border-top-right-radius: 20px;
   padding: 25px;
   margin-top: 15px;
+ 
+}
+.addBorderContainer {
+/* border-bottom: 1px solid grey; */
 }
 
 .informationPill_container {
@@ -12536,8 +12540,9 @@ li {
 
 .card2 {
   position: relative;
-  border-radius: 18px;
-  padding: 0 !important;
+  /* border-radius: 18px; */
+  padding: 10px !important;
+  border-top: 1px solid #f4f4f5;
 }
 
 .arrowbutton2 {
@@ -12563,8 +12568,8 @@ li {
 
 .titleText {
   font-size: 16px;
-  font-weight: 600;
-  width: 98%;
+  font-weight: 700;
+  width: 95%;
 }
 
 .prompt {
@@ -12620,7 +12625,8 @@ li {
 }
 
 .innerContainer {
-  padding: 16px 16px 24px 16px;
+  /* padding: 16px 16px 24px 16px; */
+  padding: 24px 20px;
   background-color: #fff;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -12989,4 +12995,17 @@ li {
   list-style-type: disc !important;
   display: list-item !important;
   margin: 0 35px;
+}
+.applyBorder {
+  border: 2px solid #DFEBF6;
+}
+.removeBorder {
+  border: none;
+}
+.arrowbuttonActive {
+  color: #3861C9;
+  width: 64px;
+  background: #f8f8f8;
+  border-radius: 9px;
+  height: 64px;
 }

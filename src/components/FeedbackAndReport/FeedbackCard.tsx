@@ -94,7 +94,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                                         ))}
                                     </div>
                                     {expandPrompt == -1 &&
-                                        <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
+                                        <Box className="buttonstyle1" style={{ marginBottom: '8px', paddingRight: '25px' }}>
                                             <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                         </Box>
                                     }</> :

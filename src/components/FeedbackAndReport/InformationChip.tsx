@@ -158,10 +158,8 @@ const InformationChip: FC<InformationChipProps> = ({
                   }}
                 >
                   {datas.map((item: any, index: any) => (
-                    <div
-                      key={index}
-                      style={{ width: "48%", padding: "10px 0" }}
-                    >
+                    <div className="accord-description"
+                      key={index}>
                       <div
                         style={{
                           fontSize: "13px",

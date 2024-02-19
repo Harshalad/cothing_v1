@@ -12269,7 +12269,13 @@ Alignment Quotient Styling
   justify-content: end;
   margin-top: 52px;
 }
-
+.buttonstyle1 {
+  display: flex;
+  justify-content: end;
+}
+.buttonstyle1 .MuiButton-root {
+  background: #2e5db0;
+}
 .buttonstyle .MuiButton-root {
   background: #2e5db0;
 }
@@ -12299,10 +12305,23 @@ Alignment Quotient Styling
   flex-direction: column;
   gap: 10px;
   border: 1px solid #95c5d9;
+
+}
+.questionPill_container1 {
+  cursor: pointer;
+  /* background: red; */
+  background: rgba(223, 235, 246, 0.5);
+  padding-inline: 20px;
+  /* border-radius: 32px; */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: none !important;
+    padding: 0;
 }
 
 .questionPill_container:hover {
-  border: 1px solid #2e5db0;
+  /* border: 1px solid #2e5db0; */
 }
 
 p {
@@ -12316,6 +12335,12 @@ p {
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* background-color: #EFF5FB;
+  border: 1px solid #91BDD8;
+  border-radius: 20px;
+  padding: 0 15px;
+  margin-top: 20px;
+  margin-left: 20px; */
 }
 
 .questionPill .circleOutline {
@@ -12373,6 +12398,17 @@ p {
 /* border-bottom: 1px solid grey; */
 }
 
+/* .informationPill_container {
+  background: white;
+  /* padding-left: 8px;
+  padding-right: 10px; */
+  /* border-radius: 20px; */
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
+  /* width: fit-content;
+  padding: 8px 10px 8px 8px; */
+/* } */ 
+
 .informationPill_container {
   background: white;
   padding-left: 8px;
@@ -12381,6 +12417,12 @@ p {
   /* padding-top: 5px;
   padding-bottom: 5px; */
   width: fit-content;
+  margin: 10px 20px;
+
+}
+
+.questionPill_container1 .questionPill {
+  padding: 0 20px;
 }
 
 .informationPill_container:hover {
@@ -12525,7 +12567,7 @@ li {
   color: #111;
   text-transform: capitalize;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: normal;
   width: fit-content;
   font-size: 12px;
@@ -12579,6 +12621,7 @@ li {
 .titleTextPrompt {
   font-size: 18px;
   font-weight: 500;
+  width: 95%;
 }
 .detailsPrompt {
   font-size: 12px;
@@ -12636,6 +12679,11 @@ li {
   margin: 0 !important;
   margin-top: 24px !important;
   /* background-color: #eef4fa; */
+
+}
+.css-1yw67bg-MuiTypography-root {
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
 
 .innerContainer {
@@ -12827,6 +12875,11 @@ li {
 .hideDescription {
   height: 35px;
   overflow: hidden;
+  width: 95%;
+}
+.accord-description {
+  width: 48%;
+  padding: 10px 0;
 }
 
 /*  */
@@ -13023,4 +13076,10 @@ li {
   background: #f8f8f8;
   border-radius: 9px;
   height: 64px;
+}
+
+@media screen and (max-width: 1120px) {
+  .accord-description {
+    width: 100%;
+  }
 }

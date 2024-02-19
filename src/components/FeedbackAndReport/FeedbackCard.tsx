@@ -67,7 +67,7 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                                 <Button className='expandbutton' onClick={() => { setIsExpanded(!isExpanded); setIsDescriptionExpanded(!isDescriptionExpanded) }}><ExpandMoreOutlined /></Button> :
                                 <Button className={!isDescriptionExpanded ? "buttonArrow" : "arrowbuttonActive"}  onClick={() => isDescriptionExpanded ? setIsExpanded(!isExpanded) : setIsDescriptionExpanded(!isDescriptionExpanded)}><ArrowForward /></Button>}
                         </div>
-                        <Typography variant="subtitle1" className='titleText'>{currentSection['name']}</Typography>
+                        <Typography variant="subtitle1" className={`${!isDescriptionExpanded ? "titleTextupdated" : "titleTextAdd"}`}>{currentSection['name']}</Typography>
                         {isDescriptionExpanded &&
                             <div className="viewmore">
                                 <div className='mt-2 f-14 fw-400 pr-3 formateText addmore'>{currentSection['description']}</div>
@@ -108,8 +108,8 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
                                             <div className='arrowbutton2'>
                                                 <Button className='expandbutton'><ExpandMoreOutlined /></Button>
                                             </div>
-                                            <span className="details">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
-                                            <div className='titleText'>{prompt['question']}</div>
+                                            <span className="detailsPrompt">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
+                                            <div className='titleTextPrompt'>{prompt['question']}</div>
 
                                             {expandPrompt == promptIndex &&
 

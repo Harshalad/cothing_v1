@@ -12566,10 +12566,24 @@ li {
   margin-top: 20px;
 }
 
-.titleText {
+.titleTextupdated {
   font-size: 16px;
   font-weight: 700;
   width: 95%;
+}
+.titleTextAdd {
+  font-size: 20px;
+  font-weight: 700;
+  width: 95%;
+}
+.titleTextPrompt {
+  font-size: 18px;
+  font-weight: 500;
+}
+.detailsPrompt {
+  font-size: 12px;
+  font-weight: 600;
+  color: #878787;
 }
 
 .prompt {
@@ -12632,6 +12646,7 @@ li {
   border-bottom-right-radius: 30px;
   border-radius: 10px;
 }
+
 
 .card1 {
   position: relative;

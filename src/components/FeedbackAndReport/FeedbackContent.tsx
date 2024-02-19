@@ -132,7 +132,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                             <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }} ref={elementRef}>
                                 {data['name']}
                             </Typography>
-                            {<Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={isOpen ? <ExpandLess /> : <ExpandMore />}>
+                            {sectionStarted && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={isOpen ? <ExpandLess /> : <ExpandMore />}>
                                 View More
                             </Button>}
                         </Stack>

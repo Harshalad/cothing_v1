@@ -160,7 +160,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                             </motion.div>
                         )}
                     </div>
-                    <Box sx={{ marginTop: '32px' }}>
+                    <Box sx={{ marginTop: '32px', opacity: sectionStarted ? 1 : 0.5, pointerEvents: sectionStarted ? 'auto' : 'none' }} >
                         {data['sections'].map((e: any, index: any) => (
                             <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} setExpandIndex={setExpandIndex} />
                         ))}

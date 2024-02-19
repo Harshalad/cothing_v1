@@ -10,7 +10,7 @@ interface SituationalContextProps {
 }
 const SituationalContext: FC<SituationalContextProps> = ({ title, questions }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
     const [selectedBtn, setSelectedBtn] = useState<any>([]);
     // const [expandedChip, setExpandedChip] = useState<any>({
     //     qnOrder: null,

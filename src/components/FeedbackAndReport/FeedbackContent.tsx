@@ -3,7 +3,7 @@ import FeedbackHeader from './FeedbackHeader';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import FeedbackActionsSidebar from './FeedbackActionsSidebar';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
-import { ExpandMore } from '@mui/icons-material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { motion } from 'framer-motion'
 import SituationalContext from './SituationalContext';
 import FeedbackCard from './FeedbackCard';
@@ -14,6 +14,7 @@ interface FeedbackContentProps {
 
 const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
     const [isOpen, setIsOpen] = useState(true);
+    const [sectionStarted, setSectionStarted] = useState(false)
     const [showTitle, setShowTitle] = useState(false);
     const [expandIndex, setExpandIndex] = useState(-1);
     const modifiedDate = new Date(data.modifiedDate);
@@ -110,6 +111,8 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
     const handleHide = () => {
         setIsOpen(!isOpen);
         setExpandIndex(0)
+        setSectionStarted(true)
+
     }
 
 
@@ -129,7 +132,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                             <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }} ref={elementRef}>
                                 {data['name']}
                             </Typography>
-                            {(!isOpen) && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={<ExpandMore />}>
+                            {<Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={isOpen ? <ExpandLess /> : <ExpandMore />}>
                                 View More
                             </Button>}
                         </Stack>
@@ -151,9 +154,9 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                                         <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} />
                                     ))}
                                 </Box>
-                                <Box className="buttonstyle">
+                                {!sectionStarted && <Box className="buttonstyle">
                                     <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
-                                </Box>
+                                </Box>}
                             </motion.div>
                         )}
                     </div>

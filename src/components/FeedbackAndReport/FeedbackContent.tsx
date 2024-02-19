@@ -163,7 +163,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data }) => {
                         ))}
                     </Box>
                 </Box>
-                <Box sx={{ width: 318, height: '100vh' }}>
+                <Box sx={{ width: '35%', height: '100vh' }}>
                     <FeedbackActionsSidebar />
                 </Box>
             </Box>

@@ -89,11 +89,17 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, sel
                                 questions.map((question: any, index: number) => (
                                     <Box key={index} className='questionContainer'>
                                         <Box className='question_title1'>
+                                            <motion.span initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                                            transition={{delay:0.08*(index+1),duration:0.8*(index+1)}}
+                                            >
                                             {question['order']}.{question['questionName']}
+                                            </motion.span>
                                         </Box>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
                                             {question['pills'].map((pill: any) => (
-                                                <motion.span initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} >
+                                                <motion.span initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} 
+                                                transition={{delay:0.08*(index+1), duration:0.8*(index+1)}}
+                                                >
                                                     <Button onClick={() => onSelectionChange(pill.name, question?.questionName)} key={pill.name} className={`buttonstyleli ${check(pill.name, question?.questionName) ? 'isSelected' : ''}`}>{pill.name}</Button>
                                                 </motion.span>
                                             ))}

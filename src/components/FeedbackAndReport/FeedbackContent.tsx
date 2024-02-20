@@ -16,15 +16,16 @@ interface FeedbackContentProps {
     type: any;
 }
 
-const FeedbackContent: FC<FeedbackContentProps> = ( { data, user, type } ) => {
-    const [ isOpen, setIsOpen ] = useState( true );
-    const [ sectionStarted, setSectionStarted ] = useState( false )
-    const [ showTitle, setShowTitle ] = useState( false );
-    const [ selectedBtn, setSelectedBtn ] = useState<any>( [] );
-    const [ expandIndex, setExpandIndex ] = useState( -1 );
-    const modifiedDate = new Date( data?.modifiedDate );
-    const formattedDate = `${ modifiedDate.getDate() } ${ modifiedDate.toLocaleString( 'en-US', { month: 'short' } ) } • ${ modifiedDate.toLocaleString( 'en-US', { weekday: 'long' } ) }`;
-    console.log( data, "cothinkdata" );
+const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
+    const cardRef: any = useRef([]);
+    const [isOpen, setIsOpen] = useState(true);
+    const [sectionStarted, setSectionStarted] = useState(false)
+    const [showTitle, setShowTitle] = useState(false);
+    const [selectedBtn, setSelectedBtn] = useState<any>([]);
+    const [expandIndex, setExpandIndex] = useState(-1);
+    const modifiedDate = new Date(data?.modifiedDate);
+    const formattedDate = `${modifiedDate.getDate()} ${modifiedDate.toLocaleString('en-US', { month: 'short' })} • ${modifiedDate.toLocaleString('en-US', { weekday: 'long' })}`;
+    console.log(data, "cothinkdata");
 
     const questions = [
         {
@@ -95,96 +96,96 @@ const FeedbackContent: FC<FeedbackContentProps> = ( { data, user, type } ) => {
             ]
         }
     ]
-    const elementRef = useRef( null );
-    const headerRef = useRef( null );
+    const elementRef = useRef(null);
+    const headerRef = useRef(null);
 
-    useEffect( () => {
+    useEffect(() => {
         const handleScroll = () => {
-            if ( elementRef?.current && headerRef?.current ) {
+            if (elementRef?.current && headerRef?.current) {
                 //@ts-ignore
-                if ( elementRef?.current?.getBoundingClientRect().top < headerRef?.current?.getBoundingClientRect()?.bottom ) {
-                    setShowTitle( true );
+                if (elementRef?.current?.getBoundingClientRect().top < headerRef?.current?.getBoundingClientRect()?.bottom) {
+                    setShowTitle(true);
                 } else {
-                    setShowTitle( false );
+                    setShowTitle(false);
                 }
             }
         };
 
-        window.addEventListener( 'scroll', handleScroll );
+        window.addEventListener('scroll', handleScroll);
 
         return () => {
-            window.removeEventListener( 'scroll', handleScroll );
+            window.removeEventListener('scroll', handleScroll);
         };
-    }, [] );
+    }, []);
     const handleHide = () => {
-        setIsOpen( !isOpen );
-        setExpandIndex( 0 )
-        setSectionStarted( true )
-
+        setIsOpen(!isOpen);
+        setExpandIndex(0);
+        setSectionStarted(true);
+        console.log(cardRef.current[0].trigger())
     }
 
-    useEffect( () => {
-        setSelectedBtn( data?.situationContext !== null ? data?.situationContext : [] );
-    }, [ data ] )
+    useEffect(() => {
+        setSelectedBtn(data?.situationContext !== null ? data?.situationContext : []);
+    }, [data])
     return (
         <>
-            <Box sx={ { width: 'fit-content' } } ref={ headerRef }>
-                <FeedbackHeader titleName={ data?.name } showTitle={ showTitle } />
+            <Box sx={{ width: 'fit-content' }} ref={headerRef}>
+                <FeedbackHeader titleName={data?.name} showTitle={showTitle} />
             </Box>
 
-            <Box sx={ { display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '19px' } }>
-                <Box sx={ { paddingInline: '12px', width: '100%' } }>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '19px' }}>
+                <Box sx={{ paddingInline: '12px', width: '100%' }}>
                     <div className='contentWrapper'
 
                     >
-                        <Typography variant="caption" sx={ { fontSize: 12, fontWeight: 600 } }>
-                            Last Modified: { formattedDate }
+                        <Typography variant="caption" sx={{ fontSize: 11, fontWeight: 500 }}>
+                            Last Modified: {formattedDate}
                         </Typography>
-                        <Stack direction="row" justifyContent="space-between" spacing={ 2 } sx={ { width: '100%' } }>
-                            <Typography variant="h3" sx={ { fontSize: 25, fontWeight: 600, marginTop: '14px' } } ref={ elementRef }>
-                                { data?.name }
+                        <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
+                            <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }} ref={elementRef}>
+                                {data?.name}
                             </Typography>
-                            { sectionStarted && <Button className="btn_viewmore" onClick={ () => setIsOpen( !isOpen ) } endIcon={ isOpen ? <ExpandLess /> : <ExpandMore /> }>
-                                View Less
-                            </Button> }
+                            {sectionStarted && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={isOpen ? <ExpandLess /> : <ExpandMore />}>
+                                View More
+                            </Button>}
                         </Stack>
-                        <Typography variant='body1' sx={ {marginTop: "25px", fontSize:"14px", fontWeight:"400" } }>
-                            { data?.description }
+                        <Typography variant='body1'>
+                            {data?.description}
                         </Typography>
-                        { isOpen && (
+                        {isOpen && (
                             <motion.div>
-                                <Box sx={ { marginTop: '16px', display: 'flex', justifyContent: 'space-between' } }>
+                                <Box sx={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}>
                                     <Button variant='outlined' className='btn_pill_transparent'
-                                        startIcon={ <img src='/images/icons/binocular.svg' alt="Binocular Icon" /> }
+                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
                                     >
                                         Giving Feedback Framework todo rt
                                     </Button>
                                     <Button variant='outlined' className='btn_pill_transparent'
-                                        startIcon={ <img src='/images/icons/binocular.svg' alt="Binocular Icon" /> }
+                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
                                     >
-                                        { data?.totalTime } mins
+                                        {data?.totalTime} mins
                                     </Button>
                                 </Box>
-                                <Box sx={ { marginTop: '32px' } }>
-                                    { data?.sectionPills?.map( ( element: any, index: number ) => (
-                                        <SituationalContext title={ 'Before we get started, tell us more about your situation' } questions={ questions } key={ index } selectedBtn={ selectedBtn } setSelectedBtn={ setSelectedBtn } />
+                                <Box sx={{ marginTop: '32px' }}>
+                                    {data?.sectionPills?.map((element: any, index: number) => (
+                                        <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} key={index} selectedBtn={selectedBtn} setSelectedBtn={setSelectedBtn} />
 
-                                    ) )
+                                    ))
                                     }
                                 </Box>
-                                { !sectionStarted && <Box className="buttonstyle">
-                                    <Button onClick={ handleHide } className="nextButton" endIcon={ <EastRoundedIcon /> }>Next</Button>
-                                </Box> }
+                                {!sectionStarted && <Box className="buttonstyle">
+                                    <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                </Box>}
                             </motion.div>
-                        ) }
+                        )}
                     </div>
-                    <Box sx={ { marginTop: '32px', opacity: sectionStarted ? 1 : 0.5, pointerEvents: sectionStarted ? 'auto' : 'none' } } >
-                        { data?.sections.map( ( e: any, index: any ) => (
-                            <FeedbackCard key={ index } sectionData={ data } index={ index } expandIndex={ expandIndex } setExpandIndex={ setExpandIndex } user={ user } />
-                        ) ) }
+                    <Box sx={{ marginTop: '32px', opacity: sectionStarted ? 1 : 0.5, pointerEvents: sectionStarted ? 'auto' : 'none' }} >
+                        {data?.sections.map((e: any, index: any) => (
+                            <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} setExpandIndex={setExpandIndex} user={user} ref={(el: any) => (cardRef.current[index] = el)} />
+                        ))}
                     </Box>
                 </Box>
-                <Box sx={ { width: '35%', height: '100vh' } }>
+                <Box sx={{ width: '35%', height: '100vh' }}>
                     <FeedbackActionsSidebar />
                 </Box>
             </Box>

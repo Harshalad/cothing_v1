@@ -1,5 +1,5 @@
 import { Paper, Typography, Box, Button, Divider } from '@mui/material';
-import { useState, type FC, useEffect, useRef } from 'react';
+import { useState, type FC, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Add, AddCircle, AddCircleOutline, ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
@@ -13,7 +13,7 @@ interface FeedbackCardProps {
 
 }
 
-const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, setExpandIndex, user }) => {
+const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, index, expandIndex, setExpandIndex, user }, ref) => {
     const childRef: any = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [promptSelect, setPromptSelect] = useState('');
@@ -71,6 +71,14 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
         //     setIsDescriptionExpanded(true)
         // }
     }, [expandIndex])
+
+    useImperativeHandle(ref, () => ({
+        trigger: () => {
+            setIsExpanded(true);
+            setIsDescriptionExpanded(true)
+            console.log(index)
+        }
+    }));
     const handleOnCardClick = () => {
         setExpandIndex(index)
         setIsExpanded(false);
@@ -191,6 +199,6 @@ const FeedbackCard: FC<FeedbackCardProps> = ({ sectionData, index, expandIndex, 
 
         </>
     );
-};
+});
 
 export default FeedbackCard;

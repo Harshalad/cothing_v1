@@ -269,7 +269,7 @@ const DraftChip: FC<DraftChipProps> = ({
                             : "rgba(221, 227, 238, 0.25)",
                         height: !openCards == index ? "fit-content" : "initial",
                         border:
-                          openCards == index ? "1px solid #2e5db0" : "none",
+                          openCards == index ? "1.6px solid #2e5db0" : "none",
                       }}
                       onClick={(e) => {
                         e.stopPropagation()
@@ -336,7 +336,7 @@ const DraftChip: FC<DraftChipProps> = ({
           transition={{ delay: 0.2, duration: 0.5 }}
                         className={
                           openCards == index
-                            ? "mt-15"
+                            ? "mt-13"
                             : "hideDescriptionDraft , ml-22 mt-5"
                         }
                         style={{
@@ -359,7 +359,7 @@ const DraftChip: FC<DraftChipProps> = ({
                             style={{
                               display: "flex",
                               columnGap: "10px",
-                              marginTop: "20px",
+                              marginTop: "16px",
                             }}
                           >
                             <Button

@@ -13275,7 +13275,9 @@ li {
   width: 30px;
   height: 30px;
 }
-
+.mt-13{
+  margin-top: 13px;
+}
 @media screen and (max-width: 1120px) {
   .accord-description {
     width: 100%;

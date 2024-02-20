@@ -135,8 +135,8 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                 <FeedbackHeader titleName={data?.name} showTitle={showTitle} />
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '19px' }}>
-                <Box sx={{ paddingInline: '12px', width: '100%' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'left', gap: '24px', marginTop: '70px', position:'relative',}}>
+                <Box className="mainContainer" sx={{ paddingInline: '12px'}}>
                     <div className='contentWrapper'
 
                     >
@@ -187,7 +187,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                         ))}
                     </Box>
                 </Box>
-                <Box sx={{ width: '35%', height: '100vh' }}>
+                <Box className="sidebarContainer">
                     <FeedbackActionsSidebar />
                 </Box>
             </Box>

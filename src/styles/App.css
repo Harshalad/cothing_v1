@@ -12658,6 +12658,11 @@ li {
   font-size: 13px;
   color: #878787;
 }
+.accordDetails {
+  font-weight: 500;
+  font-size: 11px;
+  color: #878787;
+}
 
 .mt-20 {
   margin-top: 20px;
@@ -13010,7 +13015,23 @@ li {
 }
 
 /*  */
-.sidebar {}
+/* .sidebar {
+  width: 25%;
+  position: fixed;
+  right: 0;
+  padding: 0 20px;
+} */
+.mainContainer {
+  width: calc(100% - 29%);
+
+}
+.sidebarContainer {
+  width: 25%;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  padding: 0 20px;
+} 
 
 .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root {
   display: flex;
@@ -13030,9 +13051,10 @@ li {
 
 .tabWrapper .MuiTab-root {
   color: #111 !important;
-  font-size: 14px;
+  font-size: 13px;
   text-transform: capitalize;
   background-color: #EBEBEB;
+  font-weight: 400;
 }
 
 .tabWrapper button {
@@ -13059,7 +13081,8 @@ li {
   margin-top: 20px;
   border-radius: 12px;
   padding: 20px !important;
-  height: 100dvh;
+  height: 69dvh;
+  overflow-y: auto;
 }
 
 .titletext {
@@ -13071,7 +13094,7 @@ li {
 }
 
 .about {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .accordianWrapper .css-i4bv87-MuiSvgIcon-root {
@@ -13080,8 +13103,9 @@ li {
 }
 
 .innerWrapper {
-  font-size: 14px;
+  font-size: 12px;
   display: flex;
+  font-weight: 600;
 }
 
 .innerWrapper svg {
@@ -13099,8 +13123,17 @@ li {
 
 .videoplayer {
   background-color: #BBBBBB;
-  height: 100px;
-  margin-left: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 146px;
+}
+.videoplayer .css-i4bv87-MuiSvgIcon-root {
+  color: #9E9E9E;
+  width: 32px;
+  height: 41px;
+  cursor: pointer;
 }
 
 /* .css-o4b71y-MuiAccordionSummary-content.Mui-expanded {

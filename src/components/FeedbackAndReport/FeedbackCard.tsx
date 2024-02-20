@@ -164,7 +164,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                             }
 
 
-                            <div className='customeTyle'>
+                            <div className='customeTyle' style={{ paddingBottom: '25px' }}>
                                 {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
                                     <Box key={promptIndex} className={`card123 ${promptIndex !== 0 ? 'pt-20' : ''}`}>
                                         <div style={{ background: "white" }} className='colorDetails'>

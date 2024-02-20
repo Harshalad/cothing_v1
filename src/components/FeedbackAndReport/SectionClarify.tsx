@@ -52,7 +52,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                 onMouseLeave={() => !isExpanded ? setIsHovered(false) : null}
 
             >
-                <Box className='questionPill' onClick={(e: any) => { e.stopPropagation(); if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }}>
+                <Box className='questionPill' onClick={(e: any) => { e.stopPropagation(); if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }} style={{padding: "0 10px"}}>
                     <img height={13} src="/images/icons/stars.svg" />
                     <p>
                         {title}

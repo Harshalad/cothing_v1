@@ -195,14 +195,14 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                 <Typography component="div" sx={{
                   marginTop: "10px",
                   display: "flex",
-                  columnGap: "20px",
-                  flexWrap: "wrap",
+                  columnGap: "20px"
                 }}>
                   {dataResponse?.map((item: any, index: any) => (
                     <Box
                       key={index}
                       sx={{
                         width: "48%",
+                        display: "inline-block",
                         padding: "10px",
                         borderRadius: "16px",
                         background: openCards == index ? '#FCFCFD' : 'rgba(221, 227, 238, 0.25)',

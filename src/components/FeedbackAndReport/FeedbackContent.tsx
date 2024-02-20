@@ -131,6 +131,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
     }, [data])
     return (
         <>
+            <Box >
             <Box sx={{ width: 'fit-content' }} ref={headerRef}>
                 <FeedbackHeader titleName={data?.name} showTitle={showTitle} />
             </Box>
@@ -190,6 +191,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                 <Box className="sidebarContainer">
                     <FeedbackActionsSidebar />
                 </Box>
+            </Box>
             </Box>
         </>
     );

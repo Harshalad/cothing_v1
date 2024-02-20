@@ -73,7 +73,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
     };
     console.log( editorState.getCurrentContent().getBlockMap(), promptSelect, "editior state" );
     return (
-      <div style={ { backgroundColor: "white" } }>
+      <div style={ { backgroundColor: "white" } } className="checkEditor">
         <div
           onMouseEnter={ () => textAreaIsHovered( true ) }
           onMouseLeave={ () => textAreaIsHovered( false ) }
@@ -87,7 +87,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
             paddingInline: "15px",
             borderRadius: "20px",
             padding: "10px 20px",
-            margin: "20px 10px",
+           
             position: "relative"
           } }
         >

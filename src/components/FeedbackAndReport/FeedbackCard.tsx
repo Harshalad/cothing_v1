@@ -1,6 +1,7 @@
 import { Paper, Typography, Box, Button, Divider } from '@mui/material';
 import { useState, type FC, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Add, AddCircle, AddCircleOutline, ArrowForward, ExpandMoreOutlined, RemoveCircleOutlined } from '@mui/icons-material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import PromptTextInput from './PromptTextInput';
@@ -101,9 +102,9 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     console.log("sectionDatasectionData", preQuestionClarity);
     return (
         <>
-            <Box>
+        
                 <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className="card" ref={cardRef} onClick={handleOnCardClick}>
-                    <div className={`innerContainer`} onMouseEnter={() => { cardRef.current.classList.remove("removeBorder"); cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { cardRef.current.classList.remove("applyBorder"); cardRef.current.classList.add("removeBorder"); }}>
+                    <div className={`innerContainer ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : "removeBorder"}`} onMouseEnter={() => { cardRef.current.classList.remove("removeBorder"); cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { cardRef.current.classList.remove("applyBorder"); cardRef.current.classList.add("removeBorder"); }}>
                         {
                             isExpanded ?
                                 <Typography variant="h6" className="details">Step {index + 1} </Typography> :
@@ -115,12 +116,17 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 <Button className='expandbutton' onClick={() => { setIsExpanded(!isExpanded); setIsDescriptionExpanded(!isDescriptionExpanded) }}><ExpandMoreOutlined /></Button> :
                                 <Button className={(index == expandIndex) && isDescriptionExpanded ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
                         </div>
-                        <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded ? "titleTextupdated" : "titleTextAdd"}`}>{currentSection['name']}</Typography>
+                        <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
                         {(index == expandIndex) && isDescriptionExpanded &&
                             <div className="viewmore">
                                 <div className='mt-2 f-14 fw-400 pr-3 formateText addmore'>{currentSection['description']}</div>
                             </div>
                         }
+                        <Box style={{marginTop: "15px"}}>
+                        <img
+                            src="/images/icons/Expandbutton.svg"
+                            alt="guidance"></img>
+                        </Box>
                         {!isExpanded &&
                             <div style={{ display: 'flex', marginTop: "48px" }}>
                                 <Typography className='cardFooterText'>{currentSection['promptQuestionsMap'].length} Prompts</Typography>
@@ -135,7 +141,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                             <div className='addBorderContainer'>
                                 {expandPrompt == -1 ? <>
-                                    <div className='sectionClarify'>
+                                    <div className='sectionClarify' style={{marginTop: "20px"}}>
 
                                         {sectionClarity?.map((element: any, idx: any) => (
                                             (expandSectionClarity == idx || expandSectionClarity === -1) && expandPreQuestionClarity && <SectionClarify parentRef={cardRef} key={idx} title={element.pillName} questions={element.childPills} index={idx} onclick={(e) => setExpandSectionClarity(e)} element={currentSection} data={sectionData} from={"SECTION"} questionId={null} />
@@ -150,19 +156,21 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 }
 
 
-                                <div className='que'>
+                                <div className='customeTyle'>
                                     {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
-                                        <Box key={promptIndex} className={`card2 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
-                                            <div className='arrowbutton2'>
-                                                <Button className='expandbutton'><ExpandMoreOutlined /></Button>
+                                        <Box key={promptIndex} className={`card123 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
+                                            <div style={{background: "white"}} className='colorDetails'>
+                                                <div className='arrowbutton2'>
+                                                    <Button style={{ minWidth: "30px !important", width: "30px !important",background: "none", borderRadius: "25px", color: "#000000", height: "30px !important"}}><KeyboardArrowDownIcon /></Button>
+                                                </div>
+                                                <span className="detailsPrompt" style={{padding: "25px"}}>Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
+                                                <div className='titleTextPrompt' style={{padding: "25px"}}>{prompt['question']}</div>
                                             </div>
-                                            <span className="detailsPrompt">Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
-                                            <div className='titleTextPrompt'>{prompt['question']}</div>
 
                                             {expandPrompt == promptIndex &&
 
                                                 <>
-                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px' }} onClick={() => setAnswerAceepted(false)}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
+                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', }} onClick={() => setAnswerAceepted(false)}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                                                         {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
                                                             (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                         ))
@@ -202,7 +210,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                         </>
                     }
                 </Paper>
-            </Box>
+          
 
         </>
     );

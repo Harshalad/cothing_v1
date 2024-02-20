@@ -12317,6 +12317,7 @@ Alignment Quotient Styling
 }
 .questionPill_container-get .questionPill {
   display: flex;
+  /* padding-inline: 20px; */
 }
 .questionPill_container {
   cursor: pointer;
@@ -12444,7 +12445,19 @@ p {
   margin-top: 15px;
 
 }
-
+.customeTyle {
+  /* background-color: #fff; */
+ border-radius: 0;
+  /* margin-top: 15px; */
+  
+}
+.checkEditor {
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.customeTyle .addHoverClass {
+  border-radius: 0 !important;
+}
 .addBorderContainer {
   /* border-bottom: 1px solid grey; */
 }
@@ -12461,6 +12474,7 @@ p {
 /* } */
 
 .informationPill_container {
+
   background: white;
   padding: 8px 10px 8px 10px;
   /* padding-left: 8px;
@@ -12470,6 +12484,9 @@ p {
   padding-bottom: 5px; */
   width: fit-content;
   /* margin: 10px 20px; */
+
+}
+.innerStyleWidth {
 
 }
 
@@ -12559,6 +12576,10 @@ p {
   width: 100%;
   padding: 12px 0;
   height: 70px;
+  position: fixed;
+  top: 70px;
+  z-index: 1;
+  background-color: #f8f8f8;
   /* position: fixed;
   z-index: 1; */
 }
@@ -12580,6 +12601,7 @@ p {
   border: none;
  padding: 10px 20px 30px 20px;
 }
+
 
 .removeHoverClass {}
 
@@ -12641,6 +12663,12 @@ li {
   padding: 10px !important;
   border-top: 1px solid #f4f4f5;
 }
+.card123 {
+  position: relative;
+  /* border-radius: 18px; */
+ background-color: #fff;
+  border-top: 1px solid #f4f4f5;
+}
 
 .arrowbutton2 {
   right: -13px;
@@ -12684,6 +12712,10 @@ li {
   font-size: 18px;
   font-weight: 500;
   width: 95%;
+}
+.colorDetails {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .detailsPrompt {
@@ -12739,7 +12771,7 @@ li {
 
 .card {
   position: relative;
-  border-radius: 18px;
+  border-radius: 10px;
   padding: 0 !important;
   margin: 0 !important;
   margin-top: 24px !important;
@@ -12752,12 +12784,16 @@ li {
   /* padding: 16px 16px 24px 16px; */
   padding: 24px 20px;
   background-color: #fff;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  /* border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px; */
   border-radius: 10px;
+  border: 20px;
+  cursor: pointer;
 }
 
-
+.innerContainer:hover {
+  /* border-radius: 18px; */
+}
 .card1 {
   position: relative;
   border-radius: 18px;
@@ -12867,12 +12903,13 @@ li {
 }
 
 .sectionClarify {
-  padding: 25px;
+  padding: 10px 25px;
   display: flex;
   flex-wrap: wrap;
 }
 .sectionClarify .questionPill_container-get {
   background: none;
+  padding: 0;
 }
 
 /* promptTextInput */
@@ -13185,6 +13222,11 @@ li {
 
 .applyBorder {
   border: 2px solid #DFEBF6;
+  /* border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px; */
+}
+.applyBorder .innerContainer:hover {
+  border: none;
 }
 
 .removeBorder {
@@ -13197,6 +13239,10 @@ li {
   background: #f8f8f8;
   border-radius: 9px;
   height: 64px;
+}
+.arrowbuttonActive .css-i4bv87-MuiSvgIcon-root {
+  width: 30px;
+  height: 30px;
 }
 
 @media screen and (max-width: 1120px) {

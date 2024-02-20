@@ -43,7 +43,9 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
       setIsClicked(!showMenuOnclick);
       setEditorState(EditorState.createEmpty()); // Clear existing rich editor on button click
     };
-    const handleAccept = () => {
+    const handleAccept = (e?: any) => {
+
+      e?.stopPropagation();
       setPromptSelect('')
       const actionPlan = actionPlanRef.current
         ? actionPlanRef.current.innerHTML
@@ -96,7 +98,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
               ref={editor}
               editorState={editorState}
               onChange={onEditorChange}
-              // placeholder="Type to respond"
+              placeholder="Type to respond"
               readOnly={false} // Added to make the editor editable
             />
             {isHovered && (

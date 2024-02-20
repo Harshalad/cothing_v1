@@ -192,7 +192,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                             {expandPrompt == promptIndex &&
 
                                                 <Box>
-                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}
+                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }}
                                                         initial={{ height: 0, opacity: 0 }}
                                                         animate={{ height: 'auto', opacity: 1 }}
                                                         transition={{ delay: 0.06, duration: 0.5 }}

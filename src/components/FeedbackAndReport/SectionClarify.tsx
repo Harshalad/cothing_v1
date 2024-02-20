@@ -3,7 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { useState, type FC, useEffect } from 'react';
 import InformationChip from './InformationChip';
 import DraftChip from './DraftChip';
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 
 
@@ -71,10 +71,10 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                 </Box>
                 {isExpanded && (
                     <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            transition={{ delay: 0.06, duration: 0.5 }}
-                    className='expandedSection'>
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        transition={{ delay: 0.06, duration: 0.5 }}
+                        className='expandedSection'>
 
 
                         <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>

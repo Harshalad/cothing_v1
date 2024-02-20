@@ -43,7 +43,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
 
     return (
         <>
-            <Box className={`questionPill_container-get ${isExpanded ? "addHoverClass" : "removeHoverClass"}`} onClick={(e) => { e.stopPropagation(); }}
+            <Box className={`questionPill_container-get ${isExpanded ? "addHoverClass" : "removeHoverClass"}`}
                 sx={{
                     border: isHovered ? `1px solid ${borderColor}` : `0.5px solid ${borderColor}`, width: isExpanded ? '100%' : 'fit-content'
                 }}

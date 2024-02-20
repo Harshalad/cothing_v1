@@ -123,6 +123,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
       className="informationPill_container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={(e) => e.stopPropagation()}
     >
 
       <Box

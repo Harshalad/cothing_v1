@@ -50,7 +50,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     console.log(preQuestionClarity, 'preQuestionClarity');
 
 
-    const openPromptHandler = () => {
+    const openPromptHandler = (e: any) => {
+        e.stopPropagation();
         setExpandPrompt(0)
         cardRef.current.style.background = 'white'
     }

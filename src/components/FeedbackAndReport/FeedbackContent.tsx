@@ -117,7 +117,8 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    const handleHide = () => {
+    const handleHide = (e: any) => {
+        e.stopPropagation();
         setIsOpen(!isOpen);
         setExpandIndex(0);
         setSectionStarted(true);

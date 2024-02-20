@@ -9,14 +9,14 @@ import { elements } from "chart.js";
 interface InformationChipProps {
   data: any;
   index: number;
-  onclick: ( index: any ) => void;
+  onclick: (index: any) => void;
   section: any;
   pillname: any
   worksheet: any
   from: any
 }
 
-const InformationChip: FC<InformationChipProps> = ( {
+const InformationChip: FC<InformationChipProps> = ({
   data,
   onclick,
   index,
@@ -24,57 +24,57 @@ const InformationChip: FC<InformationChipProps> = ( {
   pillname,
   worksheet,
   from
-} ) => {
+}) => {
   //@ts-ignore
-  const user = useSelector( ( state ) => state?.auth?.nWorxUser );
+  const user = useSelector((state) => state?.auth?.nWorxUser);
   const router = useRouter();
-  const [ userWorkSheetId, setUserWorksheetId ] = useState<any>( null );
-  const [ type, setType ] = useState<any>( null );
-  useEffect( () => {
-    setUserWorksheetId( router?.query?.id );
-    setType( router?.query?.type === "prep" ? "PREPARE" : "QP" );
-  }, [ router ] )
-  console.log( data,
+  const [userWorkSheetId, setUserWorksheetId] = useState<any>(null);
+  const [type, setType] = useState<any>(null);
+  useEffect(() => {
+    setUserWorksheetId(router?.query?.id);
+    setType(router?.query?.type === "prep" ? "PREPARE" : "QP");
+  }, [router])
+  console.log(data,
     index,
     section,
-    pillname, worksheet, "elementelementelementaaaa" );
+    pillname, worksheet, "elementelementelementaaaa");
 
-  const [ isHovered, setIsHovered ] = useState( false );
-  const [ isExpanded, setIsExpanded ] = useState( false );
-  const [ isRefreshing, setIsRefreshing ] = useState( false );
-  const [ pillResponse, setPillResponse ] = useState<any>( null );
+  const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [pillResponse, setPillResponse] = useState<any>(null);
 
-  useEffect( () => {
-    if ( from === "SECTION" ) {
+  useEffect(() => {
+    if (from === "SECTION") {
       const sectionClarity: any[] = worksheet?.sectionClarity || []; // Ensure sectionClarity is an array or initialize it as an empty array
-      const sectionClarityObj = sectionClarity.find( ( obj: any ) => obj.sectionId === section.id ) || null;
+      const sectionClarityObj = sectionClarity.find((obj: any) => obj.sectionId === section.id) || null;
 
       let childPillsObj = null;
-      if ( sectionClarityObj ) {
+      if (sectionClarityObj) {
         const childPills = sectionClarityObj.sectionPills || [];
-        childPillsObj = childPills.find( ( obj: any ) => obj.pillName === pillname ) || null;
+        childPillsObj = childPills.find((obj: any) => obj.pillName === pillname) || null;
       }
 
       let pillResponseObj = null;
-      if ( childPillsObj ) {
+      if (childPillsObj) {
         const pillResponse = childPillsObj.childPills || [];
-        console.log( pillResponse, "pillresponse" );
-        pillResponseObj = pillResponse.find( ( obj: any ) => obj.pillName === data?.pillName ) || null;
+        console.log(pillResponse, "pillresponse");
+        pillResponseObj = pillResponse.find((obj: any) => obj.pillName === data?.pillName) || null;
       }
-      setPillResponse( pillResponseObj?.response );
+      setPillResponse(pillResponseObj?.response);
 
-      console.log( sectionClarityObj, childPillsObj, pillResponseObj, "sectionclaritty" );
+      console.log(sectionClarityObj, childPillsObj, pillResponseObj, "sectionclaritty");
     }
-  }, [ section, worksheet, data, index ] )
-  useEffect( () => {
-    setIsRefreshing( true );
-    const timer = setTimeout( () => {
-      setIsRefreshing( false );
-    }, 1000 );
+  }, [section, worksheet, data, index])
+  useEffect(() => {
+    setIsRefreshing(true);
+    const timer = setTimeout(() => {
+      setIsRefreshing(false);
+    }, 1000);
 
-    return () => clearTimeout( timer );
-  }, [ isExpanded ] );
-  console.log( section, data, "sectioninsection" )
+    return () => clearTimeout(timer);
+  }, [isExpanded]);
+  console.log(section, data, "sectioninsection")
 
   //const handleRefreshClick = (
   //  e: React.MouseEvent<SVGSVGElement, MouseEvent>
@@ -105,155 +105,157 @@ const InformationChip: FC<InformationChipProps> = ( {
         " As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have a significant impact on operations.e costs can have a significant impact on operations.",
     },
   ];
-  const [ openCards, setOpenCards ] = useState( Array( pillResponse?.items?.length ).fill( false ) );
+  const [openCards, setOpenCards] = useState(Array(pillResponse?.items?.length).fill(false));
   const handleChildClick = async () => {
-    setIsRefreshing( true );
-    if ( from === "SECTION" ) {
-      const response = await fetchSectionClarity( { userId: user?.id, programId: user?.activeProgramId, userWorksheetId: userWorkSheetId, type: type, sectionId: section?.id, pillName: pillname, pillChildName: data.pillName } );
-      console.log( response, "fetchSectionClarityfetchSectionClarity" );
+    setIsRefreshing(true);
+    if (from === "SECTION") {
+      const response = await fetchSectionClarity({ userId: user?.id, programId: user?.activeProgramId, userWorksheetId: userWorkSheetId, type: type, sectionId: section?.id, pillName: pillname, pillChildName: data.pillName });
+      console.log(response, "fetchSectionClarityfetchSectionClarity");
       //@ts-ignore
-      setPillResponse( response?.response );
-      setIsRefreshing( false );
+      setPillResponse(response?.response);
+      setIsRefreshing(false);
     }
   }
-  const toggleCard = ( index: any ) => {
-    setOpenCards( ( prevOpenCards ) => {
-      const newOpenCards = [ ...prevOpenCards ];
-      newOpenCards[ index ] = !newOpenCards[ index ];
+  const toggleCard = (index: any) => {
+    setOpenCards((prevOpenCards) => {
+      const newOpenCards = [...prevOpenCards];
+      newOpenCards[index] = !newOpenCards[index];
       return newOpenCards;
-    } );
+    });
   };
-  const skeletonArray = new Array( 5 ).fill( {} );
+  const skeletonArray = new Array(5).fill({});
   return (
     <Box
       className="informationPill_container"
-      onMouseEnter={ () => setIsHovered( true ) }
-      onMouseLeave={ () => setIsHovered( false ) }
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* use isActive class to active */ }
+      {/* use isActive class to active */}
       <Box
-        sx={ { display: "flex", gap: "8px", alignItems: "center" } }
+        sx={{ display: "flex", gap: "8px", alignItems: "center" }}
 
       >
         <img src="/images/icons/binocular.svg" alt="Binocular Icon" />
-        <Typography sx={ { fontSize: "12px", fontWeight: 600 } } onClick={ () => {
-          onclick( isExpanded ? -1 : index );
-          setIsExpanded( !isExpanded );
-          if ( pillResponse === null ) {
+        <Typography sx={{ fontSize: "12px", fontWeight: 600 }} onClick={(e) => {
+          e.stopPropagation();
+          onclick(isExpanded ? -1 : index);
+          setIsExpanded(!isExpanded);
+          if (pillResponse === null) {
             handleChildClick();
           }
-        } }>
-          { data.pillName }
+        }}>
+          {data.pillName}
         </Typography>
-        { isExpanded && (
+        {isExpanded && (
           <RefreshOutlined
-            onClick={ handleChildClick }
-            sx={ {
+            onClick={(e) => { e.stopPropagation(); handleChildClick() }}
+            sx={{
               fontSize: "14px",
               color: "rgba(0, 0, 0, 0.5)",
               marginLeft: "auto",
-            } }
+            }}
           />
-        ) }
-        { ( isHovered || isExpanded ) && (
-          <OpenInFull sx={ { fontSize: "14px", color: "rgba(0, 0, 0, 0.5)" } } onClick={ () => {
-            if ( !isExpanded ) {
+        )}
+        {(isHovered || isExpanded) && (
+          <OpenInFull sx={{ fontSize: "14px", color: "rgba(0, 0, 0, 0.5)" }} onClick={(e) => {
+            e.stopPropagation();
+            if (!isExpanded) {
               handleChildClick();
             }
-            onclick( isExpanded ? -1 : index );
-            setIsExpanded( !isExpanded );
-          } } />
-        ) }
+            onclick(isExpanded ? -1 : index);
+            setIsExpanded(!isExpanded);
+          }} />
+        )}
       </Box>
-      { isExpanded && (
-        <Box sx={ { width: "100%" } }>
-          { isRefreshing ? (
+      {isExpanded && (
+        <Box sx={{ width: "100%" }}>
+          {isRefreshing ? (
             <>
-              { " " }
+              {" "}
               {/* <Skeleton
                 variant="rectangular"
                 animation="wave"
                 width="100%"
                 height={300}
               /> */}
-              { skeletonArray.map( ( item: any, index ) => (
-                <div key={ index } style={ { width: "48%", padding: "10px 0" } }>
+              {skeletonArray.map((item: any, index) => (
+                <div key={index} style={{ width: "48%", padding: "10px 0" }}>
                   <div
-                    style={ {
+                    style={{
                       display: "flex",
                       justifyContent: "space-between",
-                    } }
+                    }}
                   >
                     <Skeleton
                       variant="rectangular"
                       animation="wave"
                       width="100%"
-                      height={ 15 }
+                      height={15}
                     />
                   </div>
                   <div
-                    className={ openCards[ index ] ? "" : "hideDescription" }
-                    style={ {
+                    className={openCards[index] ? "" : "hideDescription"}
+                    style={{
                       marginTop: "5px",
-                    } }
+                    }}
                   >
                     <Skeleton
                       variant="rectangular"
                       animation="wave"
                       width="100%"
-                      height={ 15 }
+                      height={15}
                     />
                   </div>
                 </div>
-              ) ) }
+              ))}
             </>
           ) : (
             <>
-              <Box sx={ { padding: "5px 15px" } }>
-                <Typography sx={ { fontSize: "13px" } }>
-                  { pillResponse?.summary }
+              <Box sx={{ padding: "5px 15px" }}>
+                <Typography sx={{ fontSize: "13px" }}>
+                  {pillResponse?.summary}
                 </Typography>
                 <Typography
-                  sx={ {
+                  sx={{
                     marginTop: "10px",
                     display: "flex",
                     columnGap: "20px",
                     flexWrap: "wrap",
-                  } }
+                  }}
                 >
-                  { pillResponse?.items.map( ( item: any, index: any ) => (
+                  {pillResponse?.items.map((item: any, index: any) => (
                     <div
-                      key={ index }
+                      key={index}
                       className="accord-description"
                     >
                       <div
-                        style={ {
+                        style={{
                           fontSize: "13px",
                           fontWeight: 400,
                           display: "flex",
                           justifyContent: "space-between",
-                        } }
+                        }}
                       >
-                        { item.header }
+                        {item.header}
                         <img
-                          onClick={ () => toggleCard( index ) }
-                          style={ {
-                            transform: openCards[ index ]
+                          onClick={() => toggleCard(index)}
+                          style={{
+                            transform: openCards[index]
                               ? "rotate(180deg)"
                               : "none",
-                          } }
-                          src={ "/images/icons/downArrow.svg" }
+                          }}
+                          src={"/images/icons/downArrow.svg"}
                         />
                       </div>
                       <div
-                        className={ openCards[ index ] ? "" : "hideDescription" }
-                        style={ {
+                        className={openCards[index] ? "" : "hideDescription"}
+                        style={{
                           fontSize: "12px",
                           fontWeight: 400,
                           marginTop: "5px",
-                        } }
+                        }}
                       >
-                        { item.description }
+                        {item.description}
                       </div>
                       <div
                         className={
@@ -261,13 +263,13 @@ const InformationChip: FC<InformationChipProps> = ( {
                         }
                       ></div>
                     </div>
-                  ) ) }
+                  ))}
                 </Typography>
               </Box>
             </>
-          ) }
+          )}
         </Box>
-      ) }
+      )}
     </Box>
   );
 };

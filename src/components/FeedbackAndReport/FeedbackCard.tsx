@@ -82,8 +82,14 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     }));
     const handleOnCardClick = () => {
         setExpandIndex(index)
+        if (isDescriptionExpanded) {
+            setIsDescriptionExpanded(false)
+        } else {
+            setIsDescriptionExpanded(true)
+        }
+
         setIsExpanded(false);
-        setIsDescriptionExpanded(true)
+
     }
     const openCardExpansion = (e: any) => {
         // Fix: Correct the spelling of stopPropagation

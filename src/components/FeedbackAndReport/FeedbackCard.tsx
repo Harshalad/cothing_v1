@@ -112,7 +112,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                 <div className={`innerContainer `} >
                     {
                         isExpanded ?
-                            <Typography variant="h6" className="details">Step {index + 1} </Typography> :
+                            <Typography variant="h6" className="details" sx={{fontSize:"16px!important"}} >Step {index + 1} </Typography> :
                             <Typography variant="h6" className="details">Step {index + 1} out of {totalSections}  </Typography>
                     }
 

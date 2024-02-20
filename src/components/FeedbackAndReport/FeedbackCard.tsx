@@ -5,6 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import PromptTextInput from './PromptTextInput';
+import { motion } from "framer-motion"
 interface FeedbackCardProps {
     sectionData: any;
     index: number;
@@ -123,9 +124,13 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                     </div>
                     <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded && isExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
                     {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
-                        <div className="viewmore">
+                        <motion.div className="viewmore"
+                        initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    transition={{ delay: 0.06  , duration: 0.5 }}
+                        >
                             <div className={`mt-2 f-14 fw-400 pr-3 formateText ${isturncate ? 'addmore' : ''}`}>{currentSection['description']}</div>
-                        </div>
+                        </motion.div>
                     }
                     {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
                         <Box style={{ marginTop: "15px" }} onClick={(e) => { e.stopPropagation(); setIsturncate(!isturncate) }}>
@@ -149,12 +154,16 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                         <div className='addBorderContainer'>
                             {expandPrompt == -1 ? <>
-                                <div className='sectionClarify' style={{ marginTop: "20px" }}>
+                                <motion.div className='sectionClarify' style={{ marginTop: "20px" }}
+                                initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            transition={{ delay: 0.06  , duration: 0.5 }}
+                                >
 
                                     {sectionClarity?.map((element: any, idx: any) => (
                                         (expandSectionClarity == idx || expandSectionClarity === -1) && expandPreQuestionClarity && <SectionClarify parentRef={cardRef} key={idx} title={element.pillName} questions={element.childPills} index={idx} onclick={(e) => setExpandSectionClarity(e)} element={currentSection} data={sectionData} from={"SECTION"} questionId={null} />
                                     ))}
-                                </div>
+                                </motion.div>
                                 {expandPrompt == -1 &&
                                     <Box className="buttonstyle1" style={{ marginBottom: '8px', paddingRight: '25px' }}>
                                         <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
@@ -166,6 +175,11 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                             <div className='customeTyle' style={{ paddingBottom: '25px' }}>
                                 {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
+                                    <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            transition={{ delay: 0.1  , duration: 0.5 }}
+                                    >
                                     <Box key={promptIndex} className={`card123 ${promptIndex !== 0 ? 'pt-20' : ''}`}>
                                         <div style={{ background: "white" }} className='colorDetails'>
                                             <div className='arrowbutton2' onClick={(e) => { e.stopPropagation(); setExpandPrompt(expandPrompt != promptIndex ? promptIndex : -1); setExpandPreQuestionClarity(-1) }}>
@@ -178,17 +192,26 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                         {expandPrompt == promptIndex &&
 
                                             <Box>
-                                                {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-                                                    <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 || !answerAceepted ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
+                                                {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}
+                                                 initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                transition={{ delay: 0.06  , duration: 0.5 }}
+                                                >
+                                                    <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
                                                         {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
                                                             (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                         ))
                                                         }
                                                     </Box>
-                                                </div>}
+                                                </motion.div>}
                                                 <Box sx={{ paddingLeft: '24px', paddingRight: '24px' }} onClick={e => e.stopPropagation()}>
+                                                    <motion.span
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    transition={{ delay: 0.2  , duration: 0.5 }}
+                                                    >
                                                     <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
-
+                                                    </motion.span>
                                                 </Box>
                                                 {
                                                     answerAceepted &&
@@ -220,6 +243,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                                         }
                                     </Box>
+                                    </motion.div>
                                 ))}
                             </div>
                         </div>

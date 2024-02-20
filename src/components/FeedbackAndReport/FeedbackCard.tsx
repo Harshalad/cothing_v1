@@ -112,7 +112,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                 <div className={`innerContainer `} >
                     {
                         isExpanded ?
-                            <Typography variant="h6" className="details" sx={{fontSize:"16px!important"}} >Step {index + 1} </Typography> :
+                            <Typography variant="h6" className="details" sx={{ fontSize: "16px!important" }} >Step {index + 1} </Typography> :
                             <Typography variant="h6" className="details">Step {index + 1} out of {totalSections}  </Typography>
                     }
 
@@ -179,7 +179,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                                             <Box>
                                                 {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-                                                    <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
+                                                    <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 || !answerAceepted ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
                                                         {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
                                                             (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                         ))
@@ -191,7 +191,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                                                 </Box>
                                                 {
-                                                    answerAceepted && 
+                                                    answerAceepted &&
                                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                                                         <Box sx={{ paddingLeft: expandpostQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
                                                             {postQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
@@ -213,7 +213,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                                 setExpandPrompt(promptIndex + 1);
                                                             }
                                                         }}
-                                                            className="nextButton" style={{marginBottom:"20px"}} endIcon={<EastRoundedIcon />}>Next</Button>
+                                                            className="nextButton" style={{ marginBottom: "20px" }} endIcon={<EastRoundedIcon />}>Next</Button>
                                                     </Box>
                                                 }
                                             </Box>

@@ -106,7 +106,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     return (
         <>
 
-            <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { if (!isExpanded) { cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { if (!isExpanded) { cardRef.current.classList.remove("applyBorder"); } }}>
+            <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { if (!isExpanded) { setIsDescriptionExpanded(true); cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { if (!isExpanded) { setIsDescriptionExpanded(false); cardRef.current.classList.remove("applyBorder"); } }}>
                 <div className={`innerContainer `} >
                     {
                         isExpanded ?
@@ -120,7 +120,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                             <Button className={(index == expandIndex) && isDescriptionExpanded ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
                     </div>
                     <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded && isExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
-                    {(index == expandIndex) && isDescriptionExpanded &&
+                    {isDescriptionExpanded &&
                         <div className="viewmore">
                             <div className={`mt-2 f-14 fw-400 pr-3 formateText ${isturncate ? 'addmore' : ''}`}>{currentSection['description']}</div>
                         </div>

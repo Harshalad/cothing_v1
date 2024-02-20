@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package ai.nworx.api.proto.cothinksheet;
+
+import "common/common.proto";
+option java_multiple_files = true;
+
+
+message CreateSheetRequest{
+	string userId = 1;
+	string programId = 2;
+	string goalId = 3;
+	string milestoneId = 4;
+	string worksheetId = 5;
+	string methodId = 6;
+	string methodType = 7;
+	string type = 8;
+}
+message FetchUserSheetRequest{
+	string userWorksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+	string type = 4;	
+}
+message UpdateSituationContextRequest{
+	string userWorksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+	string type = 4;	
+	repeated SituaionContext situaionContext = 5;	
+}
+
+message SituaionContext{
+	string question = 1;
+	string answer = 2;
+	repeated string selectedTags = 3;
+}
+
+
+message FetchSectionClarityRequest{
+	string userWorksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+	string type = 4;	
+	string sectionId = 5;	
+	string pillName = 6;	
+	string pillChildName = 7;	
+}
+
+message FetchQuestionClarityRequest{
+	string userWorksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+	string type = 4;	
+	string sectionId = 5;	
+	string pillName = 6;	
+	string pillChildName = 7;	
+	string question = 8;
+	string questionType = 9;
+}
+
+
+message UpdateQuestionClarityRequest{
+	string userWorksheetId = 1;
+	string userId = 2;
+	string programId = 3;
+	string type = 4;	
+	string sectionId = 5;	
+	string pillName = 6;	
+	string pillChildName = 7;	
+	string question = 8;
+	string status = 9;
+	int32 responseIndex = 10;
+	string answer = 11; 
+	string questionType = 12;
+}
+
+
+service CothinkSheetService{
+	rpc createSheet(CreateSheetRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchUserSheet(FetchUserSheetRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateSituationContext(UpdateSituationContextRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchSectionClarity(FetchSectionClarityRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc fetchQuestionClarity(FetchQuestionClarityRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+	rpc updateQuestionClarity(UpdateQuestionClarityRequest) returns (ai.nworx.api.proto.common.ResponseProto);
+}

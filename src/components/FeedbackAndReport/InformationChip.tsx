@@ -1,94 +1,274 @@
-import { ExpandMore, OpenInFull, RefreshOutlined } from '@mui/icons-material';
-import { Box, Typography, Skeleton } from '@mui/material';
-import { useState, FC, useEffect } from 'react';
+import { ExpandMore, OpenInFull, RefreshOutlined } from "@mui/icons-material";
+import { Box, Typography, Skeleton } from "@mui/material";
+import { useState, FC, useEffect } from "react";
+import { fetchSectionClarity } from "../../actions/coThinkPrep/fetchSectionClarity";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { elements } from "chart.js";
 
 interface InformationChipProps {
-    data: any;
-    keyIndex: string;
-    inProps: any;
-    onclick: (index: any) => void;
+  data: any;
+  index: number;
+  onclick: ( index: any ) => void;
+  section: any;
+  pillname: any
+  worksheet: any
+  from: any
 }
 
-const InformationChip: FC<InformationChipProps> = ({ data, keyIndex, onclick, inProps }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [isRefreshing, setIsRefreshing] = useState(false);
+const InformationChip: FC<InformationChipProps> = ( {
+  data,
+  onclick,
+  index,
+  section,
+  pillname,
+  worksheet,
+  from
+} ) => {
+  //@ts-ignore
+  const user = useSelector( ( state ) => state?.auth?.nWorxUser );
+  const router = useRouter();
+  const [ userWorkSheetId, setUserWorksheetId ] = useState<any>( null );
+  const [ type, setType ] = useState<any>( null );
+  useEffect( () => {
+    setUserWorksheetId( router?.query?.id );
+    setType( router?.query?.type === "prep" ? "PREPARE" : "QP" );
+  }, [ router ] )
+  console.log( data,
+    index,
+    section,
+    pillname, worksheet, "elementelementelementaaaa" );
 
-    useEffect(() => {
-        setIsRefreshing(true)
-        const timer = setTimeout(() => {
-            setIsRefreshing(false)
-        }, 1000);
+  const [ isHovered, setIsHovered ] = useState( false );
+  const [ isExpanded, setIsExpanded ] = useState( false );
+  const [ isRefreshing, setIsRefreshing ] = useState( false );
+  const [ pillResponse, setPillResponse ] = useState<any>( null );
 
-        return () => clearTimeout(timer);
-    }, [isExpanded]);
+  useEffect( () => {
+    if ( from === "SECTION" ) {
+      const sectionClarity: any[] = worksheet?.sectionClarity || []; // Ensure sectionClarity is an array or initialize it as an empty array
+      const sectionClarityObj = sectionClarity.find( ( obj: any ) => obj.sectionId === section.id ) || null;
 
+      let childPillsObj = null;
+      if ( sectionClarityObj ) {
+        const childPills = sectionClarityObj.sectionPills || [];
+        childPillsObj = childPills.find( ( obj: any ) => obj.pillName === pillname ) || null;
+      }
 
+      let pillResponseObj = null;
+      if ( childPillsObj ) {
+        const pillResponse = childPillsObj.childPills || [];
+        console.log( pillResponse, "pillresponse" );
+        pillResponseObj = pillResponse.find( ( obj: any ) => obj.pillName === data?.pillName ) || null;
+      }
+      setPillResponse( pillResponseObj?.response );
 
-    const handleRefreshClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-        e.stopPropagation();
-        setIsRefreshing(true);
-        setTimeout(() => setIsRefreshing(false), 2000);
-    };
+      console.log( sectionClarityObj, childPillsObj, pillResponseObj, "sectionclaritty" );
+    }
+  }, [ section, worksheet, data, index ] )
+  useEffect( () => {
+    setIsRefreshing( true );
+    const timer = setTimeout( () => {
+      setIsRefreshing( false );
+    }, 1000 );
 
-    useEffect(() => {
-        if (inProps.selected.qnOrder !== inProps.renderQuestionIndex || inProps.selected.pillIndex !== inProps.renderPillIndex) {
-            setIsExpanded(false)
-        }
-    }, [inProps])
+    return () => clearTimeout( timer );
+  }, [ isExpanded ] );
+  console.log( section, data, "sectioninsection" )
 
+  //const handleRefreshClick = (
+  //  e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  //) => {
+  //  e.stopPropagation();
+  //  setIsRefreshing( true );
+  //  setTimeout( () => setIsRefreshing( false ), 2000 );
+  //};
+  const datas = [
+    {
+      header: "Add raw materials costs as variable costs",
+      discription:
+        "As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have a significant impact on operations.e costs can have a significant impact on operations.",
+    },
+    {
+      header: "Add raw materials costs as variable costs",
+      discription:
+        " As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have a significant impact on operations.e costs can have a significant impact on operations.",
+    },
+    {
+      header: "Add raw materials costs as variable costs",
+      discription:
+        " As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have a significant impact on operations.e costs can have a significant impact on operations.",
+    },
+    {
+      header: "Add raw materials costs as variable costs",
+      discription:
+        " As environmental standards become more stringent, compliance costs can have a significant impact on operations.e costs can have a significant impact on operations.e costs can have a significant impact on operations.",
+    },
+  ];
+  const [ openCards, setOpenCards ] = useState( Array( pillResponse?.items?.length ).fill( false ) );
+  const handleChildClick = async () => {
+    setIsRefreshing( true );
+    if ( from === "SECTION" ) {
+      const response = await fetchSectionClarity( { userId: user?.id, programId: user?.activeProgramId, userWorksheetId: userWorkSheetId, type: type, sectionId: section?.id, pillName: pillname, pillChildName: data.pillName } );
+      console.log( response, "fetchSectionClarityfetchSectionClarity" );
+      //@ts-ignore
+      setPillResponse( response?.response );
+      setIsRefreshing( false );
+    }
+  }
+  const toggleCard = ( index: any ) => {
+    setOpenCards( ( prevOpenCards ) => {
+      const newOpenCards = [ ...prevOpenCards ];
+      newOpenCards[ index ] = !newOpenCards[ index ];
+      return newOpenCards;
+    } );
+  };
+  const skeletonArray = new Array( 5 ).fill( {} );
+  return (
+    <Box
+      className="informationPill_container"
+      onMouseEnter={ () => setIsHovered( true ) }
+      onMouseLeave={ () => setIsHovered( false ) }
+    >
+      {/* use isActive class to active */ }
+      <Box
+        sx={ { display: "flex", gap: "8px", alignItems: "center" } }
 
-
-    return (
-        <Box className='informationPill_container'  onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            {/* use isActive class to active */}
-            <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}
-                onClick={() => { onclick(isExpanded ? null : keyIndex); setIsExpanded(!isExpanded) }}>
-                <img src="/images/icons/binocular.svg" alt="Binocular Icon" />
-                <Typography>{data.title}</Typography>
-                {
-                    isExpanded && (
-                        <RefreshOutlined
-                            onClick={handleRefreshClick}
-                            sx={{ fontSize: '14px', color: 'rgba(0, 0, 0, 0.5)', marginLeft: 'auto' }} />
-                    )
-                }
-                {(isHovered || isExpanded) && (
-                    <OpenInFull
-                        sx={{ fontSize: '14px', color: 'rgba(0, 0, 0, 0.5)' }} />
-                )}
-            </Box>
-            {
-                isExpanded && (
-                    <Box sx={{ width: '100%' }}>
-                        {isRefreshing ? (
-                            <> <Skeleton variant="rectangular" animation="wave" width="100%" height={300} /></>
-                        ) : (
-                            <>
-                                <Box>
-                                    {data.desc}
-                                </Box>
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                                    {data.tabs?.map((tab: { title: string; desc: string }, index: number) => (
-                                        <Box key={index} className='suggestionTab'>
-                                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                {tab.title}
-                                                <ExpandMore />
-                                            </Box>
-                                            <Box className='suggestionTab_desc'>
-                                                {tab.desc}
-                                            </Box>
-                                        </Box>
-                                    ))}
-                                </Box>
-                            </>
-                        )}
-                    </Box>
-                )
+      >
+        <img src="/images/icons/binocular.svg" alt="Binocular Icon" />
+        <Typography sx={ { fontSize: "12px", fontWeight: 600 } } onClick={ () => {
+          onclick( isExpanded ? -1 : index );
+          setIsExpanded( !isExpanded );
+          if ( pillResponse === null ) {
+            handleChildClick();
+          }
+        } }>
+          { data.pillName }
+        </Typography>
+        { isExpanded && (
+          <RefreshOutlined
+            onClick={ handleChildClick }
+            sx={ {
+              fontSize: "14px",
+              color: "rgba(0, 0, 0, 0.5)",
+              marginLeft: "auto",
+            } }
+          />
+        ) }
+        { ( isHovered || isExpanded ) && (
+          <OpenInFull sx={ { fontSize: "14px", color: "rgba(0, 0, 0, 0.5)" } } onClick={ () => {
+            if ( !isExpanded ) {
+              handleChildClick();
             }
-        </Box >
-    );
-}
+            onclick( isExpanded ? -1 : index );
+            setIsExpanded( !isExpanded );
+          } } />
+        ) }
+      </Box>
+      { isExpanded && (
+        <Box sx={ { width: "100%" } }>
+          { isRefreshing ? (
+            <>
+              { " " }
+              {/* <Skeleton
+                variant="rectangular"
+                animation="wave"
+                width="100%"
+                height={300}
+              /> */}
+              { skeletonArray.map( ( item: any, index ) => (
+                <div key={ index } style={ { width: "48%", padding: "10px 0" } }>
+                  <div
+                    style={ {
+                      display: "flex",
+                      justifyContent: "space-between",
+                    } }
+                  >
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      width="100%"
+                      height={ 15 }
+                    />
+                  </div>
+                  <div
+                    className={ openCards[ index ] ? "" : "hideDescription" }
+                    style={ {
+                      marginTop: "5px",
+                    } }
+                  >
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      width="100%"
+                      height={ 15 }
+                    />
+                  </div>
+                </div>
+              ) ) }
+            </>
+          ) : (
+            <>
+              <Box sx={ { padding: "5px 15px" } }>
+                <Typography sx={ { fontSize: "13px" } }>
+                  { pillResponse?.summary }
+                </Typography>
+                <Typography
+                  sx={ {
+                    marginTop: "10px",
+                    display: "flex",
+                    columnGap: "20px",
+                    flexWrap: "wrap",
+                  } }
+                >
+                  { pillResponse?.items.map( ( item: any, index: any ) => (
+                    <div
+                      key={ index }
+                      className="accord-description"
+                    >
+                      <div
+                        style={ {
+                          fontSize: "13px",
+                          fontWeight: 400,
+                          display: "flex",
+                          justifyContent: "space-between",
+                        } }
+                      >
+                        { item.header }
+                        <img
+                          onClick={ () => toggleCard( index ) }
+                          style={ {
+                            transform: openCards[ index ]
+                              ? "rotate(180deg)"
+                              : "none",
+                          } }
+                          src={ "/images/icons/downArrow.svg" }
+                        />
+                      </div>
+                      <div
+                        className={ openCards[ index ] ? "" : "hideDescription" }
+                        style={ {
+                          fontSize: "12px",
+                          fontWeight: 400,
+                          marginTop: "5px",
+                        } }
+                      >
+                        { item.description }
+                      </div>
+                      <div
+                        className={
+                          index >= datas.length - 2 ? "" : "slitBorder"
+                        }
+                      ></div>
+                    </div>
+                  ) ) }
+                </Typography>
+              </Box>
+            </>
+          ) }
+        </Box>
+      ) }
+    </Box>
+  );
+};
 export default InformationChip;

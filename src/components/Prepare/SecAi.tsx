@@ -10,7 +10,7 @@ const SecAi = ( { secAiView, section }: any ) => {
 					height={ 24 }
 					alt="manager guidance"
 				/></div>
-				<div style={ { mixBlendMode: 'multiply', textAlign: 'center', color: '#2E5DB0', fontSize: 16, fontFamily: 'sans-serif', fontWeight: '600', wordWrap: 'break-word' } }>{ secAiView ? `View Feedback for ${ section?.name } Section ` : `Generate Feedback for ${ section?.name } Section` }</div>
+				<div style={ { mixBlendMode: 'multiply', textAlign: 'center', color: '#2E5DB0', fontSize: 16, fontFamily: 'sans-serif', fontWeight: '600', wordWrap: 'break-word' } }>{ secAiView ? `View Feedback for ${ section?.name } Section ` : `Generate Feedback for "${ section?.name.trim() }" Section` }</div>
 			</div> }
 		</>
 	);

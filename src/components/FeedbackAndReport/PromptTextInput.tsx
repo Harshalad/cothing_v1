@@ -1,65 +1,148 @@
-import { IosShare } from '@mui/icons-material';
-import { EditorState, Editor, convertFromHTML, ContentState, Modifier } from 'draft-js';
-import { useRef, useState, type FC, useEffect } from 'react';
+import { IosShare } from "@mui/icons-material";
+import {
+  EditorState,
+  Editor,
+  convertFromHTML,
+  ContentState,
+  Modifier,
+  convertToRaw,
+} from "draft-js";
+import draftToHtml from 'draftjs-to-html';
+import { useRef, useState, type FC, useEffect, forwardRef, useImperativeHandle } from "react";
+import CreateIcon from "@mui/icons-material/Create";
+import { Box, Button, Typography } from "@mui/material";
+import { updateQuestionClarity } from "../../actions/coThinkPrep/updateQuestionClarity";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import NorthTwoToneIcon from '@mui/icons-material/NorthTwoTone';
 
-interface PromptTextInputProps { }
-
-const PromptTextInput: FC<PromptTextInputProps> = () => {
-    const [showSuggestion, setShowSuggestion] = useState(false);
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const actionPlanRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setShowSuggestion(true)
-        }, 2000)
-    }, [])
-
-    const onEditorChange = (event: any) => {
-        setEditorState(event)
-        setShowSuggestion(false)
-    }
-    return (<div>
-        <div
-
-            style={{ width: 'auto', minHeight: '200px', height: 'auto', background: 'lightgrey', border: '1px solid grey', paddingInline: '15px' }}
-        >
-            <Editor
-                editorState={editorState}
-                onChange={onEditorChange}
-                placeholder="Enter your feedback here..."
-            />
-            <div className='promptSuggestionArea'>
-                {showSuggestion && (
-                    <div style={{ marginTop: '20px', cursor: 'pointer', fontSize: '16px', border: '1px solid grey' }}>
-                        <IosShare sx={{ float: 'right' }} onClick={() => {
-                            const actionPlan = actionPlanRef.current ? actionPlanRef.current.innerHTML : '';
-                            const blocksFromHTML = convertFromHTML(actionPlan);
-                            const newState = EditorState.createWithContent(
-                                ContentState.createFromBlockArray(
-                                    blocksFromHTML.contentBlocks,
-                                    blocksFromHTML.entityMap,
-                                )
-                            );
-                            const contentState = Modifier.replaceWithFragment(
-                                editorState.getCurrentContent(),
-                                editorState.getSelection(),
-                                newState.getCurrentContent().getBlockMap(),
-                            );
-                            const newEditorState = EditorState.push(editorState, contentState, 'insert-fragment');
-                            onEditorChange(newEditorState);
-                        }} />
-                        <div ref={actionPlanRef}>
-                            <strong>Action Plan:</strong><ul><li><strong>Start:</strong> Implementing Solution-Based Discussions in Sales Conversations - Aim to integrate this approach within the next 30 days.</li><li><strong>Stop:</strong> Engaging in Overly Aggressive Sales Tactics - Cease these tactics immediately to foster better client relationships.</li><li><strong>Do Differently:</strong> Find a Balanced Approach - Over the next 60 days, work on finding a balance between solution-based discussions and sales aggressiveness.</li></ul>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
-        <div>
-
-        </div>
-    </div>);
+interface PromptTextInputProps {
+  promptSelect: string
+  setPromptSelect: any,
+  setAnswerAceepted: any
 }
 
+const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
+  ( ( { promptSelect, setPromptSelect, setAnswerAceepted }, ref ) => {
+    //@ts-ignore
+    const user = useSelector( ( state ) => state?.auth?.nWorxUser );
+    const router = useRouter();
+    const [ userWorkSheetId, setUserWorksheetId ] = useState<any>( null );
+    const [ type, setType ] = useState<any>( null );
+    useEffect( () => {
+      setUserWorksheetId( router?.query?.id );
+      setType( router?.query?.type === "prep" ? "PREPARE" : "QP" );
+    }, [ router ] )
+    const [ editorState, setEditorState ] = useState( EditorState.createEmpty() );
+    const actionPlanRef = useRef<HTMLDivElement>( null );
+    const [ isHovered, textAreaIsHovered ] = useState( false );
+    const [ showMenuOnclick, setIsClicked ] = useState( false );
+    const handleClick = () => {
+      setIsClicked( !showMenuOnclick );
+      setEditorState( EditorState.createEmpty() ); // Clear existing rich editor on button click
+    };
+    const handleAccept = () => {
+      setPromptSelect( '' )
+      const actionPlan = actionPlanRef.current
+        ? actionPlanRef.current.innerHTML
+        : "";
+      const blocksFromHTML = convertFromHTML( actionPlan );
+      const newContentState = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
+      const newEditorState = EditorState.createWithContent( newContentState );
+
+
+      onEditorChange( newEditorState );
+      setPromptSelect( '' )
+      setAnswerAceepted( true )
+
+    }
+    console.log( draftToHtml( convertToRaw( editorState.getCurrentContent() ) ), "editorstate" );
+    useImperativeHandle( ref, () => ( {
+      trigger: () => {
+        handleAccept()
+      }
+    } ) );
+    const onEditorChange = ( event: any ) => {
+      setEditorState( event );
+
+
+    };
+    console.log( editorState.getCurrentContent().getBlockMap(), promptSelect, "editior state" );
+    return (
+      <div style={ { backgroundColor: "white" } }>
+        <div
+          onMouseEnter={ () => textAreaIsHovered( true ) }
+          onMouseLeave={ () => textAreaIsHovered( false ) }
+          className={ `${ isHovered ? "textAreaHover" : "" }` }
+          style={ {
+            width: "auto",
+            minHeight: "200px",
+            height: "auto",
+            background: "#F8F8F8",
+            border: "1px solid #F8F8F8",
+            paddingInline: "15px",
+            borderRadius: "20px",
+            padding: "10px 20px",
+            margin: "20px 10px",
+            position: "relative"
+          } }
+        >
+          <div style={ { display: "flex", justifyContent: "space-between" } }>
+            <Editor
+              editorState={ editorState }
+              onChange={ onEditorChange }
+              placeholder="Type to respond"
+            />
+            { isHovered && (
+              <Button onClick={ handleClick } className="expandbutton editBtn">
+                <CreateIcon style={ { width: "21px", color: "grey" } } />
+              </Button>
+            ) }
+          </div>
+          <div className="promptSuggestionArea">
+            { promptSelect && <div className="textEditorDisplay">
+              <div className="flex" style={ { alignContent: "center", backgroundColor: "#f8f8f8", padding: "0" } }>
+                <div><img height={ 18 } src="/images/icons/greyStar.svg" /></div>
+                <div style={ { marginLeft: "auto" } }>
+                  <NorthTwoToneIcon onClick={ handleAccept } /><CloseTwoToneIcon />
+                </div>
+              </div>
+              <div ref={ actionPlanRef }>
+                <div dangerouslySetInnerHTML={ { __html: promptSelect } } />
+              </div>
+            </div> }
+
+          </div>
+          <div className="mt-15 ">
+            { showMenuOnclick && (
+              <div className="d-flex ml-auto"
+                style={ { justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" } } >
+                <div className="showOnEdit">
+                  <div className="f-14 f-500 cPointer">Aa</div>
+                  <div
+                    className="f-12 f-400 cPointer"
+                    style={ { color: "rgba(0, 0, 0, 0.50)" } }
+                  >
+                    Body
+                  </div>
+                  <div className="rightSpliter"></div>
+                  <img className="cPointer" src="/images/icons/galareyImgIcon.svg" />
+                  <img className="cPointer" src="/images/icons/tableIcon.svg" />
+                  <img className="cPointer" src="/images/icons/menuIcon.svg" />
+                </div>
+                <div className="showOnEdit ml-10 f-14 cPointer" onClick={ handleClick }>
+                  Done
+                </div>
+              </div>
+            ) }
+          </div>
+        </div>
+      </div>
+    );
+  } );
+PromptTextInput.displayName = 'PromptTextInput';
 export default PromptTextInput;

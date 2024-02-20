@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FeedbackActionSidebar from './FeedbackActionsSidebar';
 import FeedbackContent from './FeedbackContent';
 import HeaderNav from '../common/HeaderNav/HeaderNav';
 import { Box } from '@mui/material';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { fetchUserSheet } from '../../actions/coThinkPrep/fetchUserSheet';
 
 const FeedbackReportPage: React.FC = () => {
   const drawerWidth = 250;
-
+  const [ worksheet, setWorksheet ] = useState<any>( null );
+  const router = useRouter();
+  const [ userWorkSheetId, setUserWorksheetId ] = useState<any>( null );
+  const [ type, setType ] = useState<any>( null );
+  useEffect( () => {
+    setUserWorksheetId( router?.query?.id );
+    setType( router?.query?.type === "prep" ? "PREPARE" : "QP" );
+  }, [ router ] )
+  //@ts-ignore
+  const user = useSelector( ( state ) => state?.auth?.nWorxUser );
+  useEffect( () => {
+    const getUserWorksheet = async () => {
+      const response = await fetchUserSheet( { userId: user?.id, programId: user?.activeProgramId, userWorksheetId: userWorkSheetId, type: type } );
+      setWorksheet( response );
+    }
+    getUserWorksheet();
+  }, [ userWorkSheetId, type ] )
+  console.log( worksheet, "worksheetatcothink" )
   const json = {
 
     "sections": [
@@ -175,94 +195,28 @@ const FeedbackReportPage: React.FC = () => {
                 "childPills": [
                   {
                     "pillName": "How do I connect this to my business context?",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 1
                   },
                   {
                     "pillName": "Can I skip this?",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 2
                   },
                   {
                     "pillName": "Why is this important?",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 3
                   },
                   {
                     "pillName": "Simplify the question",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 4
-                  }
-                ],
-                "order": 1
-              },
-              {
-                "pillName": "Help me get started",
-                "childPills": [
-                  {
-                    "pillName": "Give me an example response",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 1
-                  },
-                  {
-                    "pillName": "Ideas to get started",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 2
-                  },
-                  {
-                    "pillName": "How do I find a relevant information to answer this? ",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 3
-                  }
-                ],
-                "order": 2
-              }
-            ]
-          },
-          {
-            "questionId": "Look back on the last 15 days at the workplace. What, in your thinking, actions or language, was a Growth Mindset? What enabled it? What, as a result, was a functional consequence for you?",
-            "questionPills": [
-              {
-                "pillName": "Need clarification on the question?",
-                "childPills": [
-                  {
-                    "pillName": "How do I connect this to my business context?",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 1
-                  },
-                  {
-                    "pillName": "Can I skip this?",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 2
-                  },
-                  {
-                    "pillName": "Why is this important?",
-                    "pillAcceptReject": true,
-                    "pillChildPrompt": "",
-                    "questionChildResponse": null,
-                    "order": 3
-                  },
-                  {
-                    "pillName": "Simplify the question",
-                    "pillAcceptReject": true,
+                    "pillAcceptReject": false,
                     "pillChildPrompt": "",
                     "questionChildResponse": null,
                     "order": 4
@@ -299,6 +253,7 @@ const FeedbackReportPage: React.FC = () => {
               }
             ]
           }
+
         ]
       },
       {
@@ -1014,14 +969,14 @@ const FeedbackReportPage: React.FC = () => {
 
       <Box
         component="main"
-        sx={{
-          width: { tablet: `calc(100% - ${drawerWidth}px)` },
+        sx={ {
+          width: { tablet: `calc(100% - ${ drawerWidth }px)` },
           ml: { tablet: "auto" },
           marginLeft: "250px",
-        }}
+        } }
       >
-        <Box sx={{ backgroundColor: "#EAECEF", padding: "112px 32px 32px", minHeight: "100vh" }}>
-          <FeedbackContent data={json} />
+        <Box sx={ { backgroundColor: "#EAECEF", padding: "112px 32px 32px", minHeight: "100vh" } }>
+          <FeedbackContent data={ worksheet } user={ user } type={ type } />
         </Box>
       </Box>
       <Box>

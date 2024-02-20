@@ -191,7 +191,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                                                 </Box>
                                                 {
-                                                    answerAceepted && <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
+                                                    answerAceepted && 
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                                                         <Box sx={{ paddingLeft: expandpostQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
                                                             {postQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
                                                                 (expandpostQuestionClarity === -1 || expandpostQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandpostQuestionClarity(e)} element={currentSection} data={sectionData} from={"POST"} questionId={postQuestionClarity[promptIndex].questionId} />
@@ -212,7 +213,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                                 setExpandPrompt(promptIndex + 1);
                                                             }
                                                         }}
-                                                            className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                                            className="nextButton" style={{marginBottom:"20px"}} endIcon={<EastRoundedIcon />}>Next</Button>
                                                     </Box>
                                                 }
                                             </Box>

@@ -204,8 +204,8 @@ const DraftChip: FC<DraftChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: '5px' }}
+                        height={12}
+                        style={{ borderRadius: '32px' }}
                       />
                     </Box>
                     <Box
@@ -218,8 +218,8 @@ const DraftChip: FC<DraftChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: '5px' }}
+                        height={12}
+                        style={{ borderRadius: '32px' }}
                       />
                     </Box>
                     <Box
@@ -232,8 +232,8 @@ const DraftChip: FC<DraftChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: '5px' }}
+                        height={12}
+                        style={{ borderRadius: '32px' }}
                       />
                     </Box>
                   </Box>

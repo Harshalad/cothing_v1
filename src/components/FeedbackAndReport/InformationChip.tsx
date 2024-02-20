@@ -210,22 +210,22 @@ const InformationChip: FC<InformationChipProps> = ({
                   variant="rectangular"
                   animation="wave"
                   width="100%"
-                  height={10}
-                  style={{ borderRadius: "5px", marginTop: "5px" }}
+                  height={12}
+                  style={{ borderRadius: "32px", marginTop: "5px" }}
                 />
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
                   width="100%"
-                  height={10}
-                  style={{ borderRadius: "5px", marginTop: "5px" }}
+                  height={12}
+                  style={{ borderRadius: "32px", marginTop: "5px" }}
                 />
                 <Skeleton
                   variant="rectangular"
                   animation="wave"
                   width="100%"
-                  height={10}
-                  style={{ borderRadius: "5px", marginTop: "5px" }}
+                  height={12}
+                  style={{ borderRadius: "32px", marginTop: "5px" }}
                 />
               </div>
               <Typography
@@ -249,8 +249,8 @@ const InformationChip: FC<InformationChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: "5px" }}
+                        height={12}
+                        style={{ borderRadius: "32px" }}
                       />
                     </div>
                     <div
@@ -262,8 +262,8 @@ const InformationChip: FC<InformationChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: "5px" }}
+                        height={12}
+                        style={{ borderRadius: "32px" }}
                       />
                     </div>
                     <div
@@ -275,8 +275,8 @@ const InformationChip: FC<InformationChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: "5px" }}
+                        height={12}
+                        style={{ borderRadius: "32px" }}
                       />
                     </div>
                     <div
@@ -288,8 +288,8 @@ const InformationChip: FC<InformationChipProps> = ({
                         variant="rectangular"
                         animation="wave"
                         width="100%"
-                        height={10}
-                        style={{ borderRadius: "5px" }}
+                        height={12}
+                        style={{ borderRadius: "32px" }}
                       />
                     </div>
                   </div>

@@ -170,7 +170,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                             {expandPrompt == promptIndex &&
 
                                                 <>
-                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', }} onClick={() => setAnswerAceepted(false)}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', }} onClick={() => setAnswerAceepted(false)}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px',}}  className='checkpadding'>
                                                         {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
                                                             (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                         ))

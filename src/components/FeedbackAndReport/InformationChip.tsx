@@ -127,7 +127,7 @@ const InformationChip: FC<InformationChipProps> = ({
   return (
     <Box  className={`informationPill_container innerStyleWidth`}
     style={{ minWidth: 'fit-content', width: isExpanded ? '100%' : 'fit-content'}}
-    
+     
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

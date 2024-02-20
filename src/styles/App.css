@@ -12454,6 +12454,7 @@ p {
 .checkEditor {
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  padding: 20px 0;
 }
 .customeTyle .addHoverClass {
   border-radius: 0 !important;
@@ -12472,7 +12473,9 @@ p {
 /* width: fit-content;
   padding: 8px 10px 8px 8px; */
 /* } */
-
+.checkpadding {
+  padding: 0 20px;
+}
 .informationPill_container {
 
   background: white;

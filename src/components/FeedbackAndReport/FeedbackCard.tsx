@@ -110,7 +110,9 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
         <>
 
             <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { sethoverIndex(index); setIsturncate(true); if (!isExpanded) { setIsDescriptionExpanded(true); cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { sethoverIndex(-1); if (!isExpanded) { setIsDescriptionExpanded(false); cardRef.current.classList.remove("applyBorder"); } }}>
-                <div className={`innerContainer `} >
+                <div className={`innerContainer `} 
+                style={{ borderBottomLeftRadius: isExpanded? '25px':'0', borderBottomRightRadius: isExpanded? "25px":'0'}}
+                >
                     {
                         isExpanded ?
                             <Typography variant="h6" className="details" sx={{ fontSize: "16px!important" }} >Step {index + 1} </Typography> :
@@ -154,7 +156,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                         <div className='addBorderContainer'>
                             {expandPrompt == -1 ? <>
-                                <motion.div className='sectionClarify' style={{ marginTop: "20px" }}
+                            
+                                <motion.div className='sectionClarify' style={{ marginTop: "20px", marginBottom: isExpanded? "20px":'0px' }}
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
                                     transition={{ delay: 0.06, duration: 0.5 }}
@@ -164,8 +167,9 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                         (expandSectionClarity == idx || expandSectionClarity === -1) && expandPreQuestionClarity && <SectionClarify parentRef={cardRef} key={idx} title={element.pillName} questions={element.childPills} index={idx} onclick={(e) => setExpandSectionClarity(e)} element={currentSection} data={sectionData} from={"SECTION"} questionId={null} />
                                     ))}
                                 </motion.div>
+                                <div></div>
                                 {expandPrompt == -1 &&
-                                    <Box className="buttonstyle1" style={{ marginBottom: '8px', paddingRight: '25px' }}>
+                                    <Box className="buttonstyle1" style={{ paddingBottom: isExpanded?"25px":'8px', paddingRight: '25px', paddingTop: isExpanded?"25px": '8px', background:'white' , borderTopLeftRadius: isExpanded? '25px':'0', borderTopRightRadius: isExpanded? "25px":'0'}}>
                                         <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                     </Box>
                                 }</> :
@@ -192,7 +196,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                             {expandPrompt == promptIndex &&
 
                                                 <Box>
-                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }}
+                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div 
+                                                    style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '0px' : '0' }}
                                                         initial={{ height: 0, opacity: 0 }}
                                                         animate={{ height: 'auto', opacity: 1 }}
                                                         transition={{ delay: 0.06, duration: 0.5 }}

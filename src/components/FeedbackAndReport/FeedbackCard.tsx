@@ -177,15 +177,17 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                                         {expandPrompt == promptIndex &&
 
-                                            <Box sx={{ padding: expandPrompt == promptIndex && expandPreQuestionClarity != -1 ? '0' : '25px' }}>
-                                                {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                                            <Box sx={{ padding: expandPrompt == promptIndex && expandPreQuestionClarity != -1 && expandpostQuestionClarity != -1 ? '0' : '25px' }}>
+                                                {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: expandpostQuestionClarity != -1 ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                                                     {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
                                                         (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                     ))
                                                     }
                                                 </div>}
+                                                <Box sx={{ marginLeft: expandpostQuestionClarity != -1 ? '25px' : '0' }}>
+                                                    <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
 
-                                                <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
+                                                </Box>
                                                 {
                                                     answerAceepted && <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '24px' }}>
                                                         {postQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (

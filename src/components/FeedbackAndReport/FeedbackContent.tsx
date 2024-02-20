@@ -121,7 +121,8 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
         setIsOpen(!isOpen);
         setExpandIndex(0);
         setSectionStarted(true);
-        console.log(cardRef.current[0].trigger())
+        cardRef.current[0].trigger()
+        console.log('trigger')
     }
 
     useEffect(() => {

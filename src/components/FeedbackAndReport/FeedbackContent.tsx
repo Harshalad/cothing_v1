@@ -132,80 +132,80 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
     return (
         <>
             <Box >
-            <Box sx={{ width: 'fit-content' }} ref={headerRef}>
-                <FeedbackHeader titleName={data?.name} showTitle={showTitle} />
-            </Box>
+                <Box sx={{ width: 'fit-content' }} ref={headerRef}>
+                    <FeedbackHeader titleName={data?.name} showTitle={showTitle} />
+                </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'left', gap: '24px', marginTop: '70px', position: 'relative', }}>
-                <Box className="mainContainer" sx={{ paddingInline: '12px' }}>
-                    <div className='contentWrapper'
+                <Box sx={{ display: 'flex', justifyContent: 'left', gap: '24px', marginTop: '70px', position: 'relative', }}>
+                    <Box className="mainContainer" sx={{ paddingInline: '12px' }}>
+                        <div className='contentWrapper'
 
-                    >
-                        <Typography variant="caption" sx={{ fontSize: 11, fontWeight: 500 }}>
-                            Last Modified: {formattedDate}
-                        </Typography>
-                        <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
-                            <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }} ref={elementRef}>
-                                {data?.name}
+                        >
+                            <Typography variant="caption" sx={{ fontSize: 11, fontWeight: 500 }}>
+                                Last Modified: {formattedDate}
                             </Typography>
-                            {sectionStarted && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={isOpen ? <ExpandLess /> : <ExpandMore />}>
-                                View More
-                            </Button>}
-                        </Stack>
-                        <Typography variant='body1'>
-                            {data?.description}
-                        </Typography>
-                        {isOpen && (
-                            <motion.div 
-                            >
-                                <Box >
-                                    <motion.div
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: 'auto', opacity: 1 }}
-                                    transition={{ delay: 0.1  , duration: 0.5 }}
-                                    style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}
-                                    >
-                                    <Button variant='outlined' className='btn_pill_transparent'
-                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
-                                    >
-                                        Giving Feedback Framework todo rt
-                                    </Button>
-                                    <Button variant='outlined' className='btn_pill_transparent'
-                                        startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
-                                    >
-                                        {data?.totalTime} mins
-                                    </Button>
-                                    </motion.div>
-                                </Box>
-                                <Box sx={{ marginTop: '32px' }}>
-                                    <motion.span
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: 'auto', opacity: 1 }}
-                                    transition={{ delay: 0.2, duration: 0.5 }}
-                                    >
-                                    {data?.sectionPills?.map((element: any, index: number) => (
-                                        <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} key={index} selectedBtn={selectedBtn} setSelectedBtn={setSelectedBtn} />
+                            <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ width: '100%' }}>
+                                <Typography variant="h3" sx={{ fontSize: 20, fontWeight: 700 }} ref={elementRef}>
+                                    {data?.name}
+                                </Typography>
+                                {sectionStarted && <Button className="btn_viewmore" onClick={() => setIsOpen(!isOpen)} endIcon={isOpen ? <ExpandLess /> : <ExpandMore />}>
+                                    View {isOpen ? 'Less' : 'More'}
+                                </Button>}
+                            </Stack>
+                            <Typography variant='body1'>
+                                {data?.description}
+                            </Typography>
+                            {isOpen && (
+                                <motion.div
+                                >
+                                    <Box >
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            transition={{ delay: 0.1, duration: 0.5 }}
+                                            style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}
+                                        >
+                                            <Button variant='outlined' className='btn_pill_transparent'
+                                                startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                            >
+                                                Giving Feedback Framework todo rt
+                                            </Button>
+                                            <Button variant='outlined' className='btn_pill_transparent'
+                                                startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                            >
+                                                {data?.totalTime} mins
+                                            </Button>
+                                        </motion.div>
+                                    </Box>
+                                    <Box sx={{ marginTop: '32px' }}>
+                                        <motion.span
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            transition={{ delay: 0.2, duration: 0.5 }}
+                                        >
+                                            {data?.sectionPills?.map((element: any, index: number) => (
+                                                <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} key={index} selectedBtn={selectedBtn} setSelectedBtn={setSelectedBtn} />
 
-                                    ))
-                                    }
-                                    </motion.span>
-                                </Box>
-                                {!sectionStarted && <Box className="buttonstyle">
-                                    <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
-                                </Box>}
-                            </motion.div>
-                        )}
-                    </div>
-                    <Box sx={{ marginTop: '32px', opacity: sectionStarted ? 1 : 0.5, pointerEvents: sectionStarted ? 'auto' : 'none' }} >
-                        {data?.sections.map((e: any, index: any) => (
-                            <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} setExpandIndex={setExpandIndex} user={user} ref={(el: any) => (cardRef.current[index] = el)} />
-                        ))}
+                                            ))
+                                            }
+                                        </motion.span>
+                                    </Box>
+                                    {!sectionStarted && <Box className="buttonstyle">
+                                        <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                    </Box>}
+                                </motion.div>
+                            )}
+                        </div>
+                        <Box sx={{ marginTop: '32px', opacity: sectionStarted ? 1 : 0.5, pointerEvents: sectionStarted ? 'auto' : 'none' }} >
+                            {data?.sections.map((e: any, index: any) => (
+                                <FeedbackCard key={index} sectionData={data} index={index} expandIndex={expandIndex} setExpandIndex={setExpandIndex} user={user} ref={(el: any) => (cardRef.current[index] = el)} />
+                            ))}
+                        </Box>
+                    </Box>
+                    <Box className="sidebarContainer">
+                        <FeedbackActionsSidebar />
                     </Box>
                 </Box>
-                <Box className="sidebarContainer">
-                    <FeedbackActionsSidebar />
-                </Box>
-            </Box>
             </Box>
         </>
     );

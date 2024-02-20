@@ -5,6 +5,7 @@ import { fetchSectionClarity } from "../../actions/coThinkPrep/fetchSectionClari
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { elements } from "chart.js";
+import {motion} from 'framer-motion';
 
 interface InformationChipProps {
   data: any;
@@ -202,7 +203,11 @@ const InformationChip: FC<InformationChipProps> = ({
         )}
       </Box>
       {isExpanded && (
-        <Box sx={{ width: "100%" }}>
+        <motion.div style={{ width: "100%" }}
+        initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           {isRefreshing ? (
             <>
               <div style={{ width: "99%" }}>
@@ -356,7 +361,7 @@ const InformationChip: FC<InformationChipProps> = ({
               </Box>
             </>
           )}
-        </Box>
+        </motion.div>
       )}
     </Box>
   );

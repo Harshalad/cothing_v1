@@ -156,8 +156,15 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                             {data?.description}
                         </Typography>
                         {isOpen && (
-                            <motion.div>
-                                <Box sx={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}>
+                            <motion.div 
+                            >
+                                <Box >
+                                    <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    transition={{ delay: 0.1  , duration: 0.5 }}
+                                    style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}
+                                    >
                                     <Button variant='outlined' className='btn_pill_transparent'
                                         startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
                                     >
@@ -168,13 +175,20 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                                     >
                                         {data?.totalTime} mins
                                     </Button>
+                                    </motion.div>
                                 </Box>
                                 <Box sx={{ marginTop: '32px' }}>
+                                    <motion.span
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    transition={{ delay: 0.2, duration: 0.5 }}
+                                    >
                                     {data?.sectionPills?.map((element: any, index: number) => (
                                         <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} key={index} selectedBtn={selectedBtn} setSelectedBtn={setSelectedBtn} />
 
                                     ))
                                     }
+                                    </motion.span>
                                 </Box>
                                 {!sectionStarted && <Box className="buttonstyle">
                                     <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>

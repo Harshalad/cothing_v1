@@ -204,12 +204,10 @@ const DraftChip: FC<DraftChipProps> = ( { data, onclick, index, onDraftSelect, c
                         width: "48%",
                         padding: "10px",
                         borderRadius: "16px",
-                        background: "rgba(221, 227, 238, 0.25)",
-                        height: !openCards == index
-                          ? "fit-content"
-                          : "initial",
+                        background: openCards == index ? '#FCFCFD' : 'rgba(221, 227, 238, 0.25)',
+                        height: !openCards == index ? "fit-content": "initial",
                         border: openCards == index ? '1px solid #2e5db0' : 'none'
-
+                        
                       } }
                       onClick={ () => toggleCard( index ) }
                     >
@@ -226,17 +224,27 @@ const DraftChip: FC<DraftChipProps> = ( { data, onclick, index, onDraftSelect, c
                             className="ml-1"
                             src={ "/images/icons/greyStar.svg" }
                           />{ " " }
-                          <Box>Draft { dataResponse?.length }</Box>
+                          <Box  sx={ {
+                          fontSize: "11px", width: "100%",
+                          fontWeight: 500}}><span>Draft { dataResponse?.length }</span> </Box>
                         </Box>
-                        <img
-                          onClick={ ( e: any ) => { openCards == index ? toggleCard( -1 ) : toggleCard( index ); e.stopPropagation() } }
-                          style={ {
-                            transform: openCards == index
-                              ? "rotate(180deg)"
-                              : "none",
-                          } }
-                          src={ "/images/icons/downArrow.svg" }
-                        />
+                        <div style={ {
+                              background: openCards == index
+                                ? "#ebf2f7"
+                                : "none", width: "20px", borderRadius: "20px", height: "20px", textAlign:"center"
+                            } }>
+                          <img
+                            onClick={ ( e: any ) => { openCards == index ? toggleCard( -1 ) : toggleCard( index ); e.stopPropagation() } }
+                            style={ {
+                              transform: openCards == index
+                                ? "rotate(0deg)"
+                                : "rotate(0deg)",
+                            } }
+                            src={ "/images/icons/downArrow.svg" }
+                          />
+                        </div>
+                          
+                        
                       </Box>
 
                       <Box

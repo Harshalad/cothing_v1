@@ -53,7 +53,7 @@ const SituationalContext: FC<SituationalContextProps> = ( { title, questions, se
     console.log( selectedBtn, "questionsatsituationcontext" );
     return (
         <>
-            <Box className={ `questionPill_container ${ isExpanded ? "addHoverClass" : "removeHoverClass" }` }
+            <Box className={ `questionPill_container-updated ${ isExpanded ? "addHoverClass" : "removeHoverClass" }` }
 
                 sx={ {
                     border: isHovered ? `1px solid ${ borderColor }` : `0.5px solid ${ borderColor }`, width: isExpanded ? '100%' : 'fit-content'
@@ -62,9 +62,8 @@ const SituationalContext: FC<SituationalContextProps> = ( { title, questions, se
                 onMouseLeave={ () => !isExpanded ? setIsHovered( false ) : null }
 
             >
-                <Box className='questionPill' onClick={ () => setIsExpanded( !isExpanded ) }>
-                    <img height={ 18 } src="/images/icons/stars.svg" />
-                    <Box className='questionPill' onClick={ () => setIsExpanded( !isExpanded ) }>
+                <Box>
+                    <Box className='questionPillContent' onClick={ () => setIsExpanded( !isExpanded ) }>
                         <img height={ 13 } src="/images/icons/stars.svg" />
                         <p>
                             { title }
@@ -83,12 +82,10 @@ const SituationalContext: FC<SituationalContextProps> = ( { title, questions, se
                     </Box>
                     { isExpanded && (
                         <Box className='expandedSection'>
-
-
                             {
                                 questions.map( ( question: any, index: number ) => (
                                     <Box key={ index } className='questionContainer'>
-                                        <Box className='question_title'>
+                                        <Box className='question_title1'>
                                             { question[ 'order' ] }.{ question[ 'questionName' ] }
                                         </Box>
                                         <Box sx={ { display: 'flex', flexWrap: 'wrap', gap: '24px' } }>

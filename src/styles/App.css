@@ -12419,6 +12419,9 @@ p {
   padding-bottom: 20px;
   border-bottom: 1px solid #dde3ee;
 }
+.questionContainer:last-child {
+  border-bottom: none !important;
+}
 
 .question_title {
   color: rgba(0, 0, 0, 0.85);
@@ -12575,7 +12578,7 @@ p {
 .addHoverClass {
   background-color: #ebf2f7;
   border: none;
-  /* padding: 10px 20px 50px 20px; */
+ padding: 10px 20px 30px 20px;
 }
 
 .removeHoverClass {}

@@ -122,7 +122,7 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
         setIsOpen(!isOpen);
         setExpandIndex(0);
         setSectionStarted(true);
-        cardRef.current[0].trigger()
+        cardRef.current?.[0]?.trigger()
         console.log('trigger')
     }
 
@@ -135,8 +135,8 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                 <FeedbackHeader titleName={data?.name} showTitle={showTitle} />
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'left', gap: '24px', marginTop: '70px', position:'relative',}}>
-                <Box className="mainContainer" sx={{ paddingInline: '12px'}}>
+            <Box sx={{ display: 'flex', justifyContent: 'left', gap: '24px', marginTop: '70px', position: 'relative', }}>
+                <Box className="mainContainer" sx={{ paddingInline: '12px' }}>
                     <div className='contentWrapper'
 
                     >

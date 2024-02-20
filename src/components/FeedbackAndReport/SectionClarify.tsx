@@ -3,6 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { useState, type FC, useEffect } from 'react';
 import InformationChip from './InformationChip';
 import DraftChip from './DraftChip';
+import {motion} from 'framer-motion'
 
 
 
@@ -69,10 +70,14 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
 
                 </Box>
                 {isExpanded && (
-                    <Box className='expandedSection'>
+                    <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            transition={{ delay: 0.06, duration: 0.5 }}
+                    className='expandedSection'>
 
 
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        <motion.div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                             {
                                 questions.map((question: any, index: number) =>
                                     expandedChip === -1 || expandedChip === index ? (
@@ -84,10 +89,10 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                                     ) : null
                                 )
                             }
-                        </div>
+                        </motion.div>
 
 
-                    </Box>
+                    </motion.div>
                 )}
 
 

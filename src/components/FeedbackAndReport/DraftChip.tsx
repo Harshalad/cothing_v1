@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import { fetchQuestionClarity } from "../../actions/coThinkPrep/fetchQuestionClarity";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import {motion} from 'framer-motion'
 interface DraftChipProps {
   data: any;
   index: number;
@@ -155,11 +156,11 @@ const DraftChip: FC<DraftChipProps> = ({
           component="div"
           sx={{ fontSize: "12px", fontWeight: 600 }}
           onClick={(e) => {
-            e.stopPropagation();
-            onclick(isExpanded ? -1 : index);
-            setIsExpanded(!isExpanded);
+            e.stopPropagation()
+            onclick(isExpanded ? -1 : index)
+            setIsExpanded(!isExpanded)
             if (dataResponse === null) {
-              handleChildClick();
+              handleChildClick()
             }
           }}
         >
@@ -180,7 +181,13 @@ const DraftChip: FC<DraftChipProps> = ({
         )}
       </Box>
       {isExpanded && (
-        <Box sx={{ width: "100%" }} onClick={(e) => e.stopPropagation()}>
+        <motion.div
+          style={{ width: "100%" }}
+          onClick={(e) => e.stopPropagation()}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          transition={{ delay: 0.06, duration: 0.5 }}
+        >
           {isRefreshing ? (
             <>
               <Typography
@@ -192,7 +199,6 @@ const DraftChip: FC<DraftChipProps> = ({
                 }}
               >
                 {skeletonArray.map((item: any, index) => (
-
                   <Box key={index} sx={{ width: "48%", padding: "10px 0" }}>
                     <Box
                       sx={{
@@ -205,11 +211,10 @@ const DraftChip: FC<DraftChipProps> = ({
                         animation="wave"
                         width="100%"
                         height={12}
-                        style={{ borderRadius: '32px' }}
+                        style={{ borderRadius: "32px" }}
                       />
                     </Box>
                     <Box
-
                       sx={{
                         marginTop: "5px",
                       }}
@@ -219,11 +224,10 @@ const DraftChip: FC<DraftChipProps> = ({
                         animation="wave"
                         width="100%"
                         height={12}
-                        style={{ borderRadius: '32px' }}
+                        style={{ borderRadius: "32px" }}
                       />
                     </Box>
                     <Box
-
                       sx={{
                         marginTop: "5px",
                       }}
@@ -233,11 +237,10 @@ const DraftChip: FC<DraftChipProps> = ({
                         animation="wave"
                         width="100%"
                         height={12}
-                        style={{ borderRadius: '32px' }}
+                        style={{ borderRadius: "32px" }}
                       />
                     </Box>
                   </Box>
-
                 ))}
               </Typography>
             </>
@@ -269,8 +272,8 @@ const DraftChip: FC<DraftChipProps> = ({
                           openCards == index ? "1px solid #2e5db0" : "none",
                       }}
                       onClick={(e) => {
-                        e.stopPropagation();
-                        toggleCard(index);
+                        e.stopPropagation()
+                        toggleCard(index)
                       }}
                     >
                       <Box
@@ -296,7 +299,10 @@ const DraftChip: FC<DraftChipProps> = ({
                             <span>Draft {dataResponse?.length}</span>{" "}
                           </Box>
                         </Box>
-                        <div
+                        <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        transition={{ delay: 0.06, duration: 0.5 }}
                           style={{
                             background: openCards == index ? "#ebf2f7" : "none",
                             width: "20px",
@@ -307,11 +313,11 @@ const DraftChip: FC<DraftChipProps> = ({
                         >
                           <img
                             onClick={(e: any) => {
-                              e.stopPropagation();
+                              e.stopPropagation()
                               openCards == index
                                 ? toggleCard(-1)
-                                : toggleCard(index);
-                              e.stopPropagation();
+                                : toggleCard(index)
+                              e.stopPropagation()
                             }}
                             style={{
                               transform:
@@ -321,16 +327,19 @@ const DraftChip: FC<DraftChipProps> = ({
                             }}
                             src={"/images/icons/downArrow.svg"}
                           />
-                        </div>
+                        </motion.div>
                       </Box>
 
-                      <Box
+                      <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
                         className={
                           openCards == index
                             ? "mt-15"
                             : "hideDescriptionDraft , ml-22 mt-5"
                         }
-                        sx={{
+                        style={{
                           fontSize: "11px",
                           fontWeight: 400,
                         }}
@@ -338,12 +347,16 @@ const DraftChip: FC<DraftChipProps> = ({
                         <div
                           dangerouslySetInnerHTML={{ __html: item?.response }}
                         />
-                      </Box>
+                      </motion.div>
 
                       <Box>
                         {openCards == index && (
-                          <Box
-                            sx={{
+                          <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          ><Box
+                            style={{
                               display: "flex",
                               columnGap: "10px",
                               marginTop: "20px",
@@ -357,8 +370,8 @@ const DraftChip: FC<DraftChipProps> = ({
                               onMouseEnter={() => setIsBtnHovered(true)}
                               onMouseLeave={() => setIsBtnHovered(false)}
                               onClick={(e) => {
-                                e.stopPropagation();
-                                acceptClick(index);
+                                e.stopPropagation()
+                                acceptClick(index)
                               }}
                             >
                               <Box sx={{ marginTop: "1px" }}>ACCEPT</Box>
@@ -375,8 +388,8 @@ const DraftChip: FC<DraftChipProps> = ({
                               onMouseEnter={() => setIsBtnHovered(true)}
                               onMouseLeave={() => setIsBtnHovered(false)}
                               onClick={(e) => {
-                                e.stopPropagation();
-                                dismissClick(index);
+                                e.stopPropagation()
+                                dismissClick(index)
                               }}
                             >
                               <Box sx={{ marginTop: "1px" }}>DISMISS</Box>
@@ -391,6 +404,7 @@ const DraftChip: FC<DraftChipProps> = ({
                               src={"/images/icons/moreOption.svg"}
                             />
                           </Box>
+                          </motion.div>
                         )}
                       </Box>
                     </Box>
@@ -399,9 +413,9 @@ const DraftChip: FC<DraftChipProps> = ({
               </Box>
             </>
           )}
-        </Box>
+        </motion.div>
       )}
     </Box>
-  );
+  )
 };
 export default DraftChip;

@@ -12555,11 +12555,11 @@ p {
   }
 }
 
-.DraftEditor-editorContainer,
+/* .DraftEditor-editorContainer,
 .DraftEditor-editorContainer * {
   animation: textFadeInZoomAnimation 2s ease-in-out forwards;
   width: 99%;
-}
+} */
 
 .centerText {
   padding-right: 20%;

@@ -24,61 +24,61 @@ interface PromptTextInputProps {
 }
 
 const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
-  ( ( { promptSelect, setPromptSelect, setAnswerAceepted }, ref ) => {
+  (({ promptSelect, setPromptSelect, setAnswerAceepted }, ref) => {
     //@ts-ignore
-    const user = useSelector( ( state ) => state?.auth?.nWorxUser );
+    const user = useSelector((state) => state?.auth?.nWorxUser);
     const router = useRouter();
-    const [ userWorkSheetId, setUserWorksheetId ] = useState<any>( null );
-    const [ type, setType ] = useState<any>( null );
-    useEffect( () => {
-      setUserWorksheetId( router?.query?.id );
-      setType( router?.query?.type === "prep" ? "PREPARE" : "QP" );
-    }, [ router ] )
-    const [ editorState, setEditorState ] = useState( EditorState.createEmpty() );
-    const actionPlanRef = useRef<HTMLDivElement>( null );
-    const [ isHovered, textAreaIsHovered ] = useState( false );
-    const [ showMenuOnclick, setIsClicked ] = useState( false );
+    const [userWorkSheetId, setUserWorksheetId] = useState<any>(null);
+    const [type, setType] = useState<any>(null);
+    useEffect(() => {
+      setUserWorksheetId(router?.query?.id);
+      setType(router?.query?.type === "prep" ? "PREPARE" : "QP");
+    }, [router])
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    const actionPlanRef = useRef<HTMLDivElement>(null);
+    const editor = useRef<any>(null)
+    const [isHovered, textAreaIsHovered] = useState(false);
+    const [showMenuOnclick, setIsClicked] = useState(false);
     const handleClick = () => {
-      setIsClicked( !showMenuOnclick );
-      setEditorState( EditorState.createEmpty() ); // Clear existing rich editor on button click
+      setIsClicked(!showMenuOnclick);
+      setEditorState(EditorState.createEmpty()); // Clear existing rich editor on button click
     };
     const handleAccept = () => {
-      setPromptSelect( '' )
+      setPromptSelect('')
       const actionPlan = actionPlanRef.current
         ? actionPlanRef.current.innerHTML
         : "";
-      const blocksFromHTML = convertFromHTML( actionPlan );
+      const blocksFromHTML = convertFromHTML(actionPlan);
       const newContentState = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
         blocksFromHTML.entityMap
       );
-      const newEditorState = EditorState.createWithContent( newContentState );
+      const newEditorState = EditorState.createWithContent(newContentState);
 
 
-      onEditorChange( newEditorState );
-      setPromptSelect( '' )
-      setAnswerAceepted( true )
+      onEditorChange(newEditorState);
+      setPromptSelect('')
+      setAnswerAceepted(true)
 
     }
-    console.log( draftToHtml( convertToRaw( editorState.getCurrentContent() ) ), "editorstate" );
-    useImperativeHandle( ref, () => ( {
+    console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())), "editorstate");
+    useImperativeHandle(ref, () => ({
       trigger: () => {
         handleAccept()
       }
-    } ) );
-    const onEditorChange = ( event: any ) => {
-      setEditorState( event );
-
-
+    }));
+    const onEditorChange = (event: any) => {
+      setEditorState(event);
     };
-    console.log( editorState.getCurrentContent().getBlockMap(), promptSelect, "editior state" );
+    console.log(editorState.getCurrentContent().getBlockMap(), promptSelect, "editior state");
     return (
-      <div style={ { backgroundColor: "white" } } className="checkEditor">
+      <div style={{ backgroundColor: "white" }} className="checkEditor">
         <div
-          onMouseEnter={ () => textAreaIsHovered( true ) }
-          onMouseLeave={ () => textAreaIsHovered( false ) }
-          className={ `${ isHovered ? "textAreaHover" : "" }` }
-          style={ {
+          onMouseEnter={() => textAreaIsHovered(true)}
+          onMouseLeave={() => textAreaIsHovered(false)}
+          onClick={() => { editor?.current?.focus() }}
+          className={`${isHovered ? "textAreaHover" : ""}`}
+          style={{
             width: "auto",
             minHeight: "200px",
             height: "auto",
@@ -87,45 +87,47 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
             paddingInline: "15px",
             borderRadius: "20px",
             padding: "10px 20px",
-           
+            cursor: 'text',
             position: "relative"
-          } }
+          }}
         >
-          <div style={ { display: "flex", justifyContent: "space-between" } }>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Editor
-              editorState={ editorState }
-              onChange={ onEditorChange }
-              placeholder="Type to respond"
+              ref={editor}
+              editorState={editorState}
+              onChange={onEditorChange}
+              // placeholder="Type to respond"
+              readOnly={false} // Added to make the editor editable
             />
-            { isHovered && (
-              <Button onClick={ handleClick } className="expandbutton editBtn">
-                <CreateIcon style={ { width: "21px", color: "grey" } } />
+            {isHovered && (
+              <Button onClick={handleClick} className="expandbutton editBtn">
+                <CreateIcon style={{ width: "21px", color: "grey" }} />
               </Button>
-            ) }
+            )}
           </div>
           <div className="promptSuggestionArea">
-            { promptSelect && <div className="textEditorDisplay">
-              <div className="flex" style={ { alignContent: "center", backgroundColor: "#f8f8f8", padding: "0" } }>
-                <div><img height={ 18 } src="/images/icons/greyStar.svg" /></div>
-                <div style={ { marginLeft: "auto" } }>
-                  <NorthTwoToneIcon onClick={ handleAccept } /><CloseTwoToneIcon />
+            {promptSelect && <div className="textEditorDisplay">
+              <div className="flex" style={{ alignContent: "center", backgroundColor: "#f8f8f8", padding: "0" }}>
+                <div><img height={18} src="/images/icons/greyStar.svg" /></div>
+                <div style={{ marginLeft: "auto" }}>
+                  <NorthTwoToneIcon onClick={handleAccept} /><CloseTwoToneIcon />
                 </div>
               </div>
-              <div ref={ actionPlanRef }>
-                <div dangerouslySetInnerHTML={ { __html: promptSelect } } />
+              <div ref={actionPlanRef}>
+                <div dangerouslySetInnerHTML={{ __html: promptSelect }} />
               </div>
-            </div> }
+            </div>}
 
           </div>
           <div className="mt-15 ">
-            { showMenuOnclick && (
+            {showMenuOnclick && (
               <div className="d-flex ml-auto"
-                style={ { justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" } } >
+                style={{ justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" }} >
                 <div className="showOnEdit">
                   <div className="f-14 f-500 cPointer">Aa</div>
                   <div
                     className="f-12 f-400 cPointer"
-                    style={ { color: "rgba(0, 0, 0, 0.50)" } }
+                    style={{ color: "rgba(0, 0, 0, 0.50)" }}
                   >
                     Body
                   </div>
@@ -134,15 +136,15 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
                   <img className="cPointer" src="/images/icons/tableIcon.svg" />
                   <img className="cPointer" src="/images/icons/menuIcon.svg" />
                 </div>
-                <div className="showOnEdit ml-10 f-14 cPointer" onClick={ handleClick }>
+                <div className="showOnEdit ml-10 f-14 cPointer" onClick={handleClick}>
                   Done
                 </div>
               </div>
-            ) }
+            )}
           </div>
         </div>
       </div>
     );
-  } );
+  });
 PromptTextInput.displayName = 'PromptTextInput';
 export default PromptTextInput;

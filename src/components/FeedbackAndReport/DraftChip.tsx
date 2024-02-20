@@ -10,15 +10,26 @@ interface DraftChipProps {
   index: number;
   onclick: (index: any) => void;
   onDraftSelect: (index: any) => void;
-  childRef?: any
-  from: any
-  worksheet: any
-  section: any
-  questionId: any,
-  title: any
+  childRef?: any;
+  from: any;
+  worksheet: any;
+  section: any;
+  questionId: any;
+  title: any;
 }
 
-const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, childRef, from, worksheet, section, questionId, title }) => {
+const DraftChip: FC<DraftChipProps> = ({
+  data,
+  onclick,
+  index,
+  onDraftSelect,
+  childRef,
+  from,
+  worksheet,
+  section,
+  questionId,
+  title,
+}) => {
   //@ts-ignore
   const user = useSelector((state) => state?.auth?.nWorxUser);
   const router = useRouter();
@@ -27,7 +38,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
   useEffect(() => {
     setUserWorksheetId(router?.query?.id);
     setType(router?.query?.type === "prep" ? "PREPARE" : "QP");
-  }, [router])
+  }, [router]);
   const [isHovered, setIsHovered] = useState(false);
   const [isBtnHovered, setIsBtnHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -36,7 +47,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
 
   useEffect(() => {
     setDataResponse(data?.questionChildResponse);
-  }, [data])
+  }, [data]);
   useEffect(() => {
     setIsRefreshing(true);
     const timer = setTimeout(() => {
@@ -47,21 +58,21 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
   }, [isExpanded]);
 
   const acceptClick = (index: any) => {
-    setIsBtnHovered(true)
-    childRef.current.trigger()
-    onDraftSelect('')
-    setIsBtnHovered(false)
-  }
+    setIsBtnHovered(true);
+    childRef.current.trigger();
+    onDraftSelect("");
+    setIsBtnHovered(false);
+  };
   const dismissClick = (index: any) => {
-    setIsBtnHovered(true)
+    setIsBtnHovered(true);
     setOpenCards(-1);
-    onDraftSelect('')
-    setIsBtnHovered(false)
-  }
+    onDraftSelect("");
+    setIsBtnHovered(false);
+  };
   const toggleCard = (index: number) => {
     if (!isBtnHovered) {
       setOpenCards(index);
-      onDraftSelect(datas[index] ? datas[index].html : '')
+      onDraftSelect(datas[index] ? datas[index].html : "");
     }
   };
   const handleRefreshClick = (
@@ -75,14 +86,24 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
     console.log("clicked", "fetchQuestionClarity");
     setIsRefreshing(true);
     if (from === "PRE" || from === "POST") {
-      const response = await fetchQuestionClarity({ userId: user?.id, programId: user?.activeProgramId, userWorksheetId: userWorkSheetId, type: type, sectionId: section?.id, pillName: title, pillChildName: data.pillName, question: questionId, questionType: from });
+      const response = await fetchQuestionClarity({
+        userId: user?.id,
+        programId: user?.activeProgramId,
+        userWorksheetId: userWorkSheetId,
+        type: type,
+        sectionId: section?.id,
+        pillName: title,
+        pillChildName: data.pillName,
+        question: questionId,
+        questionType: from,
+      });
       console.log(response, "fetchSectionClarityfetchSectionClarity");
       //@ts-ignore
       setDataResponse(response?.response);
       setIsRefreshing(false);
     }
-  }
-  console.log("draftchips", data, index, childRef, from, worksheet, section)
+  };
+  console.log("draftchips", data, index, childRef, from, worksheet, section);
   const datas = [
     {
       header: "Draft 1",
@@ -97,7 +118,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
       <li><b>START:</b> Solution based discussion in sales conversations.</li>
       <li><b>STOP:</b> Pushy/Sales marketing based discussions in sales conversations.</li>
       <li><b>DO DIFFERENTLY:</b> Balance of Solutioning related discussions and Marketing discussions, pushing the features and value of our product.</li>
-      </ul>`
+      </ul>`,
     },
     {
       header: "Draft 2",
@@ -111,34 +132,37 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
       <li>Start: Solution based discussion in sales conversations.</li>
       <li>Stop: Pushy/Sales marketing based discussions in sales conversations.</li>
       <li>Do Differently: Balance of Solutioning related discussions and Marketing discussions, pushing the features and value of our product.</li>
-      </ul>`
+      </ul>`,
     },
   ];
   const [openCards, setOpenCards] = useState(-1);
 
-
   const skeletonArray = new Array(2).fill({});
   return (
-    <Box style={{ minWidth: 'fit-content', width: isExpanded ? '100%' : 'fit-content' }}
+    <Box
+      style={{
+        minWidth: "fit-content",
+        width: isExpanded ? "100%" : "fit-content",
+      }}
       className="informationPill_container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={(e) => e.stopPropagation()}
     >
-
-      <Box
-        sx={{ display: "flex", gap: "8px", alignItems: "center" }}
-
-      >
+      <Box sx={{ display: "flex", gap: "8px", alignItems: "center" }}>
         <img src="/images/icons/binocular.svg" alt="Binocular Icon" />
-        <Typography component="div" sx={{ fontSize: "12px", fontWeight: 600 }} onClick={(e) => {
-          e.stopPropagation();
-          onclick(isExpanded ? -1 : index);
-          setIsExpanded(!isExpanded);
-          if (dataResponse === null) {
-            handleChildClick();
-          }
-        }}>
+        <Typography
+          component="div"
+          sx={{ fontSize: "12px", fontWeight: 600 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onclick(isExpanded ? -1 : index);
+            setIsExpanded(!isExpanded);
+            if (dataResponse === null) {
+              handleChildClick();
+            }
+          }}
+        >
           {data.pillName}
         </Typography>
         {isExpanded && (
@@ -159,45 +183,75 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
         <Box sx={{ width: "100%" }} onClick={(e) => e.stopPropagation()}>
           {isRefreshing ? (
             <>
-              {skeletonArray.map((item: any, index) => (
-                <Box key={index} sx={{ width: "48%", padding: "10px 0" }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Skeleton
-                      variant="rectangular"
-                      animation="wave"
-                      width="100%"
-                      height={15}
-                    />
+              <Typography
+                component="div"
+                sx={{
+                  marginTop: "10px",
+                  display: "flex",
+                  columnGap: "20px",
+                }}
+              >
+                {skeletonArray.map((item: any, index) => (
+
+                  <Box key={index} sx={{ width: "48%", padding: "10px 0" }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Skeleton
+                        variant="rectangular"
+                        animation="wave"
+                        width="100%"
+                        height={10}
+                        style={{ borderRadius: '5px' }}
+                      />
+                    </Box>
+                    <Box
+
+                      sx={{
+                        marginTop: "5px",
+                      }}
+                    >
+                      <Skeleton
+                        variant="rectangular"
+                        animation="wave"
+                        width="100%"
+                        height={10}
+                        style={{ borderRadius: '5px' }}
+                      />
+                    </Box>
+                    <Box
+
+                      sx={{
+                        marginTop: "5px",
+                      }}
+                    >
+                      <Skeleton
+                        variant="rectangular"
+                        animation="wave"
+                        width="100%"
+                        height={10}
+                        style={{ borderRadius: '5px' }}
+                      />
+                    </Box>
                   </Box>
-                  <Box
-                    className={openCards == index ? "" : "hideDescription"}
-                    sx={{
-                      marginTop: "5px",
-                    }}
-                  >
-                    <Skeleton
-                      variant="rectangular"
-                      animation="wave"
-                      width="100%"
-                      height={15}
-                    />
-                  </Box>
-                </Box>
-              ))}
+
+                ))}
+              </Typography>
             </>
           ) : (
             <>
-              <Box sx={{ padding: "5px 15px" }} >
-                <Typography component="div" sx={{
-                  marginTop: "10px",
-                  display: "flex",
-                  columnGap: "20px"
-                }}>
+              <Box sx={{ padding: "5px 15px" }}>
+                <Typography
+                  component="div"
+                  sx={{
+                    marginTop: "10px",
+                    display: "flex",
+                    columnGap: "20px",
+                  }}
+                >
                   {dataResponse?.map((item: any, index: any) => (
                     <Box
                       key={index}
@@ -206,12 +260,18 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                         display: "inline-block",
                         padding: "10px",
                         borderRadius: "16px",
-                        background: openCards == index ? '#FCFCFD' : 'rgba(221, 227, 238, 0.25)',
+                        background:
+                          openCards == index
+                            ? "#FCFCFD"
+                            : "rgba(221, 227, 238, 0.25)",
                         height: !openCards == index ? "fit-content" : "initial",
-                        border: openCards == index ? '1px solid #2e5db0' : 'none'
-
+                        border:
+                          openCards == index ? "1px solid #2e5db0" : "none",
                       }}
-                      onClick={(e) => { e.stopPropagation(); toggleCard(index) }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleCard(index);
+                      }}
                     >
                       <Box
                         sx={{
@@ -226,40 +286,58 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                             className="ml-1"
                             src={"/images/icons/greyStar.svg"}
                           />{" "}
-                          <Box sx={{
-                            fontSize: "11px", width: "100%",
-                            fontWeight: 500
-                          }}><span>Draft {dataResponse?.length}</span> </Box>
+                          <Box
+                            sx={{
+                              fontSize: "11px",
+                              width: "100%",
+                              fontWeight: 500,
+                            }}
+                          >
+                            <span>Draft {dataResponse?.length}</span>{" "}
+                          </Box>
                         </Box>
-                        <div style={{
-                          background: openCards == index
-                            ? "#ebf2f7"
-                            : "none", width: "20px", borderRadius: "20px", height: "20px", textAlign: "center"
-                        }}>
+                        <div
+                          style={{
+                            background: openCards == index ? "#ebf2f7" : "none",
+                            width: "20px",
+                            borderRadius: "20px",
+                            height: "20px",
+                            textAlign: "center",
+                          }}
+                        >
                           <img
-                            onClick={(e: any) => { e.stopPropagation(); openCards == index ? toggleCard(-1) : toggleCard(index); e.stopPropagation() }}
+                            onClick={(e: any) => {
+                              e.stopPropagation();
+                              openCards == index
+                                ? toggleCard(-1)
+                                : toggleCard(index);
+                              e.stopPropagation();
+                            }}
                             style={{
-                              transform: openCards == index
-                                ? "rotate(0deg)"
-                                : "rotate(0deg)",
+                              transform:
+                                openCards == index
+                                  ? "rotate(0deg)"
+                                  : "rotate(0deg)",
                             }}
                             src={"/images/icons/downArrow.svg"}
                           />
                         </div>
-
-
                       </Box>
 
                       <Box
                         className={
-                          openCards == index ? "mt-15" : "hideDescriptionDraft , ml-22 mt-5"
+                          openCards == index
+                            ? "mt-15"
+                            : "hideDescriptionDraft , ml-22 mt-5"
                         }
                         sx={{
                           fontSize: "11px",
                           fontWeight: 400,
                         }}
                       >
-                        <div dangerouslySetInnerHTML={{ __html: item?.response }} />
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item?.response }}
+                        />
                       </Box>
 
                       <Box>
@@ -278,7 +356,10 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                               sx={{ color: "white" }}
                               onMouseEnter={() => setIsBtnHovered(true)}
                               onMouseLeave={() => setIsBtnHovered(false)}
-                              onClick={(e) => { e.stopPropagation(); acceptClick(index) }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                acceptClick(index);
+                              }}
                             >
                               <Box sx={{ marginTop: "1px" }}>ACCEPT</Box>
                               <img
@@ -293,7 +374,10 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
                               sx={{ color: "black" }}
                               onMouseEnter={() => setIsBtnHovered(true)}
                               onMouseLeave={() => setIsBtnHovered(false)}
-                              onClick={(e) => { e.stopPropagation(); dismissClick(index) }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                dismissClick(index);
+                              }}
                             >
                               <Box sx={{ marginTop: "1px" }}>DISMISS</Box>
 

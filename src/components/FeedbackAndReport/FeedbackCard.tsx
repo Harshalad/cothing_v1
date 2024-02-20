@@ -16,6 +16,7 @@ interface FeedbackCardProps {
 
 const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, index, expandIndex, setExpandIndex, user }, ref) => {
     const [isturncate, setIsturncate] = useState(true);
+    const [hoverIndex, sethoverIndex] = useState(-1);
     const childRef: any = useRef(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [promptSelect, setPromptSelect] = useState('');
@@ -97,6 +98,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     const openCardExpansion = (e: any) => {
         // Fix: Correct the spelling of stopPropagation
         e.stopPropagation();
+        setExpandIndex(index)
         console.log('trigger');
         isDescriptionExpanded ? setIsExpanded(!isExpanded) : setIsDescriptionExpanded(!isDescriptionExpanded)
         setIsturncate(false)
@@ -106,7 +108,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     return (
         <>
 
-            <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { if (!isExpanded) { setIsDescriptionExpanded(true); cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { if (!isExpanded) { setIsDescriptionExpanded(false); cardRef.current.classList.remove("applyBorder"); } }}>
+            <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { sethoverIndex(index); setIsturncate(true); if (!isExpanded) { setIsDescriptionExpanded(true); cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { sethoverIndex(-1); if (!isExpanded) { setIsDescriptionExpanded(false); cardRef.current.classList.remove("applyBorder"); } }}>
                 <div className={`innerContainer `} >
                     {
                         isExpanded ?
@@ -115,17 +117,17 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                     }
 
                     <div className='arrowbutton' >
-                        {isExpanded ?
+                        {isExpanded && index == expandIndex ?
                             <Button className='expandbutton' onClick={() => { setIsExpanded(!isExpanded); setIsDescriptionExpanded(!isDescriptionExpanded) }}><ExpandMoreOutlined /></Button> :
-                            <Button className={isDescriptionExpanded ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
+                            <Button className={isDescriptionExpanded && (index == expandIndex || hoverIndex == index) ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
                     </div>
                     <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded && isExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
-                    {isDescriptionExpanded &&
+                    {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
                         <div className="viewmore">
                             <div className={`mt-2 f-14 fw-400 pr-3 formateText ${isturncate ? 'addmore' : ''}`}>{currentSection['description']}</div>
                         </div>
                     }
-                    {isDescriptionExpanded &&
+                    {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
                         <Box style={{ marginTop: "15px" }} onClick={(e) => { e.stopPropagation(); setIsturncate(!isturncate) }}>
                             <img
                                 style={{ transform: `rotate(${isturncate ? '0' : '180deg'})` }}

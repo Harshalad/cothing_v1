@@ -117,7 +117,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                     <div className='arrowbutton' >
                         {isExpanded ?
                             <Button className='expandbutton' onClick={() => { setIsExpanded(!isExpanded); setIsDescriptionExpanded(!isDescriptionExpanded) }}><ExpandMoreOutlined /></Button> :
-                            <Button className={(index == expandIndex) && isDescriptionExpanded ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
+                            <Button className={isDescriptionExpanded ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
                     </div>
                     <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded && isExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
                     {isDescriptionExpanded &&

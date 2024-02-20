@@ -135,7 +135,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 alt="guidance"></img>
                         </Box>
                     }
-                    {!isExpanded &&
+                    {(!isExpanded || expandIndex !== index) &&
                         <div style={{ display: 'flex', marginTop: "48px" }}>
                             <Typography className='cardFooterText'>{currentSection['promptQuestionsMap'].length} Prompts</Typography>
                             <Divider orientation="vertical" flexItem style={{ height: '20px', margin: '0 10px' }} />

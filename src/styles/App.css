@@ -12561,6 +12561,10 @@ p {
   width: 99%;
 } */
 
+.DraftEditor-root {
+  max-width: 90%;
+}
+
 .centerText {
   padding-right: 20%;
   font-size: 14px;

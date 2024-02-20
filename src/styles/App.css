@@ -12490,6 +12490,7 @@ p {
 .checkpadding {
   padding: 0 20px;
 }
+
 .informationPill_container {
 
   background: white;
@@ -13275,4 +13276,8 @@ li {
   .accord-description {
     width: 100%;
   }
+}
+
+.pt-20 {
+  padding-top: 20px;
 }

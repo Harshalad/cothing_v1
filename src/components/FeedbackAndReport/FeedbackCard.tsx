@@ -164,10 +164,10 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                             <div className='customeTyle'>
                                 {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
-                                    <Box key={promptIndex} className={`card123 ${promptIndex !== 0 ? 'mt-20' : ''}`}>
+                                    <Box key={promptIndex} className={`card123 ${promptIndex !== 0 ? 'pt-20' : ''}`}>
                                         <div style={{ background: "white" }} className='colorDetails'>
-                                            <div className='arrowbutton2'>
-                                                <Button style={{ minWidth: "30px !important", width: "30px !important", background: "none", borderRadius: "25px", color: "#000000", height: "30px !important" }}><KeyboardArrowDownIcon /></Button>
+                                            <div className='arrowbutton2' onClick={(e) => { e.stopPropagation(); setExpandPrompt(expandPrompt != promptIndex ? promptIndex : -1); setExpandPreQuestionClarity(-1) }}>
+                                                <Button style={{ minWidth: "30px !important", width: "30px !important", background: "none", borderRadius: "25px", color: "#000000", height: "30px !important", fontSize: '16px' }}><KeyboardArrowDownIcon /></Button>
                                             </div>
                                             <span className="detailsPrompt" style={{ padding: "25px" }}>Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
                                             <div className='titleTextPrompt' style={{ padding: "25px" }}>{prompt['question']}</div>
@@ -175,10 +175,10 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                                         {expandPrompt == promptIndex &&
 
-                                            <>
-                                                {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', }} onClick={() => setAnswerAceepted(false)}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                                            <Box sx={{ padding: expandPrompt == promptIndex && expandPreQuestionClarity != -1 ? '0' : '25px' }}>
+                                                {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                                                     {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
-                                                        (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandPreQuestionClarity(e)} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
+                                                        (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                     ))
                                                     }
                                                 </div>}
@@ -194,7 +194,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                 }
                                                 {
                                                     answerAceepted && <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
-                                                        <Button onClick={() => {
+                                                        <Button onClick={(e) => {
+                                                            e.stopPropagation()
                                                             resetAllState();
 
                                                             if (currentSection['promptQuestionsMap'].length == promptIndex + 1) {
@@ -206,7 +207,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                             className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                                     </Box>
                                                 }
-                                            </>
+                                            </Box>
 
                                         }
                                     </Box>

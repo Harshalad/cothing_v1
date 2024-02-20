@@ -65,7 +65,7 @@ const SituationalContext: FC<SituationalContextProps> = ( { title, questions, se
                 <Box>
                     <Box className='questionPillContent' onClick={ () => setIsExpanded( !isExpanded ) }>
                         <img height={ 13 } src="/images/icons/stars.svg" />
-                        <p>
+                        <p style={{marginTop: "0", fontSize:"11px", fontWeight: "700"}}>
                             { title }
                         </p>
 

@@ -12286,7 +12286,7 @@ Alignment Quotient Styling
 
 .btn_pill_transparent {
   width: fit-content;
-  padding: 8px 20px;
+  padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   color: rgba(0, 0, 0, 0.85);
   font-size: 12px;
@@ -12301,7 +12301,9 @@ Alignment Quotient Styling
 .questionPill_container-updated {
   border-radius: 25px;
   padding-inline: 20px;
+  margin-top: 40px !important;
 }
+
 
 .questionPill_container-get {
   cursor: pointer;
@@ -12379,6 +12381,7 @@ p {
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
 }
 
 .questionPill .circleOutline, .questionPillContent .circleOutline{
@@ -12592,6 +12595,7 @@ p {
   -webkit-box-shadow: inset 0 -10px 10px -10px #000000;
   box-shadow: inset 0 -7px 10px -10px #b7b3b3;
 }
+
 
 ul {
   margin: 0;
@@ -12858,6 +12862,9 @@ li {
   padding: 25px;
   display: flex;
   flex-wrap: wrap;
+}
+.sectionClarify .questionPill_container-get {
+  background: none;
 }
 
 /* promptTextInput */

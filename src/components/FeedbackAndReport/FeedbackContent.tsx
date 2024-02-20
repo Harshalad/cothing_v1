@@ -137,18 +137,18 @@ const FeedbackContent: FC<FeedbackContentProps> = ( { data, user, type } ) => {
                     <div className='contentWrapper'
 
                     >
-                        <Typography variant="caption" sx={ { fontSize: 11, fontWeight: 500 } }>
+                        <Typography variant="caption" sx={ { fontSize: 12, fontWeight: 600 } }>
                             Last Modified: { formattedDate }
                         </Typography>
                         <Stack direction="row" justifyContent="space-between" spacing={ 2 } sx={ { width: '100%' } }>
-                            <Typography variant="h3" sx={ { fontSize: 20, fontWeight: 700 } } ref={ elementRef }>
+                            <Typography variant="h3" sx={ { fontSize: 25, fontWeight: 600, marginTop: '14px' } } ref={ elementRef }>
                                 { data?.name }
                             </Typography>
                             { sectionStarted && <Button className="btn_viewmore" onClick={ () => setIsOpen( !isOpen ) } endIcon={ isOpen ? <ExpandLess /> : <ExpandMore /> }>
-                                View More
+                                View Less
                             </Button> }
                         </Stack>
-                        <Typography variant='body1'>
+                        <Typography variant='body1' sx={ {marginTop: "25px", fontSize:"14px", fontWeight:"400" } }>
                             { data?.description }
                         </Typography>
                         { isOpen && (

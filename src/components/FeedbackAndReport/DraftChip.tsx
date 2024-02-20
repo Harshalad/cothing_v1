@@ -300,9 +300,6 @@ const DraftChip: FC<DraftChipProps> = ({
                           </Box>
                         </Box>
                         <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        transition={{ delay: 0.06, duration: 0.5 }}
                           style={{
                             background: openCards == index ? "#ebf2f7" : "none",
                             width: "20px",
@@ -333,7 +330,6 @@ const DraftChip: FC<DraftChipProps> = ({
                       <motion.div
                       initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
                         className={
                           openCards == index
                             ? "mt-13"

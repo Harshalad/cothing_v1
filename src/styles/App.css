@@ -12298,6 +12298,7 @@ Alignment Quotient Styling
 .btn_pill_transparent:hover {
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
+
 .questionPill_container-updated {
   border-radius: 25px;
   padding-inline: 20px;
@@ -12315,10 +12316,12 @@ Alignment Quotient Styling
   gap: 16px;
   border: 1px solid #95c5d9;
 }
+
 .questionPill_container-get .questionPill {
   display: flex;
   /* padding-inline: 20px; */
 }
+
 .questionPill_container {
   cursor: pointer;
   background: #ebf1f7;
@@ -12332,7 +12335,8 @@ Alignment Quotient Styling
   border: 1px solid #95c5d9;
 
 }
-.questionPill_container > .questionPill  {
+
+.questionPill_container>.questionPill {
   display: flex;
 }
 
@@ -12376,6 +12380,7 @@ p {
   margin-top: 20px;
   margin-left: 20px; */
 }
+
 .questionPillContent {
   gap: 8px;
   width: 100%;
@@ -12385,13 +12390,15 @@ p {
   cursor: pointer;
 }
 
-.questionPill .circleOutline, .questionPillContent .circleOutline{
+.questionPill .circleOutline,
+.questionPillContent .circleOutline {
   color: #2e5db0;
   margin-left: auto;
   height: 13px;
 }
 
-.questionPill p, .questionPillContent p {
+.questionPill p,
+.questionPillContent p {
   color: #2e5db0;
   font-size: 11px;
   font-weight: 600;
@@ -12402,7 +12409,8 @@ p {
   width: 15px;
 }
 
-.questionPill .expandedSection, .questionPillContent .expandedSection {
+.questionPill .expandedSection,
+.questionPillContent .expandedSection {
   flex-basis: 100%;
 }
 
@@ -12420,6 +12428,7 @@ p {
   padding-bottom: 20px;
   border-bottom: 1px solid #dde3ee;
 }
+
 .questionContainer:last-child {
   border-bottom: none !important;
 }
@@ -12430,6 +12439,7 @@ p {
   font-weight: 600;
   margin-bottom: 15px;
 }
+
 .question_title1 {
   font-size: 16px;
   font-weight: 500;
@@ -12445,20 +12455,24 @@ p {
   margin-top: 15px;
 
 }
+
 .customeTyle {
   /* background-color: #fff; */
- border-radius: 0;
+  border-radius: 0;
   /* margin-top: 15px; */
-  
+
 }
+
 .checkEditor {
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
   padding: 20px 0;
 }
+
 .customeTyle .addHoverClass {
   border-radius: 0 !important;
 }
+
 .addBorderContainer {
   /* border-bottom: 1px solid grey; */
 }
@@ -12489,9 +12503,8 @@ p {
   /* margin: 10px 20px; */
 
 }
-.innerStyleWidth {
 
-}
+.innerStyleWidth {}
 
 .questionPill_container1 .questionPill {
   padding: 0 20px;
@@ -12602,7 +12615,7 @@ p {
 .addHoverClass {
   background-color: #ebf2f7;
   border: none;
- padding: 10px 20px 30px 20px;
+  padding: 10px 20px 30px 20px;
 }
 
 
@@ -12666,10 +12679,11 @@ li {
   padding: 10px !important;
   border-top: 1px solid #f4f4f5;
 }
+
 .card123 {
   position: relative;
   /* border-radius: 18px; */
- background-color: #fff;
+  background-color: #fff;
   border-top: 1px solid #f4f4f5;
 }
 
@@ -12689,6 +12703,7 @@ li {
   font-size: 13px;
   color: #878787;
 }
+
 .accordDetails {
   font-weight: 500;
   font-size: 11px;
@@ -12716,6 +12731,7 @@ li {
   font-weight: 500;
   width: 95%;
 }
+
 .colorDetails {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -12797,6 +12813,7 @@ li {
 .innerContainer:hover {
   /* border-radius: 18px; */
 }
+
 .card1 {
   position: relative;
   border-radius: 18px;
@@ -12881,11 +12898,12 @@ li {
 .viewmore {
   display: flex;
   align-items: center;
+  width: 90%;
 }
 
 .addmore {
   white-space: nowrap;
-  width: 500px;
+  /* width: 90%; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -12910,6 +12928,7 @@ li {
   display: flex;
   flex-wrap: wrap;
 }
+
 .sectionClarify .questionPill_container-get {
   background: none;
   padding: 0;
@@ -13065,13 +13084,14 @@ li {
   width: calc(100% - 29%);
 
 }
+
 .sidebarContainer {
   width: 25%;
   height: 100vh;
   position: fixed;
   right: 0;
   padding: 0 20px;
-} 
+}
 
 .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root {
   display: flex;
@@ -13169,6 +13189,7 @@ li {
   justify-content: center;
   height: 146px;
 }
+
 .videoplayer .css-i4bv87-MuiSvgIcon-root {
   color: #9E9E9E;
   width: 32px;
@@ -13228,6 +13249,7 @@ li {
   /* border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px; */
 }
+
 .applyBorder .innerContainer:hover {
   border: none;
 }
@@ -13243,6 +13265,7 @@ li {
   border-radius: 9px;
   height: 64px;
 }
+
 .arrowbuttonActive .css-i4bv87-MuiSvgIcon-root {
   width: 30px;
   height: 30px;

@@ -186,7 +186,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                         }
                                                     </Box>
                                                 </div>}
-                                                <Box sx={{ paddingLeft: '24px' }} onClick={e => e.stopPropagation()}>
+                                                <Box sx={{ paddingLeft: '24px', paddingRight: '24px' }} onClick={e => e.stopPropagation()}>
                                                     <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
 
                                                 </Box>

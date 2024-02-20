@@ -213,8 +213,8 @@ const InformationChip: FC<InformationChipProps> = ({
             </>
           ) : (
             <>
-              <Box sx={{ padding: "5px 15px" }}>
-                <Typography sx={{ fontSize: "13px" }}>
+              <Box sx={{ padding: "5px 15px" }} onClick={(e) => e.stopPropagation()}>
+                <Typography sx={{ fontSize: "13px" }} >
                   {pillResponse?.summary}
                 </Typography>
                 <Typography
@@ -229,6 +229,7 @@ const InformationChip: FC<InformationChipProps> = ({
                     <div
                       key={index}
                       className="accord-description"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <div
                         style={{

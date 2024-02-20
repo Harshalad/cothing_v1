@@ -156,7 +156,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
         )}
       </Box>
       {isExpanded && (
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%" }} onClick={(e) => e.stopPropagation()}>
           {isRefreshing ? (
             <>
               {skeletonArray.map((item: any, index) => (
@@ -192,7 +192,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
             </>
           ) : (
             <>
-              <Box sx={{ padding: "5px 15px" }}>
+              <Box sx={{ padding: "5px 15px" }} >
                 <Typography component="div" sx={{
                   marginTop: "10px",
                   display: "flex",

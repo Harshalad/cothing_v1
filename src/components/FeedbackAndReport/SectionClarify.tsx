@@ -43,8 +43,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
 
     return (
         <>
-            <Box className={`questionPill_container-get ${isExpanded ? "addHoverClass" : "removeHoverClass"}`}
-
+            <Box className={`questionPill_container-get ${isExpanded ? "addHoverClass" : "removeHoverClass"}`} onClick={(e) => { e.stopPropagation(); }}
                 sx={{
                     border: isHovered ? `1px solid ${borderColor}` : `0.5px solid ${borderColor}`, width: isExpanded ? '100%' : 'fit-content'
                 }}
@@ -52,7 +51,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                 onMouseLeave={() => !isExpanded ? setIsHovered(false) : null}
 
             >
-                <Box className='questionPill' onClick={(e: any) => { e.stopPropagation(); if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }} style={{padding: "0 10px"}}>
+                <Box className='questionPill' onClick={(e: any) => { e.stopPropagation(); if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }} style={{ padding: "0 10px" }}>
                     <img height={13} src="/images/icons/stars.svg" />
                     <p>
                         {title}

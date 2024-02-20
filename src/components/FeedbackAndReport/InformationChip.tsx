@@ -125,9 +125,9 @@ const InformationChip: FC<InformationChipProps> = ({
   };
   const skeletonArray = new Array(5).fill({});
   return (
-    <Box  className={`informationPill_container innerStyleWidth`}
-    style={{ minWidth: 'fit-content', width: isExpanded ? '100%' : 'fit-content'}}
-     
+    <Box className={`informationPill_container innerStyleWidth`}
+      style={{ minWidth: 'fit-content', width: isExpanded ? '100%' : 'fit-content' }}
+
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -163,6 +163,7 @@ const InformationChip: FC<InformationChipProps> = ({
             if (!isExpanded) {
               handleChildClick();
             }
+
             onclick(isExpanded ? -1 : index);
             setIsExpanded(!isExpanded);
           }} />

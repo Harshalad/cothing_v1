@@ -119,7 +119,7 @@ const DraftChip: FC<DraftChipProps> = ({ data, onclick, index, onDraftSelect, ch
 
   const skeletonArray = new Array(2).fill({});
   return (
-    <Box  style={{ minWidth: 'fit-content', width: isExpanded ? '100%' : 'fit-content'}}
+    <Box style={{ minWidth: 'fit-content', width: isExpanded ? '100%' : 'fit-content' }}
       className="informationPill_container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

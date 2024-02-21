@@ -40,8 +40,11 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
     const [isHovered, textAreaIsHovered] = useState(false);
     const [showMenuOnclick, setIsClicked] = useState(false);
     const handleClick = () => {
-      setIsClicked(!showMenuOnclick);
-      setEditorState(EditorState.createEmpty()); // Clear existing rich editor on button click
+      if (!showMenuOnclick) {
+        setIsClicked(!showMenuOnclick);
+      }
+
+      // setEditorState(EditorState.createEmpty()); // Clear existing rich editor on button click
     };
     const dismissClick = () => {
       setPromptSelect('')
@@ -50,7 +53,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
     const handleAccept = (e?: any) => {
 
       e?.stopPropagation();
-      setPromptSelect('')
+      // setPromptSelect('')
       const actionPlan = actionPlanRef.current
         ? actionPlanRef.current.innerHTML
         : "";
@@ -61,9 +64,20 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
       );
       const newEditorState = EditorState.createWithContent(newContentState);
 
+      const currentContent = editorState.getCurrentContent();
+      const newEditorContent = Modifier.replaceWithFragment(
+        currentContent,
+        currentContent.getSelectionAfter(),
+        newContentState.getBlockMap()
+      );
+      const newEditorStateWithAppend = EditorState.push(
+        editorState,
+        newEditorContent,
+        'insert-fragment'
+      );
 
-      onEditorChange(newEditorState);
-      setPromptSelect('')
+      onEditorChange(newEditorStateWithAppend);
+      // setPromptSelect('')
       setAnswerAceepted(true)
 
     }
@@ -83,7 +97,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
           onMouseEnter={() => textAreaIsHovered(true)}
           onMouseLeave={() => textAreaIsHovered(false)}
           onClick={() => { editor?.current?.focus() }}
-          className={`${isHovered ? "textAreaHover" : ""}`}
+          className={`${isHovered || showMenuOnclick ? "textAreaHover" : ""}`}
           style={{
             width: "auto",
             minHeight: "200px",
@@ -93,7 +107,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
             paddingInline: "15px",
             borderRadius: "20px",
             padding: "10px 20px",
-            cursor: 'text',
+            cursor: showMenuOnclick ? 'text' : 'initial',
             position: "relative"
           }}
         >
@@ -103,9 +117,14 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
               editorState={editorState}
               onChange={onEditorChange}
               placeholder="Type to respond"
-              readOnly={false} // Added to make the editor editable
+              readOnly={showMenuOnclick ? false : true} // Added to make the editor editable
             />
-            {isHovered && (
+            {isHovered && !showMenuOnclick && (
+              <Button onClick={handleClick} className="expandbutton editBtn">
+                <CreateIcon style={{ width: "21px", color: "grey" }} />
+              </Button>
+            )}
+            {showMenuOnclick && (
               <Button onClick={handleClick} className="expandbutton editBtn">
                 <CreateIcon style={{ width: "21px", color: "grey" }} />
               </Button>
@@ -142,7 +161,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
                   <img className="cPointer" src="/images/icons/tableIcon.svg" />
                   <img className="cPointer" src="/images/icons/menuIcon.svg" />
                 </div>
-                <div className="showOnEdit ml-10 f-14 cPointer" onClick={handleClick}>
+                <div className="showOnEdit ml-10 f-14 cPointer" onClick={() => { handleClick(); setIsClicked(false) }}>
                   Done
                 </div>
               </div>

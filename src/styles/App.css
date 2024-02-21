@@ -12757,10 +12757,129 @@ li {
   font-weight: 500;
   width: 95%;
 }
+.done {
+  background-color: #4D75BC;
+  color: #fff;
+  width: 73px !important;
+  height: 38px;
+}
+.done:hover {
+  background-color: #305BA5;
+}
+.innerShowOnEdit {
+  display: flex;
+  align-items: center;
+  column-gap: 10px; 
+  padding: 5px;
+  cursor: pointer;
+}
+.innerShowOnEdit:hover {
+  background-color: #DEDEDE;
+  padding: 5px;
+  border-radius: 7px;
+}
+.tooltipClick {
+  position: absolute;
+  top: -188px;
+  border: 2px solid #E6E6E6;
+  border-radius: 10px;
+  padding: 10px;
+  width: 85%;
+  background-color: #fff;
+  left: -62px ;
+}
+.tooltipClick::before {
+  content: "";
+    display: block;
+    width: 0; 
+    height: 0; 
+    width: 0; 
+  height: 0; 
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 13px solid #fff;
+  position: absolute;
+  bottom: -12px;
+  right: calc(100% - 60%);
+}
+.clickedHeading {
+  position: absolute;
+  left: 6px;
+  top: 7px;
+}
+.clickedHeading svg {
+  width: 18px;
+  height: 18px;
+}
+.headingtext {
+  font-weight: 600;
+  font-size: 18px;
+  position: relative;
+}
 
+.headingstyleli li {
+  padding: 5px 32px;
+  cursor: pointer;
+  margin: 0;
+  width: 100%;
+  margin-top: 2px;
+}
+.headingstyleli li:hover {
+  background-color: #2E5DAF;
+  color: #fff;
+  border-radius: 5px;
+}
+.subheadingtext {
+  font-weight: 600;
+  font-size: 16px;
+}
+.bodytext {
+  font-weight: 400;
+  font-size: 16px;
+}
 .colorDetails {
   /* border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px; */
+}
+.tooltipClickLi ul li {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  /* margin: 0; */
+  padding-top: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.tooltipClickLi ul li:hover {
+  background-color: #F2F2F2;
+  color: inherit;
+}
+.buttonActive {
+  background-color: #2A5CBB;
+  color: #fff;
+}
+.menuIcon {
+  padding: 0 4px;
+}
+.menuIcon:hover {
+  background-color: #4D75BC;
+  border-radius: 5px;
+  color: #fff;
+}
+.menuIcon svg {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  padding-top: 5px;
+}
+.blodUi {
+  font-weight: 600;
+}
+.italicUi {
+  font-style: italic;
+}
+.underlineUi {
+  text-decoration: underline;
 }
 
 .detailsPrompt {

@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import NorthTwoToneIcon from '@mui/icons-material/NorthTwoTone';
+import CheckIcon from '@mui/icons-material/Check';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 interface PromptTextInputProps {
   promptSelect: string
@@ -148,22 +150,43 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
             {showMenuOnclick && (
               <div className="d-flex ml-auto"
                 style={{ justifyContent: "end", position: "absolute", right: "20px", bottom: "15px" }} >
+                
                 <div className="showOnEdit">
-                  <div className="f-14 f-500 cPointer">Aa</div>
-                  <div
-                    className="f-12 f-400 cPointer"
-                    style={{ color: "rgba(0, 0, 0, 0.50)" }}
-                  >
-                    Body
+                  <div className="tooltipClick">
+                      <div className="tooltipClickLi" style={{textAlign:"center", borderBottom: "1px solid #D7D7D7",    paddingBottom: "10px"}}>
+                          <ul>
+                            <li className="blodUi buttonActive">B</li>
+                            <li className="italicUi">I</li>
+                            <li className="underlineUi">U</li>
+                          </ul>
+                      </div>
+                      <div style={{}} className="headingstyleli">
+                          <li className="headingtext"><span className="clickedHeading"><CheckIcon /></span>Heading</li>
+                          <li className="subheadingtext">Subheading</li>
+                          <li className="bodytext">Body</li>
+                      </div>
                   </div>
+                  <div className="innerShowOnEdit">
+                    <div className="f-14 f-500 cPointer">Aa</div>
+                    <div
+                      className="f-12 f-400 cPointer"
+                      style={{ color: "rgba(0, 0, 0, 0.50)" }}
+                    >
+                      Body
+                    </div>
+                  </div>                  
                   <div className="rightSpliter"></div>
-                  <img className="cPointer" src="/images/icons/galareyImgIcon.svg" />
-                  <img className="cPointer" src="/images/icons/tableIcon.svg" />
-                  <img className="cPointer" src="/images/icons/menuIcon.svg" />
+                  {/* <img className="cPointer" src="/images/icons/galareyImgIcon.svg" />
+                  <img className="cPointer" src="/images/icons/tableIcon.svg" /> */}
+                  <div className="menuIcon">
+                    <FormatListBulletedIcon />
+                    {/* <img className="cPointer" src="/images/icons/menuIcon.svg" /> */}
+                  </div>
                 </div>
-                <div className="showOnEdit ml-10 f-14 cPointer" onClick={() => { handleClick(); setIsClicked(false) }}>
+                <div className="showOnEdit ml-10 f-14 cPointer done" onClick={() => { handleClick(); setIsClicked(false) }}>
                   Done
                 </div>
+               
               </div>
             )}
           </div>

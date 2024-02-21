@@ -18,9 +18,10 @@ interface SituationalContextProps {
     onclick: (index: any) => void;
     data: any
     from: any
-    questionId: any
+    questionId: any;
+    promptLevel: any
 }
-const SituationalContext: FC<SituationalContextProps> = ({ title, questions, parentRef, index, onclick, setPromptSelect, childRef, element, data, from, questionId }) => {
+const SituationalContext: FC<SituationalContextProps> = ({ title, questions, parentRef, index, onclick, setPromptSelect, childRef, element, data, from, questionId, promptLevel }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [selectedBtn, setSelectedBtn] = useState<any>([]);
@@ -46,13 +47,15 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
         <>
             <Box className={`questionPill_container-get ${isExpanded ? "addHoverClass" : "removeHoverClass"}`}
                 sx={{
-                    border: isHovered ? `1px solid ${borderColor}` : `0.5px solid ${borderColor}`, width: isExpanded ? '100%' : 'fit-content'
+                    border: isHovered ? `1px solid ${borderColor}` : `0.5px solid ${borderColor}`, width: isExpanded ? '100%' : 'fit-content',
+                    padding: isExpanded ? promptLevel ? 0 : 'padding: 10px 20px 30px 20px' : 0
                 }}
                 onMouseEnter={() => !isExpanded ? setIsHovered(true) : null}
                 onMouseLeave={() => !isExpanded ? setIsHovered(false) : null}
 
             >
-                <Box className='questionPill' onClick={(e: any) => { e.stopPropagation(); if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }} style={{ padding: "0 10px" }}>
+                {isExpanded && promptLevel && <div style={{ height: '30px', background: 'white', marginInline: '-20px', marginTop: '-5px', borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}></div>
+                }                <Box className='questionPill' onClick={(e: any) => { e.stopPropagation(); if (!isExpanded) { parentRef.current.style.background = "#eef4fa"; } else { parentRef.current.style.background = "white"; } { !isExpanded ? onclick(index) : onclick(-1) } setIsExpanded(!isExpanded); }} style={{ padding: "0 10px" }}>
                     <img height={13} src="/images/icons/stars.svg" />
                     <p>
                         {title}
@@ -95,7 +98,8 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                     </motion.div>
                 )}
 
-
+                {isExpanded && <div style={{ height: '30px', background: 'white', marginInline: '-20px', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}></div>
+                }
             </Box >
         </>
     );

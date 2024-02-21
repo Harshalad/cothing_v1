@@ -180,7 +180,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 >
 
                                     {sectionClarity?.map((element: any, idx: any) => (
-                                        (expandSectionClarity == idx || expandSectionClarity === -1) && expandPreQuestionClarity && <SectionClarify parentRef={cardRef} key={idx} title={element.pillName} questions={element.childPills} index={idx} onclick={(e) => setExpandSectionClarity(e)} element={currentSection} data={sectionData} from={"SECTION"} questionId={null} />
+                                        (expandSectionClarity == idx || expandSectionClarity === -1) && expandPreQuestionClarity && <SectionClarify parentRef={cardRef} key={idx} title={element.pillName} questions={element.childPills} index={idx} onclick={(e) => setExpandSectionClarity(e)} element={currentSection} data={sectionData} from={"SECTION"} questionId={null} promptLevel={false} />
                                     ))}
                                 </motion.div>
                                 <div></div>
@@ -224,7 +224,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                             <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
 
                                                                 {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
-                                                                    (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
+                                                                    (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} promptLevel={true} />
                                                                 ))
                                                                 }
                                                             </Box>
@@ -245,7 +245,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                                                                 <Box sx={{ paddingLeft: expandpostQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
                                                                     {postQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
-                                                                        (expandpostQuestionClarity === -1 || expandpostQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandpostQuestionClarity(e)} element={currentSection} data={sectionData} from={"POST"} questionId={postQuestionClarity[promptIndex].questionId} />
+                                                                        (expandpostQuestionClarity === -1 || expandpostQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandpostQuestionClarity(e)} element={currentSection} data={sectionData} from={"POST"} questionId={postQuestionClarity[promptIndex].questionId} promptLevel={true} />
                                                                     ))
                                                                     }
                                                                 </Box>

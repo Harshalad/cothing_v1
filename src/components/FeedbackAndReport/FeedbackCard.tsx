@@ -40,6 +40,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
     const [currentAnswer, setCurrentAnswer] = useState<any>(null);
     const [showPreSection, setShowPreSection] = useState<any>(false);
+
+    
     
 
     useEffect(() => {
@@ -213,7 +215,10 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                         <Box key={promptIndex} className={`card123 ${promptIndex !== 0 ? 'pt-20' : ''}`}>
                                             <div style={{ background: "white" }} className='colorDetails'>
                                                 <div className='arrowbutton2' onClick={(e) => { e.stopPropagation(); setExpandPrompt(expandPrompt != promptIndex ? promptIndex : -1); setExpandPreQuestionClarity(-1) }}>
-                                                    <Button style={{ minWidth: "30px !important", width: "30px !important", background: "none", borderRadius: "25px", color: "#000000", height: "30px !important", fontSize: '16px' }}><KeyboardArrowDownIcon /></Button>
+                                                    <Button style={{ minWidth: "23px !important", width: "23px !important", background: "none", borderRadius: "25px", color: "#000000", height: "24px !important", fontSize: '16px' }}>
+                                                    <img style={{transform: expandPrompt == 0 ? "rotate(180deg)" : "none"}}
+                                                    src={"/images/icons/darrow.svg"} />
+                                                    </Button>
                                                 </div>
                                                 <span className="detailsPrompt" style={{ padding: "25px" }}>Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
                                                 <div className='titleTextPrompt' style={{ padding: "25px" }}>{prompt['question']}</div>

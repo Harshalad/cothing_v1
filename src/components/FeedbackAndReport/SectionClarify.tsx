@@ -98,7 +98,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, par
                     </motion.div>
                 )}
 
-                {isExpanded && <div style={{ height: '30px', background: 'white', marginInline: '-20px', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}></div>
+                {isExpanded && promptLevel && < div style={{ height: '30px', background: 'white', marginInline: '-20px', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}></div>
                 }
             </Box >
         </>

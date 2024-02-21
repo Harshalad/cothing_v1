@@ -12542,7 +12542,7 @@ p {
 @keyframes textFadeInZoomAnimation {
   0% {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(100%);
   }
 
   50% {
@@ -12551,19 +12551,20 @@ p {
 
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
-/* .DraftEditor-editorContainer,
-.DraftEditor-editorContainer * {
+.DraftEditor-editorContainer:not([data-contents="true"]),
+.DraftEditor-editorContainer:not([data-contents="true"]) * {
   animation: textFadeInZoomAnimation 2s ease-in-out forwards;
-  width: 99%;
-} */
+}
 
 .DraftEditor-root {
   max-width: 90%;
 }
+
+
 
 .centerText {
   padding-right: 20%;
@@ -13275,9 +13276,11 @@ li {
   width: 30px;
   height: 30px;
 }
-.mt-13{
+
+.mt-13 {
   margin-top: 13px;
 }
+
 @media screen and (max-width: 1120px) {
   .accord-description {
     width: 100%;

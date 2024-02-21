@@ -43,6 +43,10 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
       setIsClicked(!showMenuOnclick);
       setEditorState(EditorState.createEmpty()); // Clear existing rich editor on button click
     };
+    const dismissClick = () => {
+      setPromptSelect('')
+      setAnswerAceepted(false)
+    }
     const handleAccept = (e?: any) => {
 
       e?.stopPropagation();
@@ -112,7 +116,7 @@ const PromptTextInput: FC<PromptTextInputProps | any> = forwardRef
               <div className="flex" style={{ alignContent: "center", backgroundColor: "#f8f8f8", padding: "0" }}>
                 <div><img height={18} src="/images/icons/greyStar.svg" /></div>
                 <div style={{ marginLeft: "auto" }}>
-                  <NorthTwoToneIcon onClick={handleAccept} /><CloseTwoToneIcon />
+                  <NorthTwoToneIcon onClick={handleAccept} /><CloseTwoToneIcon onClick={() => { dismissClick() }} />
                 </div>
               </div>
               <div ref={actionPlanRef}>

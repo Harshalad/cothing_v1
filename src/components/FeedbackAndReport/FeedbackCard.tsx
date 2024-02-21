@@ -167,7 +167,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
                 {(index == expandIndex) && isDescriptionExpanded && isExpanded &&
                     <>
-
+                        {expandSectionClarity !== -1 && <div style={{ height: '30px', marginTop: '-5px', background: 'white', width: '100%', borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}></div>
+                        }
                         <div className='addBorderContainer' onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
                             {expandPrompt == -1 ? <>
 
@@ -183,7 +184,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                     ))}
                                 </motion.div>
                                 <div></div>
-                                {expandPrompt == -1 &&
+                                {expandSectionClarity !== -1 && <div style={{ height: '30px', background: 'white', width: '100%', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}></div>
+                                }                                {expandPrompt == -1 &&
                                     <Box onClick={(e) => { e.stopPropagation(); e.preventDefault() }} className="buttonstyle1" style={{ paddingBottom: isExpanded ? "25px" : '8px', paddingRight: '25px', paddingTop: isExpanded ? "25px" : '8px', background: 'white', }}>
                                         <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                     </Box>
@@ -209,57 +211,65 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                             </div>
 
                                             {expandPrompt == promptIndex &&
-
-                                                <Box>
-                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div
-                                                        style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }}
-                                                        initial={{ height: 0, opacity: 0 }}
-                                                        animate={{ height: 'auto', opacity: 1 }}
-                                                        transition={{ delay: 0.06, duration: 0.5 }}
-                                                    >
-                                                        <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
-                                                            {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
-                                                                (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
-                                                            ))
-                                                            }
-                                                        </Box>
-                                                    </motion.div>}
-                                                    <Box sx={{ paddingLeft: '24px', paddingRight: '24px' }} onClick={e => e.stopPropagation()}>
-                                                        <motion.span
+                                                <>
+                                                    {/* <div style={{ height: '30px', background: 'red', width: '100%', borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}></div> */}
+                                                    <Box>
+                                                        {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false); setExpandPreQuestionClarity(-1) }}><Add /></Button> : <motion.div
+                                                            style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', }}
                                                             initial={{ height: 0, opacity: 0 }}
                                                             animate={{ height: 'auto', opacity: 1 }}
-                                                            transition={{ delay: 0.2, duration: 0.5 }}
+                                                            transition={{ delay: 0.06, duration: 0.5 }}
                                                         >
-                                                            <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
-                                                        </motion.span>
-                                                    </Box>
-                                                    {
-                                                        answerAceepted &&
-                                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-                                                            <Box sx={{ paddingLeft: expandpostQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
-                                                                {postQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
-                                                                    (expandpostQuestionClarity === -1 || expandpostQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandpostQuestionClarity(e)} element={currentSection} data={sectionData} from={"POST"} questionId={postQuestionClarity[promptIndex].questionId} />
+
+                                                            <Box sx={{ paddingLeft: expandPreQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
+
+                                                                {preQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
+                                                                    (expandPreQuestionClarity === -1 || expandPreQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => { setExpandPreQuestionClarity(e) }} element={currentSection} data={sectionData} from={"PRE"} questionId={preQuestionClarity[promptIndex].questionId} />
                                                                 ))
                                                                 }
                                                             </Box>
-                                                        </div>
-                                                    }
-                                                    {
-                                                        answerAceepted && <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
-                                                            <Button onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                resetAllState();
+                                                        </motion.div>}
+                                                        {/* <div style={{ height: '30px', background: 'red', width: '100%', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}></div> */}
 
-                                                                if (currentSection['promptQuestionsMap'].length == promptIndex + 1) {
-                                                                    setExpandIndex(index + 1)
-                                                                } else {
-                                                                    setExpandPrompt(promptIndex + 1);
-                                                                }
-                                                            }}
-                                                                className="nextButton" style={{ marginBottom: "20px" }} endIcon={<EastRoundedIcon />}>Next</Button>
+                                                        <Box sx={{ paddingLeft: '24px', paddingRight: '24px' }} onClick={e => e.stopPropagation()}>
+                                                            <motion.span
+                                                                initial={{ height: 0, opacity: 0 }}
+                                                                animate={{ height: 'auto', opacity: 1 }}
+                                                                transition={{ delay: 0.2, duration: 0.5 }}
+                                                            >
+                                                                <PromptTextInput setAnswerAceepted={setAnswerAceepted} promptSelect={promptSelect} setPromptSelect={setPromptSelect} ref={childRef} />
+                                                            </motion.span>
                                                         </Box>
-                                                    }
-                                                </Box>
+                                                        {
+                                                            answerAceepted &&
+                                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                                                                <Box sx={{ paddingLeft: expandpostQuestionClarity === -1 ? '25px' : '0', display: 'flex', gap: '24px', width: '100%' }}>
+                                                                    {postQuestionClarity[promptIndex]?.questionPills.map((r: any, j: any) => (
+                                                                        (expandpostQuestionClarity === -1 || expandpostQuestionClarity === j) && <SectionClarify childRef={childRef} setPromptSelect={setPromptSelect} parentRef={cardRef} key={j} title={r.pillName} questions={r.childPills} index={j} onclick={(e: any) => setExpandpostQuestionClarity(e)} element={currentSection} data={sectionData} from={"POST"} questionId={postQuestionClarity[promptIndex].questionId} />
+                                                                    ))
+                                                                    }
+                                                                </Box>
+                                                            </div>
+                                                        }
+                                                        {
+                                                            answerAceepted && <Box className="buttonstyle" style={{ marginBottom: '8px', paddingRight: '25px' }}>
+                                                                <Button onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    resetAllState();
+
+                                                                    if (currentSection['promptQuestionsMap'].length == promptIndex + 1) {
+                                                                        setExpandIndex(index + 1)
+                                                                    } else {
+                                                                        setExpandPrompt(promptIndex + 1);
+                                                                    }
+                                                                }}
+                                                                    className="nextButton" style={{ marginBottom: "20px" }} endIcon={<EastRoundedIcon />}>Next</Button>
+                                                            </Box>
+                                                        }
+                                                    </Box>
+
+                                                </>
+
 
                                             }
                                         </Box>

@@ -411,7 +411,7 @@ const ManagementView = ( { activeClass, handleActiveClass, orgDashboard }: any )
                         } }
                       >
                         <Typography className="stat_title">
-                          Quality & Thoroughness
+                          Quality & Completeness
                         </Typography>
                       </Box>
                     </Stack>

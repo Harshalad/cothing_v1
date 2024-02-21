@@ -27,8 +27,9 @@ import { createUserTestMap } from "../../../../../actions/assessment/createUserT
 import { fetchUserTestDetailsApi } from "../../../../../actions/assessment/fetchTestDetails";
 import { fetchUserEventId } from "../../../../../actions/event/fetchUserEventId";
 import { completeMethodStatus } from "../../../../../actions/status-update/completeMethodStatus";
+import { createSheet } from "../../../../../actions/coThinkPrep/createSheet";
 
-const Milestone = ({
+const Milestone = ( {
   milestone,
   mainMethodStatus,
   mainMethod,
@@ -43,62 +44,95 @@ const Milestone = ({
   employeeData,
   handleChange,
   setMediaType
-}: any) => {
+}: any ) => {
   const router = useRouter();
-  const [expanded, setExpanded] = useState(
+  const [ expanded, setExpanded ] = useState(
     initiallyExpandedIndex === currentIndex
   );
 
-  console.log(milestone, mainMethod, goal, "aditya090909");
-  const [mainMethodCallLoading, setMainMethodCallLoading] = useState(false);
+  console.log( milestone, mainMethod, goal, "aditya090909" );
+  const [ mainMethodCallLoading, setMainMethodCallLoading ] = useState( false );
 
   //@ts-ignore
-  const user = useSelector((state) => state?.auth?.nWorxUser);
+  const user = useSelector( ( state ) => state?.auth?.nWorxUser );
   const currentUserRole = useSelector(
     //@ts-ignore
-    (state) => state?.auth?.managerToggleView
+    ( state ) => state?.auth?.managerToggleView
   );
   //@ts-ignore
-  const firebaseUser = useSelector((state) => state?.auth?.firebaseUser);
+  const firebaseUser = useSelector( ( state ) => state?.auth?.firebaseUser );
   // //@ts-ignore
   // let  = await firebaseUser.getIdToken().then(function(idToken){
   //   return idToken
   // })
-  console.log(user, "mainmethod1234");
-  const getDate = (d: any) => {
-    const date = new Date(d);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = date.toLocaleString('en-US', { month: 'short' });
+  console.log( user, "mainmethod1234" );
+  const getDate = ( d: any ) => {
+    const date = new Date( d );
+    const day = date.getDate().toString().padStart( 2, '0' );
+    const month = date.toLocaleString( 'en-US', { month: 'short' } );
     const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart( 2, '0' );
+    const minutes = date.getMinutes().toString().padStart( 2, '0' );
     const ampm = date.getHours() >= 12 ? 'pm' : 'am';
 
-    const formattedDate = `${day} ${month} ${year}`;
+    const formattedDate = `${ day } ${ month } ${ year }`;
     return formattedDate;
   };
-  const onMainMethodCall = async (e: any) => {
+  const onMainMethodCall = async ( e: any ) => {
     try {
-      setMainMethodCallLoading(true);
-      console.log(mainMethod, goal, "on prepare click");
-      if (mainMethod?.startDate && mainMethod?.endDate && user?.considerForDashboard) {
-        let startDate = new Date(mainMethod?.startDate);
-        let endDate = new Date(mainMethod?.endDate);
+      setMainMethodCallLoading( true );
+      console.log( mainMethod, goal, "on prepare click" );
+      if ( mainMethod?.startDate && mainMethod?.endDate && user?.considerForDashboard ) {
+        let startDate = new Date( mainMethod?.startDate );
+        let endDate = new Date( mainMethod?.endDate );
 
         const currentDate = new Date();
-        if (currentDate < startDate) {
-          toast.error(`This is currently locked. Please come back on ${getDate(startDate)}. It will be available then.`)
+        if ( currentDate < startDate ) {
+          toast.error( `This is currently locked. Please come back on ${ getDate( startDate ) }. It will be available then.` )
           return;
         }
-        if (currentDate > endDate) {
-          toast.error(`This ${milestone?.statement} is not available anymore as the deadline of ${getDate(endDate)} has expired.`);
+        if ( currentDate > endDate ) {
+          toast.error( `This ${ milestone?.statement } is not available anymore as the deadline of ${ getDate( endDate ) } has expired.` );
           return;
         }
 
       }
-
-      if (mainMethod?.type === "test") {
-        const response = await createUserTestMap({
+      if ( mainMethod?.type === "cothink_worksheet" ) {
+        if ( mainMethod?.userMethodContentId == null ) {
+          const response = await createSheet( {
+            userId: user?.id,
+            programId: user?.activeProgramId,
+            gaolId: goal?.id,
+            milestoneId: milestone?.id,
+            worksheetId: mainMethod?.contentId,
+            methodId: mainMethod?.id,
+            methodType: "mainMethod",
+            type: "PREPARE"
+          } )
+          //@ts-ignore
+          if ( response?.statusCode === 0 ) {
+            router.push( {
+              pathname: "/cothink-prepare",
+              query: {
+                //@ts-ignore
+                id: response?.id,
+                type: "prep"
+              },
+            } );
+          }
+        } else {
+          router.push( {
+            pathname: "/cothink-prepare",
+            query: {
+              //@ts-ignore
+              id: mainMethod?.userMethodContentId,
+              type: "prep"
+            },
+          } );
+        }
+      }
+      if ( mainMethod?.type === "test" ) {
+        const response = await createUserTestMap( {
           userId: user?.id,
           testId: mainMethod?.contentId,
           startDate: mainMethod?.startDate,
@@ -110,31 +144,31 @@ const Milestone = ({
           userGoalId: goal?.id,
           milestoneId: milestone?.id,
           methodId: mainMethod?.id,
-        });
+        } );
         // console.log(response,"utmresponse");
-        if (response) {
+        if ( response ) {
           const utmId = response;
-          const testResponse = await fetchUserTestDetailsApi({
+          const testResponse = await fetchUserTestDetailsApi( {
             userTestMapId: utmId,
-          });
+          } );
           // console.log(testResponse,"testResponse");
           //@ts-ignore
-          if (testResponse?.response === null) {
+          if ( testResponse?.response === null ) {
             //@ts-ignore
-            toast.error(testResponse?.extra);
+            toast.error( testResponse?.extra );
           } else {
-            router.push({
+            router.push( {
               pathname: "/assessment",
               query: {
                 //@ts-ignore
                 id: utmId,
               },
-            });
+            } );
           }
         }
       }
-      if (mainMethod?.type === "battery_group") {
-        router.push({
+      if ( mainMethod?.type === "battery_group" ) {
+        router.push( {
           pathname: "/viewBatteryGroup",
           query: {
             gId: mainMethod?.contentId,
@@ -143,10 +177,10 @@ const Milestone = ({
             milestoneId: milestone?.id,
             methodId: mainMethod?.id,
           },
-        });
+        } );
       }
-      if (mainMethod?.type === "battery") {
-        router.push({
+      if ( mainMethod?.type === "battery" ) {
+        router.push( {
           pathname: "/viewBattery",
           query: {
             bId: mainMethod?.contentId,
@@ -155,10 +189,10 @@ const Milestone = ({
             milestoneId: milestone?.id,
             methodId: mainMethod?.id,
           },
-        });
+        } );
       }
-      if (mainMethod?.type === "work_sheet") {
-        router.push({
+      if ( mainMethod?.type === "work_sheet" ) {
+        router.push( {
           pathname: "/prepare",
           query: {
             goalId: goal?.id,
@@ -168,67 +202,67 @@ const Milestone = ({
             methodType: "mainMethod",
             worksheetId:
               mainMethodStatus &&
-                (mainMethodStatus === "in_progress" ||
-                  mainMethodStatus === "completed")
+                ( mainMethodStatus === "in_progress" ||
+                  mainMethodStatus === "completed" )
                 ? mainMethod?.userMethodContentId
                 : mainMethod?.contentId,
             pickWorksheetFrom:
               mainMethodStatus &&
-                (mainMethodStatus === "in_progress" ||
-                  mainMethodStatus === "completed")
+                ( mainMethodStatus === "in_progress" ||
+                  mainMethodStatus === "completed" )
                 ? "user_work_sheet"
                 : "work_sheet",
             employeeEmail: employeeData?.email,
             id: mainMethod?.contentId,
           },
-        });
+        } );
       }
-      if (mainMethod?.type === "concept_primer") {
-        const response: any = await fetchConceptPrimerByContentId({
+      if ( mainMethod?.type === "concept_primer" ) {
+        const response: any = await fetchConceptPrimerByContentId( {
           contentId: mainMethod?.contentId,
           userId: user?.id,
           programId: user?.activeProgramId,
           goalId: goal?.id,
           methodTitle: mainMethod?.title,
-        });
-        if (!response?.contentLink?.startsWith("http")) {
-          toast.error("Content is not available yet");
+        } );
+        if ( !response?.contentLink?.startsWith( "http" ) ) {
+          toast.error( "Content is not available yet" );
           return;
         }
-        if (mainMethod?.status !== "COMPLETED") {
-          const response = await completeMethodStatus({
+        if ( mainMethod?.status !== "COMPLETED" ) {
+          const response = await completeMethodStatus( {
             programId: user?.activeProgramId,
             goalId: goal?.id,
             methodId: mainMethod?.id,
             milestoneId: milestone?.id,
             userId: user?.id
-          });
+          } );
           handleChange();
 
         }
-        if (response?.openNewTab?.toLowerCase() === "yes") {
-          window.open(response?.contentLink, "_blank");
+        if ( response?.openNewTab?.toLowerCase() === "yes" ) {
+          window.open( response?.contentLink, "_blank" );
           return;
         }
-        setIFrameTitle(mainMethod?.title);
+        setIFrameTitle( mainMethod?.title );
         //   setIFrameLink(supportingMethod?.contentLink);
-        setIFrameLink(response?.contentLink);
-        setMediaType(response?.mediaType)
-        getIFrame(e);
+        setIFrameLink( response?.contentLink );
+        setMediaType( response?.mediaType )
+        getIFrame( e );
       }
-      if (mainMethod?.type === "event_select_slots") {
+      if ( mainMethod?.type === "event_select_slots" ) {
         if (
           mainMethod?.userMethodContentId !== null &&
           mainMethod.userMethodContentId?.length !== 0
         ) {
-          router.push({
+          router.push( {
             pathname: "/events",
             query: {
               id: mainMethod?.userMethodContentId,
             },
-          });
+          } );
         } else {
-          router.push({
+          router.push( {
             pathname: "pre-events",
             query: {
               id: mainMethod?.contentId,
@@ -237,41 +271,41 @@ const Milestone = ({
               milestoneId: milestone?.id,
               methodId: mainMethod?.id,
             },
-          });
+          } );
         }
       }
-      if (mainMethod?.type === "event_presecheduled") {
-        console.log(mainMethod, "dsdhvjdfshkknbfkjkbsbjf");
+      if ( mainMethod?.type === "event_presecheduled" ) {
+        console.log( mainMethod, "dsdhvjdfshkknbfkjkbsbjf" );
         if (
           mainMethod?.userMethodContentId !== null &&
           mainMethod?.userMethodContentId?.length !== 0
         ) {
-          router.push({
+          router.push( {
             pathname: "/events",
             query: {
               id: mainMethod?.userMethodContentId,
             },
-          });
+          } );
         } else {
-          const response = await fetchUserEventId({
+          const response = await fetchUserEventId( {
             userId: user?.id,
             methodId: mainMethod?.id,
             milestoneId: milestone?.id,
             goalId: goal?.id,
             programId: user?.activeProgramId,
             eventConfigId: mainMethod?.contentId,
-          });
+          } );
           //@ts-ignore
-          if (response.statusCode === 0) {
-            router.push({
+          if ( response.statusCode === 0 ) {
+            router.push( {
               pathname: "/events",
               query: {
                 //@ts-ignore
                 id: response?.response,
               },
-            });
+            } );
           } else {
-            toast.error("Event has not been configured");
+            toast.error( "Event has not been configured" );
             return;
           }
         }
@@ -281,17 +315,17 @@ const Milestone = ({
         currentUserRole === MANAGER_VIEW_STATE.LP
       ) {
         window.location.replace(
-          `${ASSESSMENT_BASE_URL}/initiate/?programId=${user?.activeProgramId
-          }&userId=${user?.id}&userName=${user?.name}&firebaseId=${firebaseUser?.uid
-          }&email=${user?.email}&testId=${mainMethod?.contentId
-          }&programName=${"PROGRAM NAME"}&goalId=${goal?.id}&goalName=${goal?.name
-          }&milestoneId=${milestone?.id}&milestoneName=${milestone?.statement
-          }&mainMethodId=${mainMethod?.id}&mainMethodName=${mainMethod?.title
-          }&lpId=${user?.id
+          `${ ASSESSMENT_BASE_URL }/initiate/?programId=${ user?.activeProgramId
+          }&userId=${ user?.id }&userName=${ user?.name }&firebaseId=${ firebaseUser?.uid
+          }&email=${ user?.email }&testId=${ mainMethod?.contentId
+          }&programName=${ "PROGRAM NAME" }&goalId=${ goal?.id }&goalName=${ goal?.name
+          }&milestoneId=${ milestone?.id }&milestoneName=${ milestone?.statement
+          }&mainMethodId=${ mainMethod?.id }&mainMethodName=${ mainMethod?.title
+          }&lpId=${ user?.id
           }&token=NA&redirectUrl=https://n4-devapp.web.app/achieve`
         );
       } else {
-        if (mainMethod?.type === "assess2") {
+        if ( mainMethod?.type === "assess2" ) {
           toast.error(
             "This functionality is only available to " + employeeData?.name,
             { toastId: "DONT_SHOW_TO_OTHER_ROLES" }
@@ -299,8 +333,8 @@ const Milestone = ({
         }
       }
 
-      if (currentUserRole === MANAGER_VIEW_STATE.LP) {
-        logUserEngagement({
+      if ( currentUserRole === MANAGER_VIEW_STATE.LP ) {
+        logUserEngagement( {
           userId: user?.id,
           //@ts-ignore
           goalId: goal?.id,
@@ -312,35 +346,35 @@ const Milestone = ({
           contentId: mainMethod?.contentId,
           milestoneId: milestone?.id,
           marks: 2,
-        });
+        } );
       }
       // handleChange();
-    } catch (error) {
-      console.log(error);
+    } catch ( error ) {
+      console.log( error );
     } finally {
-      setMainMethodCallLoading(false);
+      setMainMethodCallLoading( false );
     }
   };
 
-  const onSupportingMethodAssessment = async ({ supportingMethod }: any) => {
+  const onSupportingMethodAssessment = async ( { supportingMethod }: any ) => {
     window.location.replace(
-      `${ASSESSMENT_BASE_URL}/initiate/?programId=${user?.activeProgramId
-      }&userId=${user?.id}&userName=${user?.name}&firebaseId=${firebaseUser?.uid
-      }&email=${user?.email}&testId=${supportingMethod?.contentId
-      }&programName=${"PROGRAM NAME"}&goalId=${goal?.id}&goalName=${goal?.name
-      }&milestoneId=${milestone?.id}&milestoneName=${milestone?.statement
-      }&lpId=${user?.id}&token=NA&redirectUrl=https://n4-devapp.web.app/achieve`
+      `${ ASSESSMENT_BASE_URL }/initiate/?programId=${ user?.activeProgramId
+      }&userId=${ user?.id }&userName=${ user?.name }&firebaseId=${ firebaseUser?.uid
+      }&email=${ user?.email }&testId=${ supportingMethod?.contentId
+      }&programName=${ "PROGRAM NAME" }&goalId=${ goal?.id }&goalName=${ goal?.name
+      }&milestoneId=${ milestone?.id }&milestoneName=${ milestone?.statement
+      }&lpId=${ user?.id }&token=NA&redirectUrl=https://n4-devapp.web.app/achieve`
     );
   };
 
   return (
     <>
-      <Stack flexDirection="row" gap="16px" key={milestone?.id}>
+      <Stack flexDirection="row" gap="16px" key={ milestone?.id }>
         <Stack alignItems="center">
           <Typography
             //@ts-ignore
             variant="span"
-            sx={{
+            sx={ {
               fontWeight: "600",
               border:
                 mainMethodStatus === "completed"
@@ -366,26 +400,26 @@ const Milestone = ({
                   : mainMethodStatus === "in_progress"
                     ? "#FDF9E4"
                     : "#1C2129",
-            }}
+            } }
           >
-            {mainMethodStatus === "completed" ? (
+            { mainMethodStatus === "completed" ? (
               <CheckIcon />
             ) : mainMethodStatus === "in_progress" ? (
               <CachedIcon />
             ) : (
               currentIndex + 1
-            )}
+            ) }
           </Typography>
-          {milestonesCount - 1 === currentIndex ? (
+          { milestonesCount - 1 === currentIndex ? (
             ""
           ) : (
             <hr className="accordion_hr" />
-          )}
+          ) }
         </Stack>
         <Accordion
           className="achieve_accordion"
-          expanded={expanded}
-          sx={{
+          expanded={ expanded }
+          sx={ {
             "&.MuiAccordion-root": {
               borderRadius: "8px",
               border: "1px solid #EAECEF",
@@ -393,20 +427,20 @@ const Milestone = ({
               width: "100%",
               marginBottom: "16px",
             },
-          }}
+          } }
         >
-          {/*@ts-ignore */}
+          {/*@ts-ignore */ }
           <AccordionSummary
-            sx={{
+            sx={ {
               pointerEvents: "none",
               "& .MuiAccordionSummary-content": {
                 flexDirection: "column",
               },
-            }}
-            aria-controls={milestone.id}
-            id={milestone.id}
+            } }
+            aria-controls={ milestone.id }
+            id={ milestone.id }
             className="accordAchieve"
-            sheet_status={milestone.sheetStatus}
+            sheet_status={ milestone.sheetStatus }
           >
             <Stack
               flexDirection="row"
@@ -416,28 +450,28 @@ const Milestone = ({
             >
               <Box>
                 <Typography
-                  sx={{
+                  sx={ {
                     fontSize: "13px",
                     color: "#1C2129",
                     fontWeight: "500",
-                  }}
+                  } }
                 >
-                  <span style={{ color: "#989EA5" }}>Milestone</span> -{" "}
-                  {milestone?.statement} |{" "}
-                  <span style={{ color: "black" }}>
-                    {mainMethod?.duration ? mainMethod?.duration : "15"} mins
+                  <span style={ { color: "#989EA5" } }>Milestone</span> -{ " " }
+                  { milestone?.statement } |{ " " }
+                  <span style={ { color: "black" } }>
+                    { mainMethod?.duration ? mainMethod?.duration : "15" } mins
                   </span>
                 </Typography>
                 <Stack className="achieve_milestone_flx">
-                  {mainMethod?.startDate && new Date(mainMethod?.startDate).getFullYear() < 2100 && <Typography className="achv_strt_dt_tym">Start Date : {getDate(mainMethod?.startDate)}</Typography>}
-                  {mainMethod?.endDate && new Date(mainMethod?.endDate).getFullYear() < 2100 && <Typography className="achv_end_dt_tym">End Date : {getDate(mainMethod?.endDate)}</Typography>}</Stack>
+                  { mainMethod?.startDate && new Date( mainMethod?.startDate ).getFullYear() < 2100 && <Typography className="achv_strt_dt_tym">Start Date : { getDate( mainMethod?.startDate ) }</Typography> }
+                  { mainMethod?.endDate && new Date( mainMethod?.endDate ).getFullYear() < 2100 && <Typography className="achv_end_dt_tym">End Date : { getDate( mainMethod?.endDate ) }</Typography> }</Stack>
               </Box>
               <Box>
-                {mainMethodCallLoading ? (
+                { mainMethodCallLoading ? (
                   <Spinner />
                 ) : (
                   <Button
-                    sx={{
+                    sx={ {
                       color:
                         mainMethodStatus === "completed"
                           ? "#F58A43"
@@ -462,128 +496,128 @@ const Milestone = ({
                         padding: "6px",
                         pointerEvents: "auto",
                       },
-                    }}
-                    onClick={(e) => onMainMethodCall(e)}
+                    } }
+                    onClick={ ( e ) => onMainMethodCall( e ) }
                   >
-                    {mainMethodStatus === "completed"
+                    { mainMethodStatus === "completed"
                       ? mainMethod?.buttonLabelCompleted
                         ? mainMethod?.buttonLabelCompleted
                         : mainMethod?.buttonLabel
-                      : mainMethod?.buttonLabel}
+                      : mainMethod?.buttonLabel }
                   </Button>
-                )}
+                ) }
               </Box>
             </Stack>
-            {(mainMethod?.type === "test" && mainMethod?.resultStatus) &&
+            { ( mainMethod?.type === "test" && mainMethod?.resultStatus ) &&
               <>
-                {mainMethod?.resultStatus === "PASS" && <Stack className="score_card_tag kudos">
-                  <img src="../images/icons/kudos.svg" alt="kudos" width={16} height={16}></img>
-                  <Typography className="score_card_tag_txt kudos">{mainMethod?.resultStatement}</Typography>
-                </Stack>}
-                {mainMethod?.resultStatus === "TRY_AGAIN" && <Stack className="score_card_tag try_again">
-                  <img src="../images/icons/try-again.svg" alt="try again" width={16} height={16}></img>
-                  <Typography className="score_card_tag_txt try_again">{mainMethod?.resultStatement}</Typography>
-                </Stack>}
-                {mainMethod?.resultStatus === "FAIL" && <Stack className="score_card_tag no_attempts_left">
-                  <img src="../images/icons/no-attempts-left.svg" alt="no attempts left" width={16} height={16}></img>
-                  <Typography className="score_card_tag_txt no_attempts_left">{mainMethod?.resultStatement}</Typography>
-                </Stack>}
-              </>}
-            {supportingMethods.length > 0 && <Stack flexDirection="row" gap="15px" mt="15px">
+                { mainMethod?.resultStatus === "PASS" && <Stack className="score_card_tag kudos">
+                  <img src="../images/icons/kudos.svg" alt="kudos" width={ 16 } height={ 16 }></img>
+                  <Typography className="score_card_tag_txt kudos">{ mainMethod?.resultStatement }</Typography>
+                </Stack> }
+                { mainMethod?.resultStatus === "TRY_AGAIN" && <Stack className="score_card_tag try_again">
+                  <img src="../images/icons/try-again.svg" alt="try again" width={ 16 } height={ 16 }></img>
+                  <Typography className="score_card_tag_txt try_again">{ mainMethod?.resultStatement }</Typography>
+                </Stack> }
+                { mainMethod?.resultStatus === "FAIL" && <Stack className="score_card_tag no_attempts_left">
+                  <img src="../images/icons/no-attempts-left.svg" alt="no attempts left" width={ 16 } height={ 16 }></img>
+                  <Typography className="score_card_tag_txt no_attempts_left">{ mainMethod?.resultStatement }</Typography>
+                </Stack> }
+              </> }
+            { supportingMethods.length > 0 && <Stack flexDirection="row" gap="15px" mt="15px">
               <Stack
                 flexDirection="row"
                 gap="0px"
                 alignItems="center"
-                sx={{ pointerEvents: "auto" }}
-                onClick={() => {
-                  setExpanded(!expanded);
-                }}
+                sx={ { pointerEvents: "auto" } }
+                onClick={ () => {
+                  setExpanded( !expanded );
+                } }
               >
-                {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                { expanded ? <ExpandLessIcon /> : <ExpandMoreIcon /> }
                 <Typography
-                  sx={{
+                  sx={ {
                     fontSize: "12px",
                     color: "#2E5DB0",
                     fontWeight: "500",
-                  }}
+                  } }
                 >
                   Learn More
                 </Typography>
               </Stack>
-            </Stack>}
+            </Stack> }
           </AccordionSummary>
-          {supportingMethods && supportingMethods?.length > 0 && <AccordionDetails
-            sx={{ padding: "24px", borderTop: "1px solid #EAECEF" }}
+          { supportingMethods && supportingMethods?.length > 0 && <AccordionDetails
+            sx={ { padding: "24px", borderTop: "1px solid #EAECEF" } }
             className="addtnl_rscrs_detls"
           >
-            {supportingMethods.length > 0 && (
+            { supportingMethods.length > 0 && (
               supportingMethods.map(
-                (supportingMethod: any, index: number, achieveArr: any) => {
-                  console.log("supportingMethod 123457", supportingMethod);
-                  if (supportingMethod?.type === "concept_primer") {
+                ( supportingMethod: any, index: number, achieveArr: any ) => {
+                  console.log( "supportingMethod 123457", supportingMethod );
+                  if ( supportingMethod?.type === "concept_primer" ) {
                     //@ts-ignore
                     return (
                       <InlineConceptPrimer
-                        setIFrameTitle={setIFrameTitle}
-                        setIFrameLink={setIFrameLink}
-                        setMediaType={setMediaType}
-                        getIFrame={getIFrame}
-                        supportingMethod={supportingMethod}
-                        mainMethod={mainMethod}
-                        goal={goal}
-                        key={index}
-                        milestone={milestone}
+                        setIFrameTitle={ setIFrameTitle }
+                        setIFrameLink={ setIFrameLink }
+                        setMediaType={ setMediaType }
+                        getIFrame={ getIFrame }
+                        supportingMethod={ supportingMethod }
+                        mainMethod={ mainMethod }
+                        goal={ goal }
+                        key={ index }
+                        milestone={ milestone }
                       />
                     );
                   }
-                  if (supportingMethod?.type === "assess2") {
+                  if ( supportingMethod?.type === "assess2" ) {
                     return (
                       <Stack
                         flexDirection="row"
                         gap="4px"
                         alignItems="center"
-                        onClick={() =>
-                          onSupportingMethodAssessment(supportingMethod)
+                        onClick={ () =>
+                          onSupportingMethodAssessment( supportingMethod )
                         }
-                        key={index}
-                        sx={{ cursor: "pointer" }}
+                        key={ index }
+                        sx={ { cursor: "pointer" } }
                       >
                         <FiberManualRecordIcon
-                          style={{
+                          style={ {
                             width: "15px",
                             height: "15px",
                             color: "#C8CDD4",
-                          }}
+                          } }
                         />
                         <div
                           //@ts-ignore
                           // href={supportingMethod?.contentLink}
                           target="extrnlCntnt"
                           //@ts-ignore
-                          datatitle={supportingMethod?.title}
+                          datatitle={ supportingMethod?.title }
                           rel="noopener noreferrer nofollow"
-                          style={{
+                          style={ {
                             fontSize: "13px",
                             color: "#2E5DB0",
                             textDecoration: "none",
-                          }}
+                          } }
                         // onClick={(e) => onLinkClick(e)}
                         >
-                          {supportingMethod?.duration
-                            ? `${supportingMethod?.title} | ${supportingMethod?.duration} mins`
-                            : supportingMethod?.title}
+                          { supportingMethod?.duration
+                            ? `${ supportingMethod?.title } | ${ supportingMethod?.duration } mins`
+                            : supportingMethod?.title }
                         </div>
                       </Stack>
                     );
                   }
-                  if (supportingMethod?.type === "work_sheet") {
+                  if ( supportingMethod?.type === "work_sheet" ) {
                     return (
                       <Stack
                         flexDirection="row"
                         gap="4px"
                         alignItems="center"
-                        onClick={() =>
-                          router.push({
+                        onClick={ () =>
+                          router.push( {
                             pathname: "/prepare",
                             query: {
                               goalId: goal?.id,
@@ -599,37 +633,37 @@ const Milestone = ({
                                   ? "user_work_sheet"
                                   : "work_sheet",
                               employeeEmail: employeeData?.email,
-                              id:supportingMethod?.contentId,
+                              id: supportingMethod?.contentId,
                             },
-                          })
+                          } )
                         }
-                        key={index}
-                        sx={{ cursor: "pointer" }}
+                        key={ index }
+                        sx={ { cursor: "pointer" } }
                       >
                         <FiberManualRecordIcon
-                          style={{
+                          style={ {
                             width: "15px",
                             height: "15px",
                             color: "#C8CDD4",
-                          }}
+                          } }
                         />
                         <div
                           //@ts-ignore
                           // href={supportingMethod?.contentLink}
                           target="extrnlCntnt"
                           //@ts-ignore
-                          datatitle={supportingMethod?.title}
+                          datatitle={ supportingMethod?.title }
                           rel="noopener noreferrer nofollow"
-                          style={{
+                          style={ {
                             fontSize: "13px",
                             color: "#2E5DB0",
                             textDecoration: "none",
-                          }}
+                          } }
                         // onClick={(e) => onLinkClick(e)}
                         >
-                          {supportingMethod?.duration
-                            ? `${supportingMethod?.title} | ${supportingMethod?.duration} mins`
-                            : supportingMethod?.title}
+                          { supportingMethod?.duration
+                            ? `${ supportingMethod?.title } | ${ supportingMethod?.duration } mins`
+                            : supportingMethod?.title }
                         </div>
                       </Stack>
                     );
@@ -654,7 +688,7 @@ const Milestone = ({
               //   </Stack>
               // )
             }
-          </AccordionDetails>}
+          </AccordionDetails> }
         </Accordion>
       </Stack>
     </>

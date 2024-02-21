@@ -54,7 +54,7 @@ const Achieve = () => {
           marginLeft: "250px",
         } }
       >
-        <Box sx={ { backgroundColor: "#EAECEF", padding: "112px 32px 32px", minHeight: "100vh" } }>
+        <Box sx={ { backgroundColor: "#EAECEF", padding: "75px 32px 32px", minHeight: "100vh" } }>
           <Stack flexDirection="row" justifyContent="space-between" gap="20px">
             <Typography
               variant="h1"

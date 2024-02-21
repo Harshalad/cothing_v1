@@ -5,7 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import PromptTextInput from './PromptTextInput';
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 
@@ -137,8 +137,15 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                             <Button className={isDescriptionExpanded && (index == expandIndex || hoverIndex == index) ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
                     </div>
                     <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded && isExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
+                    <AnimatePresence>
                     {
 
+                        <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                        exit={{ opacity: 0 }}
+                                    >
                         <motion.div initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             transition={{ delay: 0.06, duration: 0.5 }}
@@ -163,7 +170,9 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                         alt="guidance"></img>
                                 </Box>
                             }</motion.div>
+                            </motion.div>
                     }
+                    </AnimatePresence>
                     {(!isExpanded || expandIndex !== index) &&
                         <div style={{ display: 'flex', marginTop: "48px" }}>
                             <Typography className='cardFooterText'>{currentSection['promptQuestionsMap'].length} Prompts</Typography>
@@ -181,8 +190,14 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                         {expandSectionClarity !== -1 && <div style={{ height: '30px', marginTop: '-5px', background: 'white', width: '100%', borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}></div>
                         }
                         <div className='addBorderContainer' onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
+                            <AnimatePresence>
                             {expandPrompt == -1 ? <>
-
+                                <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                        exit={{ opacity: 0 }}
+                                    >
                                 <motion.div className='sectionClarify' style={{ marginTop: "20px", marginBottom: isExpanded ? "20px" : '0px' }}
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
@@ -194,6 +209,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                         (expandSectionClarity == idx || expandSectionClarity === -1) && expandPreQuestionClarity && <SectionClarify parentRef={cardRef} key={idx} title={element.pillName} questions={element.childPills} index={idx} onclick={(e) => setExpandSectionClarity(e)} element={currentSection} data={sectionData} from={"SECTION"} questionId={null} promptLevel={false} />
                                     ))}
                                 </motion.div>
+                                </motion.div>
                                 <div></div>
                                 {expandSectionClarity !== -1 && <div style={{ height: '30px', background: 'white', width: '100%', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}></div>
                                 }                                {expandPrompt == -1 &&
@@ -203,10 +219,18 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 }</> :
                                 null
                             }
+                            </AnimatePresence>
 
 
                             <div className='customeTyle' style={{ paddingBottom: '25px', background: 'white' }}>
+                                <AnimatePresence>
                                 {currentSection['promptQuestionsMap'].map((prompt: any, promptIndex: number) => (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                        exit={{ opacity: 0 }}
+                                    >
                                     <motion.div
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
@@ -223,9 +247,15 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                 <span className="detailsPrompt" style={{ padding: "25px" }}>Prompt {promptIndex + 1} of {currentSection['promptQuestionsMap'].length}</span>
                                                 <div className='titleTextPrompt' style={{ padding: "25px" }}>{prompt['question']}</div>
                                             </div>
-
+                                            <AnimatePresence>
                                             {expandPrompt == promptIndex &&
                                                 <>
+                                                <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5}}
+                                        exit={{ opacity: 0 }}
+                                    >
                                                     {/* <div style={{ height: '30px', background: 'red', width: '100%', borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}></div> */}
                                                     <Box>
                                                         {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false); setExpandPreQuestionClarity(-1) }}><Add /></Button> : <motion.div
@@ -281,14 +311,17 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                                             </Box>
                                                         }
                                                     </Box>
-
+                                                    </motion.div>
                                                 </>
 
 
                                             }
+                                            </AnimatePresence>
                                         </Box>
                                     </motion.div>
+                                    </motion.div>
                                 ))}
+                                </AnimatePresence>
                             </div>
                         </div>
                     </>

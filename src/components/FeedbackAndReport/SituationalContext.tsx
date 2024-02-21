@@ -57,6 +57,7 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, sel
             <motion.div initial={{ height: 0, width: 'fit-content' }}
                 ref={layerTop}
                 animate={{ height: 'auto', width: isExpanded ? '100%' : 'fit-content' }}
+                exit={{opacity: 0}}
                 transition={{ duration: 0.3 }} className={`questionPill_container-updated ${isExpanded ? "addHoverClass" : "removeHoverClass"}`}
                 style={{
                     border: isHovered ? `1px solid ${borderColor}` : `0.5px solid ${borderColor}`,
@@ -83,7 +84,14 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, sel
                         }
 
                     </Box>
+                    <AnimatePresence>
                     {isExpanded && (
+                        // <motion.div
+                        //                 initial={{ opacity: 0 }}
+                        //                 animate={{ opacity: 1 }}
+                        //                 transition={{ duration: 0}}
+                        //                 exit={{ opacity: 0 }}
+                        //             >
                         <motion.div initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -109,7 +117,9 @@ const SituationalContext: FC<SituationalContextProps> = ({ title, questions, sel
                                 </motion.div>
                             ))}
                         </motion.div>
+                        // </motion.div>
                     )}
+                    </AnimatePresence>
                 </Box>
             </motion.div>
         </>

@@ -5,7 +5,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SectionClarify from './SectionClarify';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import PromptTextInput from './PromptTextInput';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import NorthEastIcon from '@mui/icons-material/NorthEast';
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+
 interface FeedbackCardProps {
     sectionData: any;
     index: number;
@@ -37,6 +40,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
     const [currentAnswer, setCurrentAnswer] = useState<any>(null);
     const [showPreSection, setShowPreSection] = useState<any>(false);
+    
 
     useEffect(() => {
         if (expandPrompt != -1) {
@@ -144,7 +148,9 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                     transition={{ delay: 0.06, duration: 0.5 }}
                                 >
                                     <div className={`mt-2 f-14 fw-400 pr-3 formateText ${isturncate ? 'addmore' : ''}`} >{currentSection['description']}</div>
-                                    {false && <div style={{ color: 'blue' }} onClick={viewmoreClick}>viewmore</div>}
+                                    {expandPrompt == 0 &&
+                                    <div className="expandViewMore" style={{ color: '#2E5DB0', fontSize: '14px', fontWeight: '400' }}>view more <ExpandCircleDownIcon style={{marginLeft: "3px"}} /></div>
+                                    }
                                 </motion.div>
                             }
                             {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
@@ -163,8 +169,11 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                             <Typography className='cardFooterText'>{currentSection['durationInMins']} mins</Typography>
                         </div>
                     }
+                     {(isExpanded || expandIndex !== index) && 
+                    <div style={{fontSize:"11px", fontWeight:"400", color: '#878787', display:"flex", marginTop:'10px'}}>From HBR<span className='svgimage'><NorthEastIcon /></span></div> 
+                }
                 </div>
-
+                   
                 {(index == expandIndex) && isDescriptionExpanded && isExpanded &&
                     <>
                         {expandSectionClarity !== -1 && <div style={{ height: '30px', marginTop: '-5px', background: 'white', width: '100%', borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}></div>

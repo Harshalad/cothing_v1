@@ -12476,17 +12476,21 @@ p {
 .addBorderContainer {
   /* border-bottom: 1px solid grey; */
 }
+
 .svgimage svg {
   width: 18px;
   height: 18px;
   margin-left: 2px;
 }
+
 .svgimage {
   cursor: pointer;
 }
+
 .expandViewMore {
   display: flex;
 }
+
 .expandViewMore svg {
   width: 18px;
   height: 18px;

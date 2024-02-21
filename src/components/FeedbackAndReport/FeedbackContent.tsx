@@ -4,7 +4,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import FeedbackActionsSidebar from './FeedbackActionsSidebar';
 import EastRoundedIcon from '@mui/icons-material/EastRounded';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import SituationalContext from './SituationalContext';
 import FeedbackCard from './FeedbackCard';
 import { updateSituationContext } from '../../actions/coThinkPrep/updateSituationContext';
@@ -155,46 +155,53 @@ const FeedbackContent: FC<FeedbackContentProps> = ({ data, user, type }) => {
                             <Typography variant='body1'>
                                 {data?.description}
                             </Typography>
-                            {isOpen && (
-                                <motion.div
-                                >
-                                    <Box >
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            transition={{ delay: 0.1, duration: 0.5 }}
-                                            style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}
-                                        >
-                                            <Button variant='outlined' className='btn_pill_transparent'
-                                                startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                            <AnimatePresence>
+                                {isOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                        exit={{ opacity: 0 }}
+                                    >
+                                        <Box >
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                transition={{ duration: 0.5 }}
+                                                style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between' }}
+                                                exit={{ height: 0, opacity: 0 }}
                                             >
-                                                Giving Feedback Framework todo rt
-                                            </Button>
-                                            <Button variant='outlined' className='btn_pill_transparent'
-                                                startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                                <Button variant='outlined' className='btn_pill_transparent'
+                                                    startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                                >
+                                                    Giving Feedback Framework todo rt
+                                                </Button>
+                                                <Button variant='outlined' className='btn_pill_transparent'
+                                                    startIcon={<img src='/images/icons/binocular.svg' alt="Binocular Icon" />}
+                                                >
+                                                    {data?.totalTime} mins
+                                                </Button>
+                                            </motion.div>
+                                        </Box>
+                                        <Box sx={{ marginTop: '32px' }}>
+                                            <motion.span
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                transition={{ duration: 0.5 }}
                                             >
-                                                {data?.totalTime} mins
-                                            </Button>
-                                        </motion.div>
-                                    </Box>
-                                    <Box sx={{ marginTop: '32px' }}>
-                                        <motion.span
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            transition={{ delay: 0.2, duration: 0.5 }}
-                                        >
-                                            {data?.sectionPills?.map((element: any, index: number) => (
-                                                <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} key={index} selectedBtn={selectedBtn} setSelectedBtn={setSelectedBtn} />
+                                                {data?.sectionPills?.map((element: any, index: number) => (
+                                                    <SituationalContext title={'Before we get started, tell us more about your situation'} questions={questions} key={index} selectedBtn={selectedBtn} setSelectedBtn={setSelectedBtn} />
 
-                                            ))
-                                            }
-                                        </motion.span>
-                                    </Box>
-                                    {!sectionStarted && <Box className="buttonstyle">
-                                        <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
-                                    </Box>}
-                                </motion.div>
-                            )}
+                                                ))
+                                                }
+                                            </motion.span>
+                                        </Box>
+                                        {!sectionStarted && <Box className="buttonstyle">
+                                            <Button onClick={handleHide} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
+                                        </Box>}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                         <Box sx={{ marginTop: '32px', opacity: sectionStarted ? 1 : 0.5, pointerEvents: sectionStarted ? 'auto' : 'none' }} >
                             {data?.sections.map((e: any, index: any) => (

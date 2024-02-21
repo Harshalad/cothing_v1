@@ -168,14 +168,14 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                 {(index == expandIndex) && isDescriptionExpanded && isExpanded &&
                     <>
 
-                        <div className='addBorderContainer'>
+                        <div className='addBorderContainer' onClick={(e) => { e.stopPropagation(); e.preventDefault() }}>
                             {expandPrompt == -1 ? <>
 
                                 <motion.div className='sectionClarify' style={{ marginTop: "20px", marginBottom: isExpanded ? "20px" : '0px' }}
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
                                     transition={{ delay: 0.06, duration: 0.5 }}
-                                    onClick={(e) => e.stopPropagation()}
+                                    onClick={(e) => { e.stopPropagation(); e.preventDefault() }}
                                 >
 
                                     {sectionClarity?.map((element: any, idx: any) => (
@@ -184,7 +184,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 </motion.div>
                                 <div></div>
                                 {expandPrompt == -1 &&
-                                    <Box className="buttonstyle1" style={{ paddingBottom: isExpanded ? "25px" : '8px', paddingRight: '25px', paddingTop: isExpanded ? "25px" : '8px', background: 'white', borderTopLeftRadius: isExpanded ? '25px' : '0', borderTopRightRadius: isExpanded ? "25px" : '0' }}>
+                                    <Box onClick={(e) => { e.stopPropagation(); e.preventDefault() }} className="buttonstyle1" style={{ paddingBottom: isExpanded ? "25px" : '8px', paddingRight: '25px', paddingTop: isExpanded ? "25px" : '8px', background: 'white', borderTopLeftRadius: isExpanded ? '25px' : '0', borderTopRightRadius: isExpanded ? "25px" : '0' }}>
                                         <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                     </Box>
                                 }</> :

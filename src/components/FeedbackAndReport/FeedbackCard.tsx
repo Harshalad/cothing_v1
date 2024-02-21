@@ -36,6 +36,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
     const [answerAceepted, setAnswerAceepted] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
     const [currentAnswer, setCurrentAnswer] = useState<any>(null);
+    const [showPreSection, setShowPreSection] = useState<any>(false);
 
     useEffect(() => {
         if (expandPrompt != -1) {
@@ -52,12 +53,16 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
 
     console.log(preQuestionClarity, 'preQuestionClarity');
-
+    const viewmoreClick = (e: any) => {
+        e.stopPropagation();
+        setShowPreSection(!showPreSection)
+    }
 
     const openPromptHandler = (e: any) => {
         e.stopPropagation();
         setExpandPrompt(0)
         cardRef.current.style.background = 'white'
+        setShowPreSection(true)
     }
     const resetAllState = () => {
         setPromptSelect('')
@@ -110,8 +115,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
         <>
 
             <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { sethoverIndex(index); setIsturncate(true); if (!isExpanded) { setIsDescriptionExpanded(true); cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { sethoverIndex(-1); if (!isExpanded) { setIsDescriptionExpanded(false); cardRef.current.classList.remove("applyBorder"); } }}>
-                <div className={`innerContainer `} 
-                style={{ borderBottomLeftRadius: isExpanded? '25px':'0', borderBottomRightRadius: isExpanded? "25px":'0'}}
+                <div className={`innerContainer `}
+                    style={{ borderBottomLeftRadius: isExpanded ? '25px' : '0', borderBottomRightRadius: isExpanded ? "25px" : '0' }}
                 >
                     {
                         isExpanded ?
@@ -125,22 +130,30 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                             <Button className={isDescriptionExpanded && (index == expandIndex || hoverIndex == index) ? "arrowbuttonActive" : "buttonArrow"} onClick={(e) => openCardExpansion(e)}><ArrowForward /></Button>}
                     </div>
                     <Typography variant="subtitle1" className={`${(index == expandIndex) && isDescriptionExpanded && isExpanded ? "titleTextAdd" : "titleTextupdated"}`}>{currentSection['name']}</Typography>
-                    {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
-                        <motion.div className="viewmore"
-                            initial={{ height: 0, opacity: 0 }}
+                    {
+
+                        <motion.div initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             transition={{ delay: 0.06, duration: 0.5 }}
                         >
-                            <div className={`mt-2 f-14 fw-400 pr-3 formateText ${isturncate ? 'addmore' : ''}`}>{currentSection['description']}</div>
-                        </motion.div>
-                    }
-                    {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
-                        <Box style={{ marginTop: "15px" }} onClick={(e) => { e.stopPropagation(); setIsturncate(!isturncate) }}>
-                            <img
-                                style={{ transform: `rotate(${isturncate ? '0' : '180deg'})` }}
-                                src="/images/icons/Expandbutton.svg"
-                                alt="guidance"></img>
-                        </Box>
+                            {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
+                                <motion.div className="viewmore"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    transition={{ delay: 0.06, duration: 0.5 }}
+                                >
+                                    <div className={`mt-2 f-14 fw-400 pr-3 formateText ${isturncate ? 'addmore' : ''}`} >{currentSection['description']}</div>
+                                    {false && <div style={{ color: 'blue' }} onClick={viewmoreClick}>viewmore</div>}
+                                </motion.div>
+                            }
+                            {isDescriptionExpanded && (index == expandIndex || hoverIndex == index) &&
+                                <Box style={{ marginTop: "15px" }} onClick={(e) => { e.stopPropagation(); setIsturncate(!isturncate) }}>
+                                    <img
+                                        style={{ transform: `rotate(${isturncate ? '0' : '180deg'})` }}
+                                        src="/images/icons/Expandbutton.svg"
+                                        alt="guidance"></img>
+                                </Box>
+                            }</motion.div>
                     }
                     {(!isExpanded || expandIndex !== index) &&
                         <div style={{ display: 'flex', marginTop: "48px" }}>
@@ -155,9 +168,9 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                     <>
 
                         <div className='addBorderContainer'>
-                            {expandPrompt == -1 ? <>
-                            
-                                <motion.div className='sectionClarify' style={{ marginTop: "20px", marginBottom: isExpanded? "20px":'0px' }}
+                            {expandPrompt == -1 || !showPreSection ? <>
+
+                                <motion.div className='sectionClarify' style={{ marginTop: "20px", marginBottom: isExpanded ? "20px" : '0px' }}
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
                                     transition={{ delay: 0.06, duration: 0.5 }}
@@ -169,7 +182,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 </motion.div>
                                 <div></div>
                                 {expandPrompt == -1 &&
-                                    <Box className="buttonstyle1" style={{ paddingBottom: isExpanded?"25px":'8px', paddingRight: '25px', paddingTop: isExpanded?"25px": '8px', background:'white' , borderTopLeftRadius: isExpanded? '25px':'0', borderTopRightRadius: isExpanded? "25px":'0'}}>
+                                    <Box className="buttonstyle1" style={{ paddingBottom: isExpanded ? "25px" : '8px', paddingRight: '25px', paddingTop: isExpanded ? "25px" : '8px', background: 'white', borderTopLeftRadius: isExpanded ? '25px' : '0', borderTopRightRadius: isExpanded ? "25px" : '0' }}>
                                         <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                     </Box>
                                 }</> :
@@ -196,8 +209,8 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                             {expandPrompt == promptIndex &&
 
                                                 <Box>
-                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div 
-                                                    style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '0px' : '0' }}
+                                                    {answerAceepted ? <Button style={{ width: 'fit-content', background: '#ebf1f7', color: '#2e5db0', marginTop: '10px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }} onClick={(e) => { e.stopPropagation(); setAnswerAceepted(false) }}><Add /></Button> : <motion.div
+                                                        style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginLeft: (expandPreQuestionClarity != -1 || expandpostQuestionClarity != -1) ? '25px' : '0' }}
                                                         initial={{ height: 0, opacity: 0 }}
                                                         animate={{ height: 'auto', opacity: 1 }}
                                                         transition={{ delay: 0.06, duration: 0.5 }}

@@ -108,6 +108,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
         console.log('trigger');
         isDescriptionExpanded ? setIsExpanded(!isExpanded) : setIsDescriptionExpanded(!isDescriptionExpanded)
         setIsturncate(false)
+        cardRef.current.style.background = "white";
 
     }
     console.log("sectionDatasectionData", preQuestionClarity);
@@ -168,12 +169,13 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                     <>
 
                         <div className='addBorderContainer'>
-                            {expandPrompt == -1 || !showPreSection ? <>
+                            {expandPrompt == -1 ? <>
 
                                 <motion.div className='sectionClarify' style={{ marginTop: "20px", marginBottom: isExpanded ? "20px" : '0px' }}
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
                                     transition={{ delay: 0.06, duration: 0.5 }}
+                                    onClick={(e) => e.stopPropagation()}
                                 >
 
                                     {sectionClarity?.map((element: any, idx: any) => (

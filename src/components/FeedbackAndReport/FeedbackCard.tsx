@@ -117,7 +117,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
 
             <Paper elevation={0} sx={{ margin: 2, padding: 2 }} className={`card ${(index == expandIndex) && isDescriptionExpanded ? "applyBorder" : isExpanded ? "removeBorder" : ""}`} ref={cardRef} onClick={handleOnCardClick} onMouseEnter={() => { sethoverIndex(index); setIsturncate(true); if (!isExpanded) { setIsDescriptionExpanded(true); cardRef.current.classList.remove("applyBorder"); } cardRef.current.classList.add("applyBorder") }} onMouseLeave={() => { sethoverIndex(-1); if (!isExpanded) { setIsDescriptionExpanded(false); cardRef.current.classList.remove("applyBorder"); } }}>
                 <div className={`innerContainer `}
-                    style={{ borderBottomLeftRadius: isExpanded ? '25px' : '0', borderBottomRightRadius: isExpanded ? "25px" : '0' }}
+
                 >
                     {
                         isExpanded ?
@@ -184,7 +184,7 @@ const FeedbackCard: FC<FeedbackCardProps | any> = forwardRef(({ sectionData, ind
                                 </motion.div>
                                 <div></div>
                                 {expandPrompt == -1 &&
-                                    <Box onClick={(e) => { e.stopPropagation(); e.preventDefault() }} className="buttonstyle1" style={{ paddingBottom: isExpanded ? "25px" : '8px', paddingRight: '25px', paddingTop: isExpanded ? "25px" : '8px', background: 'white', borderTopLeftRadius: isExpanded ? '25px' : '0', borderTopRightRadius: isExpanded ? "25px" : '0' }}>
+                                    <Box onClick={(e) => { e.stopPropagation(); e.preventDefault() }} className="buttonstyle1" style={{ paddingBottom: isExpanded ? "25px" : '8px', paddingRight: '25px', paddingTop: isExpanded ? "25px" : '8px', background: 'white', }}>
                                         <Button onClick={openPromptHandler} className="nextButton" endIcon={<EastRoundedIcon />}>Next</Button>
                                     </Box>
                                 }</> :
